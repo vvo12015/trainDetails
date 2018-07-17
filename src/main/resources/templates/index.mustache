@@ -6,12 +6,22 @@
 </head>
 
 <body>
-<div class="start-template">
-    {{#trains}}
-        <h3>id - {{id}}</h3>
-        <h1>name - {{name}}</h1>
-        <p>description - {{description}}</p>
-    {{/trains}}
-</div>
+    <h2>Train Museum</h2>
+    <table>
+        <tr>
+            <th>Train Id</th>
+            <th>Train Name</th>
+            <th>Description</th>
+        </tr>
+
+        {{#trains}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{name}}</td>
+                <td>{{description}}</td>
+            </tr>
+        {{/trains}}
+
+    </table>
 </body>
 </html>
