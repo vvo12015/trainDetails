@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class HelloController {
+public class TrainMuseumController {
 
     @Autowired
     private TrainMuseumRepository trainMuseumRepository;
@@ -27,31 +27,29 @@ public class HelloController {
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping("/")
-    public ModelAndView index(){
+    @GetMapping("/train_museum")
+    public ModelAndView listTrain_museum(@AuthenticationPrincipal User user){
+        Map<String, Object> model = getModelListTrainMuseum(user);
+        return new ModelAndView("train_museum", model);
+    }
+
+    private Map<String, Object> getModelListTrainMuseum(@AuthenticationPrincipal User user) {
         Map<String, Object> model = new HashMap<>();
         List<TrainMuseum> trainMuseum = (List<TrainMuseum>) trainMuseumRepository.findAll();
 
-        return new ModelAndView("index", model);
+        model.put("user", user.getUsername());
+        model.put("trains", trainMuseum);
+        return model;
     }
 
-    @GetMapping("/registration")
-    public String registration(){
-        return "registration";
-    }
+    @PostMapping("/train_museum")
+    public ModelAndView saveTrain_museum(@AuthenticationPrincipal User user,
+                                         TrainMuseum trainMuseum){
 
-    @PostMapping("/registration")
-    public String addUser(User user, Map<String, Object> model){
-        User userFromDb = userRepository.findByUsername(user.getUsername());
+        trainMuseumRepository.save(trainMuseum);
 
-        if (userFromDb != null){
-            model.put("message", "User existing!!!");
-            return "registration";
-        }
+        Map<String, Object> model = getModelListTrainMuseum(user);
 
-        user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
-        userRepository.save(user);
-        return "redirect:/login";
+        return new ModelAndView("train_museum", model);
     }
 }

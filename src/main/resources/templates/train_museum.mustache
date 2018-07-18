@@ -14,11 +14,31 @@
 </div>
 <h1>Hello {{user}}</h1>
 <h2>Train Museum</h2>
+<form action="/train_museum" method="post">
+    <div><label> Train Name: <input type="text" name="name"/> </label></div>
+    <div><label> Description: <input type="memo" name="description"/> </label></div>
+    <div><label> Power: <input type="text" name="power"/> </label></div>
+    <div><label> Price: <input type="text" name="price"/> </label></div>
+    <div><label> Mass: <input type="text" name="mass"/> </label></div>
+    <div><label> Reliability: <input type="text" name="reliability"/> </label></div>
+    <div><label> LimitAge: <input type="text" name="limitAge"/> </label></div>
+    <div><label> CorpsPrice: <input type="text" name="corpsPrice"/> </label></div>
+    <div><label> CorpsWear: <input type="text" name="corpsWear"/> </label></div>
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+    <div><input type="submit" value="Add new train"/></div>
+</form>
 <table>
     <tr>
         <th>Train Id</th>
         <th>Train Name</th>
         <th>Description</th>
+        <th>power</th>
+        <th>price</th>
+        <th>mass</th>
+        <th>reliability</th>
+        <th>limitAge</th>
+        <th>corpsPrice</th>
+        <th>corpsWear</th>
     </tr>
 
     {{#trains}}
@@ -26,6 +46,13 @@
             <td>{{id}}</td>
             <td>{{name}}</td>
             <td>{{description}}</td>
+            <td>{{power}}</td>
+            <td>{{price}}</td>
+            <td>{{mass}}</td>
+            <td>{{reliability}}</td>
+            <td>{{limitAge}}</td>
+            <td>{{corpsPrice}}</td>
+            <td>{{corpsWear}}</td>
         </tr>
     {{/trains}}
 

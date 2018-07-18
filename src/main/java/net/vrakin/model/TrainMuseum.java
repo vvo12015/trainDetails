@@ -18,6 +18,27 @@ public class TrainMuseum {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "power")
+    private Integer power;
+
+    @Column(name = "price")
+    private Integer price;
+
+    @Column(name = "mass")
+    private Integer mass;
+
+    @Column(name = "corps_price")
+    private Integer corpsPrice;
+
+    @Column(name = "reliability")
+    private Byte reliability;
+
+    @Column(name = "limit_age")
+    private Byte limitAge;
+
+    @Column(name = "corps_wear")
+    private Byte corpsWear;
+
     public Long getId() {
         return id;
     }
@@ -42,18 +63,89 @@ public class TrainMuseum {
         this.description = description;
     }
 
-    public TrainMuseum(String name, String description) {
-        this.name = name;
-        this.description = description;
+    public Integer getPower() {
+        return power;
     }
 
-    public TrainMuseum(Long id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
+    public void setPower(Integer power) {
+        this.power = power;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public Integer getMass() {
+        return mass;
+    }
+
+    public void setMass(Integer mass) {
+        this.mass = mass;
+    }
+
+    public Byte getReliability() {
+        return reliability;
+    }
+
+    public void setReliability(Byte reliability) {
+        this.reliability = reliability;
+    }
+
+    public Byte getLimitAge() {
+        return limitAge;
+    }
+
+    public void setLimitAge(Byte limitAge) {
+        this.limitAge = limitAge;
+    }
+
+    public Integer getCorpsPrice() {
+        return corpsPrice;
+    }
+
+    public void setCorpsPrice(Integer corpsPrice) {
+        this.corpsPrice = corpsPrice;
+    }
+
+    public Byte getCorpsWear() {
+        return corpsWear;
+    }
+
+    public void setCorpsWear(Byte corpsWear) {
+        this.corpsWear = corpsWear;
     }
 
     public TrainMuseum() {
+    }
+
+    public TrainMuseum(Long id, String name, String description, Integer power, Integer price,
+                       Integer mass, Byte reliability, Byte limitAge, Integer corpsPrice, Byte corpsWear) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.power = power;
+        this.price = price;
+        this.mass = mass;
+        this.reliability = reliability;
+        this.limitAge = limitAge;
+        this.corpsPrice = corpsPrice;
+        this.corpsWear = corpsWear;
+    }
+
+    public TrainMuseum(String name, String description, Integer power, Integer price, Integer mass, Byte reliability, Byte limitAge, Integer corpsPrice, Byte corpsWear) {
+        this.name = name;
+        this.description = description;
+        this.power = power;
+        this.price = price;
+        this.mass = mass;
+        this.reliability = reliability;
+        this.limitAge = limitAge;
+        this.corpsPrice = corpsPrice;
+        this.corpsWear = corpsWear;
     }
 
     @Override
@@ -62,13 +154,20 @@ public class TrainMuseum {
         if (o == null || getClass() != o.getClass()) return false;
         TrainMuseum that = (TrainMuseum) o;
         return Objects.equals(name, that.name) &&
-                Objects.equals(description, that.description);
+                Objects.equals(description, that.description) &&
+                Objects.equals(power, that.power) &&
+                Objects.equals(price, that.price) &&
+                Objects.equals(mass, that.mass) &&
+                Objects.equals(reliability, that.reliability) &&
+                Objects.equals(limitAge, that.limitAge) &&
+                Objects.equals(corpsPrice, that.corpsPrice) &&
+                Objects.equals(corpsWear, that.corpsWear);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(name, description);
+        return Objects.hash(name, description, power, price, mass, reliability, limitAge, corpsPrice, corpsWear);
     }
 
     @Override
@@ -77,6 +176,13 @@ public class TrainMuseum {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", power=" + power +
+                ", price=" + price +
+                ", mass=" + mass +
+                ", reliability=" + reliability +
+                ", limitAge=" + limitAge +
+                ", corpsPrice=" + corpsPrice +
+                ", corpsWear=" + corpsWear +
                 '}';
     }
 }
