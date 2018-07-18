@@ -5,6 +5,8 @@ import net.vrakin.model.TrainMuseum;
 import net.vrakin.model.User;
 import net.vrakin.repository.TrainMuseumRepository;
 import net.vrakin.repository.UserRepository;
+import net.vrakin.service.TrainMuseumService;
+import net.vrakin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -22,10 +24,7 @@ import java.util.Map;
 public class TrainMuseumController {
 
     @Autowired
-    private TrainMuseumRepository trainMuseumRepository;
-
-    @Autowired
-    private UserRepository userRepository;
+    private TrainMuseumService trainMuseumService;
 
     @GetMapping("/train_museum")
     public ModelAndView listTrain_museum(@AuthenticationPrincipal User user){
@@ -35,7 +34,7 @@ public class TrainMuseumController {
 
     private Map<String, Object> getModelListTrainMuseum(@AuthenticationPrincipal User user) {
         Map<String, Object> model = new HashMap<>();
-        List<TrainMuseum> trainMuseum = (List<TrainMuseum>) trainMuseumRepository.findAll();
+        List<TrainMuseum> trainMuseum = (List<TrainMuseum>) trainMuseumService.findAll();
 
         model.put("user", user.getUsername());
         model.put("trains", trainMuseum);
@@ -46,7 +45,7 @@ public class TrainMuseumController {
     public ModelAndView saveTrain_museum(@AuthenticationPrincipal User user,
                                          TrainMuseum trainMuseum){
 
-        trainMuseumRepository.save(trainMuseum);
+        trainMuseumService.save(trainMuseum);
 
         Map<String, Object> model = getModelListTrainMuseum(user);
 
