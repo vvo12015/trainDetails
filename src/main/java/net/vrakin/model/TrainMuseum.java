@@ -1,6 +1,8 @@
 package net.vrakin.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -38,6 +40,16 @@ public class TrainMuseum {
 
     @Column(name = "corps_wear")
     private Byte corpsWear;
+
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "train_detail_museum",
+            joinColumns= @JoinColumn(name = "train_museum_id"),
+            inverseJoinColumns  = @JoinColumn(name = "detail_id")
+    )
+    private List<TrainMuseum> details = new ArrayList<>();
 
     public Long getId() {
         return id;

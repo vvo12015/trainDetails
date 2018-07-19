@@ -4,7 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <title>${title}</title>
-    <link rel="stylesheet" href="styles.css">
+    <style type="text/css">
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: center;
+            width: 100;
+        }
+
+        input {
+            width: 100;
+        }
+    </style>
 </head>
 <body>
 <#nested>
@@ -17,11 +31,20 @@
 
     <h2>${header_page}</h2>
     <form action="/${path_page}" method="post">
-            <input type="hidden" name="id"/>
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <table>
             <#nested>
             <tr><td></td><td><input type="submit" value="Add new train"/></td></tr>
         </table>
     </form>
+</#macro>
+
+<#macro update_form>
+     <tr>
+        <form action="/${path_page}" method="post">
+            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+            <#nested>
+            <td><input type="submit" name="update" value="Update"/></td>
+        </form>
+     </tr>
 </#macro>

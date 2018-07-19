@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,6 +30,16 @@ public class TrainMuseumController {
         return new ModelAndView("train_museum", model);
     }
 
+    @GetMapping("/train_museum/{id}")
+    public ModelAndView showTrainMuseum(@AuthenticationPrincipal User user,
+                                          @PathVariable Long id){
+        Map<String, Object> model = getModelListTrainMuseum();
+
+        setPageParametrs(user, model);
+
+        return new ModelAndView("train_museum", model);
+    }
+
     private void setPageParametrs(@AuthenticationPrincipal User user, Map<String, Object> model) {
         model.put("user", user.getUsername());
         model.put("header_page", "Train Museum");
@@ -44,14 +55,22 @@ public class TrainMuseumController {
     }
 
     @PostMapping("/train_museum")
-    public ModelAndView saveTrain_museum(@AuthenticationPrincipal User user,
+    public ModelAndView saveTrainMuseum(@AuthenticationPrincipal User user,
                                          TrainMuseum trainMuseum){
 
-        trainMuseumService.save(trainMuseum);
-
+        trainMuseumService.saveOrUpdate(trainMuseum);
         Map<String, Object> model = getModelListTrainMuseum();
         setPageParametrs(user, model);
+        return new ModelAndView("train_museum", model);
+    }
 
+    @GetMapping("/trainMuseum_remove/{id}")
+    private ModelAndView deleteTrainMuseum(@AuthenticationPrincipal User user,
+                                           @PathVariable("id") Long id){
+        TrainMuseum trainMuseum = trainMuseumService.load(id).get();
+        trainMuseumService.delete(trainMuseum);
+        Map<String, Object> model = getModelListTrainMuseum();
+        setPageParametrs(user, model);
         return new ModelAndView("train_museum", model);
     }
 }
