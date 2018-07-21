@@ -1,6 +1,10 @@
 <#macro museum_out trainMuseum button_name button_remove>
     <table>
         <tr>
+            <th> ${button_name}</th>
+            <#if "${button_remove}" == "button_remove_on">
+                <th> Remove</th>
+            </#if>
             <th> Id </th>
             <th> Name </th>
             <th> Description</th>
@@ -12,10 +16,6 @@
             <th> Reliability</th>
             <th> Limit_age</th>
             <th> Corps_wear</th>
-            <th> ${button_name}</th>
-            <#if "${button_remove}" == "button_remove_on">
-                <th> Remove</th>
-            </#if>
         </tr>
     <#list trainMuseum as museum>
         <tr>
