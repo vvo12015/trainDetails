@@ -12,7 +12,7 @@
 
         th, td {
             text-align: center;
-            width: 100;
+            width: 50;
         }
 
         input {
@@ -37,14 +37,4 @@
             <tr><td></td><td><input type="submit" value="Add new train"/></td></tr>
         </table>
     </form>
-</#macro>
-
-<#macro update_form>
-     <tr>
-        <form action="/${path_page}" method="post">
-            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-            <#nested>
-            <td><input type="submit" name="update" value="Update"/></td>
-        </form>
-     </tr>
 </#macro>

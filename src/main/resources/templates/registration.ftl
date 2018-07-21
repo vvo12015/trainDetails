@@ -4,4 +4,5 @@
 <@c.page "Registration page">
     <h2>Add new user</h2>
     <@l.login path="/registration" />
+    <a href="/">Main page</a>
 </@c.page>

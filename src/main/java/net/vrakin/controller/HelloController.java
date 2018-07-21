@@ -5,8 +5,8 @@ import net.vrakin.model.TrainMuseum;
 import net.vrakin.model.User;
 import net.vrakin.repository.TrainMuseumRepository;
 import net.vrakin.repository.UserRepository;
+import net.vrakin.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +26,9 @@ public class HelloController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CompanyService companyService;
 
     @RequestMapping("/")
     public ModelAndView index(){
@@ -52,6 +55,7 @@ public class HelloController {
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
         userRepository.save(user);
+        companyService.registrationCompany(user);
         return "redirect:/login";
     }
 }

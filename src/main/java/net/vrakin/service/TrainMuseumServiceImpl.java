@@ -15,9 +15,6 @@ public class TrainMuseumServiceImpl implements TrainMuseumService {
     @Autowired
     private TrainMuseumRepository trainMuseumRepo;
 
-    @Autowired
-    private EntityManager entityManager;
-
     public TrainMuseumServiceImpl(TrainMuseumRepository trainMuseumRepo) {
         this.trainMuseumRepo = trainMuseumRepo;
     }
@@ -28,7 +25,7 @@ public class TrainMuseumServiceImpl implements TrainMuseumService {
 
     @Override
     public void saveOrUpdate(TrainMuseum trainMuseum) {
-        entityManager.merge(trainMuseum);
+        trainMuseumRepo.save(trainMuseum);
     }
 
     @Override
@@ -37,12 +34,17 @@ public class TrainMuseumServiceImpl implements TrainMuseumService {
     }
 
     @Override
-    public Optional<TrainMuseum> load(Long id) {
-        return trainMuseumRepo.findById(id);
+    public TrainMuseum load(Long id) {
+        return trainMuseumRepo.getOne(id);
     }
 
     @Override
     public void delete(TrainMuseum trainMuseum) {
         trainMuseumRepo.delete(trainMuseum);
+    }
+
+    @Override
+    public TrainMuseum findFirst() {
+        return trainMuseumRepo.findAll().get(0);
     }
 }

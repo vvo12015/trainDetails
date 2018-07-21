@@ -40,7 +40,7 @@ public class TrainMuseumController {
         return new ModelAndView("train_museum", model);
     }
 
-    private void setPageParametrs(@AuthenticationPrincipal User user, Map<String, Object> model) {
+    protected void setPageParametrs(@AuthenticationPrincipal User user, Map<String, Object> model) {
         model.put("user", user.getUsername());
         model.put("header_page", "Train Museum");
         model.put("path_page", "train_museum");
@@ -67,7 +67,7 @@ public class TrainMuseumController {
     @GetMapping("/trainMuseum_remove/{id}")
     private ModelAndView deleteTrainMuseum(@AuthenticationPrincipal User user,
                                            @PathVariable("id") Long id){
-        TrainMuseum trainMuseum = trainMuseumService.load(id).get();
+        TrainMuseum trainMuseum = trainMuseumService.load(id);
         trainMuseumService.delete(trainMuseum);
         Map<String, Object> model = getModelListTrainMuseum();
         setPageParametrs(user, model);

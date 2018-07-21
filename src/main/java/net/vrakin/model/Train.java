@@ -20,28 +20,19 @@ public class Train {
     @Column(name="corps_state")
     private Byte corpsState;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @ManyToOne(fetch = FetchType.EAGER,
+    cascade = CascadeType.ALL)
+    @JoinColumn(name="company_id")
+    private Company company;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "train_museum_id")
+    @JoinColumn(name="train_museum_id")
     private TrainMuseum trainMuseum;
 
-    public Train(Long id, String name, Date creationDate, Byte corpsState, User user, TrainMuseum trainMuseum) {
-        this.id = id;
+    public Train(String name, Company company, TrainMuseum trainMuseum) {
         this.name = name;
-        this.creationDate = creationDate;
-        this.corpsState = corpsState;
-        this.user = user;
-        this.trainMuseum = trainMuseum;
-    }
-
-    public Train(String name, Date creationDate, Byte corpsState, User user, TrainMuseum trainMuseum) {
-        this.name = name;
-        this.creationDate = creationDate;
-        this.corpsState = corpsState;
-        this.user = user;
+        this.corpsState = 100;
+        this.company = company;
         this.trainMuseum = trainMuseum;
     }
 
@@ -72,12 +63,12 @@ public class Train {
         this.creationDate = creationDate;
     }
 
-    public User getUser() {
-        return user;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public Byte getCorpsState() {
@@ -104,14 +95,14 @@ public class Train {
         return Objects.equals(name, train.name) &&
                 Objects.equals(creationDate, train.creationDate) &&
                 Objects.equals(corpsState, train.corpsState) &&
-                Objects.equals(user, train.user) &&
+                Objects.equals(company, train.company) &&
                 Objects.equals(trainMuseum, train.trainMuseum);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(name, creationDate, corpsState, user, trainMuseum);
+        return Objects.hash(name, creationDate, corpsState, company, trainMuseum);
     }
 
     @Override
@@ -121,7 +112,7 @@ public class Train {
                 ", name='" + name + '\'' +
                 ", creationDate=" + creationDate +
                 ", corpsState=" + corpsState +
-                ", user=" + user +
+                ", company=" + company +
                 ", trainMuseum=" + trainMuseum +
                 '}';
     }
