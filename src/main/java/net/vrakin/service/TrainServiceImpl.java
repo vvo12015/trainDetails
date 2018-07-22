@@ -30,7 +30,7 @@ public class TrainServiceImpl implements TrainService {
     }
 
     @Override
-    public void findByCompany(Company company) {
-        trainRepository.findByCompany(company);
+    public List<Train> findByCompany(Company company) {
+        return trainRepository.findByCompany(company);
     }
 }

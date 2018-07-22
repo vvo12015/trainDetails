@@ -33,8 +33,8 @@
     <form action="/${path_page}" method="post">
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
         <table>
-            <#nested>
             <tr><td></td><td><input type="submit" value="Add new train"/></td></tr>
+            <#nested>
         </table>
     </form>
 </#macro>

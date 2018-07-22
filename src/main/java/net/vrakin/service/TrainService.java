@@ -10,5 +10,5 @@ public interface TrainService {
     void save(Train train);
     List<Train> findAll();
     void deleteByCompany(Company company);
-    void findByCompany(Company company);
+    List<Train> findByCompany(Company company);
 }
