@@ -1,7 +1,7 @@
 package net.vrakin.model;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -9,21 +9,21 @@ import java.util.Objects;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    /*@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="route_id")
-    private Route route;
+    private Route route;*/
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="train_id")
     private Train train;
-
+/*
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="cargo_id")
     private Cargo cargo;
-
+*/
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="state_id")
     private OrderState state;
@@ -37,7 +37,7 @@ public class Order {
     @Column(name="profit")
     private Integer profit;
 
-    @Column(name="creation_date")
+    @Column(name="creation_date", columnDefinition = "DATE DEFAULT CURRENT_DATE")
     private Date creationDate;
 
     @Column(name="waiting_deadline")
@@ -57,7 +57,7 @@ public class Order {
         this.id = id;
     }
 
-    public Route getRoute() {
+    /*public Route getRoute() {
         return route;
     }
 
@@ -79,7 +79,7 @@ public class Order {
 
     public void setCargo(Cargo cargo) {
         this.cargo = cargo;
-    }
+    }*/
 
     public Integer getCarCount() {
         return carCount;
@@ -137,34 +137,33 @@ public class Order {
         this.creationDate = creationDate;
     }
 
-    public OrderState getState() {
+    /*public OrderState getState() {
         return state;
     }
 
     public void setState(OrderState state) {
         this.state = state;
     }
+*/
 
-    public Order(Long id, Route route, Train train, Cargo cargo, Integer carCount, Integer fullWear, Integer profit, Date creationDate, Date waitingDeadline, Date deadline1, Date deadline2) {
+    public Order(Long id, Train train, Integer carCount, Integer fullWear, Integer profit, Date creationDate, Date waitingDeadline, Date deadline1, Date deadline2) {
         this.id = id;
-        this.route = route;
         this.train = train;
-        this.cargo = cargo;
         this.carCount = carCount;
         this.fullWear = fullWear;
         this.profit = profit;
+        this.creationDate = creationDate;
         this.waitingDeadline = waitingDeadline;
         this.deadline1 = deadline1;
         this.deadline2 = deadline2;
     }
 
-    public Order(Route route, Train train, Cargo cargo, Integer carCount, Integer fullWear, Integer profit, Date waitingDeadline, Date deadline1, Date deadline2) {
-        this.route = route;
+    public Order(Train train, Integer carCount, Integer fullWear, Integer profit, Date creationDate, Date waitingDeadline, Date deadline1, Date deadline2) {
         this.train = train;
-        this.cargo = cargo;
         this.carCount = carCount;
         this.fullWear = fullWear;
         this.profit = profit;
+        this.creationDate = creationDate;
         this.waitingDeadline = waitingDeadline;
         this.deadline1 = deadline1;
         this.deadline2 = deadline2;
@@ -173,14 +172,20 @@ public class Order {
     public Order() {
     }
 
+    public Train getTrain() {
+        return train;
+    }
+
+    public void setTrain(Train train) {
+        this.train = train;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
-        return Objects.equals(route, order.route) &&
-                Objects.equals(train, order.train) &&
-                Objects.equals(cargo, order.cargo) &&
+        return Objects.equals(train, order.train) &&
                 Objects.equals(carCount, order.carCount) &&
                 Objects.equals(fullWear, order.fullWear) &&
                 Objects.equals(profit, order.profit) &&
@@ -193,16 +198,14 @@ public class Order {
     @Override
     public int hashCode() {
 
-        return Objects.hash(route, train, cargo, carCount, fullWear, profit, creationDate, waitingDeadline, deadline1, deadline2);
+        return Objects.hash(train, carCount, fullWear, profit, creationDate, waitingDeadline, deadline1, deadline2);
     }
 
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", route=" + route +
                 ", train=" + train +
-                ", cargo=" + cargo +
                 ", carCount=" + carCount +
                 ", fullWear=" + fullWear +
                 ", profit=" + profit +

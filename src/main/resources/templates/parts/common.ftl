@@ -18,16 +18,28 @@
         input {
             width: 100;
         }
+
+        .link_button{
+            text-decoration: none;
+            color: black;
+        }
     </style>
 </head>
 <body>
+<a href="/">Main page</a>
+<a href="/company_page">Company page</a>
 <#nested>
 </body>
 </html>
 </#macro>
 
 <#macro save_form>
-    <h1>Hello ${user}</h1>
+    <#if user??>
+        <#assign username="${user.username}">
+        <#else>
+        <#assign username="guest">
+    </#if>
+       <h1>Hello ${username}</h1>
 
     <h2>${header_page}</h2>
     <form action="/${path_page}" method="post">

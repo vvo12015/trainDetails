@@ -7,14 +7,14 @@ import java.util.Objects;
 @Table(name = "train")
 public class Train {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "creation_date")
+    @Column(name = "creation_date", columnDefinition = "DATE DEFAULT CURRENT_DATE")
     private Date creationDate;
 
     @Column(name="corps_state")

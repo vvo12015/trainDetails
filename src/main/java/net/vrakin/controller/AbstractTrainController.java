@@ -28,6 +28,7 @@ public abstract class AbstractTrainController {
                            Map<String, Object> model) {
         Company company = companyService.findByUser(user).get(0);
         company.setTrains(trainService.findByCompany(company));
+        model.put("user", user);
         model.put("company", company);
         model.put("header_page", headerPage);
         model.put("path_page", pathPage);

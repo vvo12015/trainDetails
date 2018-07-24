@@ -28,6 +28,8 @@ public class TrainMuseumController extends AbstractTrainController {
                                           @PathVariable Long id){
         Map<String, Object> model = getModelList();
 
+        model.put("traimMuseum", trainMuseumService.load(id));
+
         setPageParameters(user, "Train Museum", "train_museum", model);
 
         return new ModelAndView("train_museum", model);
