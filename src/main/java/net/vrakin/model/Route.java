@@ -56,11 +56,6 @@ public class Route {
 
     @Override
     public String toString() {
-        return "Route{" +
-                "id=" + id +
-                ", city1=" + city1 +
-                ", city2=" + city2 +
-                ", distance=" + distance +
-                '}';
+        return city1.getName() + '-' + city2.getName();
     }
 }

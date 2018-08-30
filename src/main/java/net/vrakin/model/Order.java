@@ -5,7 +5,10 @@ import java.sql.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name="order")
+@Table(name="orders")
+@NamedQueries({
+        @NamedQuery(name = "Order.currentDate", query = "CURRENT_DATE")
+})
 public class Order {
 
     @Id
@@ -64,7 +67,6 @@ public class Order {
     public void setRoute(Route route) {
         this.route = route;
     }
-
     public Train getTrain() {
         return train;
     }
@@ -144,6 +146,7 @@ public class Order {
     public void setState(OrderState state) {
         this.state = state;
     }
+
 
     public Order(Long id, Route route, Train train, Cargo cargo, Integer carCount, Integer fullWear, Integer profit, Date creationDate, Date waitingDeadline, Date deadline1, Date deadline2) {
         this.id = id;
