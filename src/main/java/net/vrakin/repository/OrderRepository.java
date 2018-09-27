@@ -11,11 +11,12 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
+
+
+
     List<Order> findByTrain(Train train);
 
     List<Order> findByWaitingDeadlineAfter(Date date);
 
     List<Order> findByWaitingDeadlineBefore(Date date);
-
-    Date currentDate();
 }

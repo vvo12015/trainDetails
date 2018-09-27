@@ -5,12 +5,18 @@ import net.vrakin.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Autowired
     private OrderRepository orderRepository;
@@ -47,7 +53,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> findWaitOrderNow() {
-        Date currentDate = orderRepository.currentDate();
-        return orderRepository.findByWaitingDeadlineBefore(currentDate);
+        Query query = entityManager.createNamedQuery(
+                "query_find_wait_orders", Order.class);
+        return query.getResultList();
     }
 }

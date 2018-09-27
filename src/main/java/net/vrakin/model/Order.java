@@ -1,14 +1,11 @@
 package net.vrakin.model;
-
-import javax.persistence.*;
+ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name="orders")
-@NamedQueries({
-        @NamedQuery(name = "Order.currentDate", query = "CURRENT_DATE")
-})
+@NamedQuery(query = "select o from Order o where o.waitingDeadline > CURRENT_DATE", name = "query_find_wait_orders")
 public class Order {
 
     @Id

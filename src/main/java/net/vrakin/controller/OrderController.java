@@ -27,6 +27,7 @@ public class OrderController {
 
         Map<String, Object> model = new HashMap<>();
         model.put("orders", orderService.findByUser(user));
+        model.put("wait_orders", orderService.findWaitOrderNow());
 
         Company company = companyService.findByUser(user).get(0);
         model.put("company", company);
