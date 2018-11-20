@@ -31,14 +31,15 @@ abstract class AbstractController {
 
         if (objectName.contains("_")) {
             names = objectName.split("_");
+            names[0] = names[0].substring(0, 1).toUpperCase() + names[0].substring(1);
         }else {
             names = new String[1];
             names[0] = objectName;
         }
-        String result = "";
+        String result = names[0];
 
-        for (int i = 0; i < names.length; i++) {
-            result += objectName.substring(0, 1).toUpperCase() + objectName.substring(1) + " ";
+        for (int i = 1; i < names.length; i++) {
+            result += " " + names[i];
         }
 
         return result.trim();
