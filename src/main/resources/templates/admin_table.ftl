@@ -1,10 +1,11 @@
 <#import "parts/common.ftl" as c>
+<#import "parts/company.ftl" as comp>
 <#import "parts/login.ftl" as l>
 <#import "parts/admin.ftl" as adm>
 <#import "parts/train.ftl" as t_mu>
 
-<@l.logout />
 <@c.page "${header_page}">
+     <@c.auth/>
     <#if path_page = "orders">
         <@comp.company_info "${company.name}", "${company.cash}", "${company.trainCount}"/>
     </#if>

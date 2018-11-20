@@ -7,6 +7,7 @@ import net.vrakin.repository.TrainMuseumRepository;
 import net.vrakin.repository.UserRepository;
 import net.vrakin.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,10 +32,10 @@ public class HelloController {
     private CompanyService companyService;
 
     @RequestMapping("/")
-    public ModelAndView index(){
+    public ModelAndView index(@AuthenticationPrincipal User user){
         Map<String, Object> model = new HashMap<>();
-        List<TrainMuseum> trainMuseum = (List<TrainMuseum>) trainMuseumRepository.findAll();
-
+        List<TrainMuseum> trainMuseum = trainMuseumRepository.findAll();
+        model.put("user", user);
         return new ModelAndView("index", model);
     }
 

@@ -27,8 +27,6 @@
 </#macro>
 
 <#macro save_form>
-    <h1>Hello <#if user??>${user.username}</#if></h1>
-
     <h2>${header_page}</h2>
     <form action="/${path_page}" method="post">
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
@@ -69,4 +67,16 @@
             <#nested>
         </table>
     </form>
+</#macro>
+
+<#macro auth>
+    <#if user??>
+        <h1>Hello ${user.username}</h1>
+        <@l.logout />
+    <#else>
+        <h1>Hello guest</h1>
+        <center><@l.login_form /></center>
+        <center><@l.registration /></center>
+    </#if>
+    <a href="/">Home</a>
 </#macro>

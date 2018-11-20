@@ -4,8 +4,8 @@
 <#import "parts/order.ftl" as o>
 
 <@c.page "My orders">
+    <@c.auth/>
     <@comp.company_info "${company.name}", "${company.cash}", "${company.trainCount}"/>
-    <@l.logout />
      <@o.my_orders orders>
      </@o.my_orders>
 </@c.page>

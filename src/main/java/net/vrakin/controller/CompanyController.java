@@ -36,6 +36,7 @@ public class CompanyController {
         }
         Company company = companyService.findByUser(user).get(0);
         model.put("company", company);
+        model.put("user", user);
         return new ModelAndView("main", model);
     }
 }

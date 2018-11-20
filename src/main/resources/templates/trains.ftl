@@ -4,8 +4,8 @@
 <#import "parts/train.ftl" as t_mu>
 
 <@c.page "${header_page}">
+    <@c.auth/>
     <@comp.company_info "${company.name}", "${company.cash}", "${company.trainCount}"/>
-    <@l.logout />
      <@t_mu.my_trains trains>
      </@t_mu.my_trains>
 </@c.page>
