@@ -90,9 +90,9 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>5.2.1</version>
 				<configuration>
-					<url>jdbc:postgresql://ec2-54-83-12-150.compute-1.amazonaws.com:5432/d3ah2drfp40nec</url>
-					<user>cwrketsyeonrea</user>
-					<password>4ce26574383f1c163d721a5329e1ea6ae8e2a677bad1db58db8ebb316fd45a89</password>
+					<url>jdbc:postgresql://localhost:5432/trainDetails</url>
+					<user>postgres</user>
+					<password>111</password>
 					<placeholders>
 						<keyABC>valueXYZ</keyABC>
 						<otherplaceholder>value123</otherplaceholder>

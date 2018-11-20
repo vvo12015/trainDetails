@@ -54,10 +54,10 @@ public class OrderMakerImpl extends OrderGeneratorImpl implements OrderMaker {
 
         float speedCoeficient = 0;
 
-        if (difference - train.getTrainMuseum().getMass() >= 0) speedCoeficient = 1.1F;
+        if (difference >= 0) speedCoeficient = 0.1F;
 
-        if (difference < 0) speedCoeficient = 0.2F;
+        if (difference < 0) speedCoeficient = -0.8F;
 
-        return Double.valueOf(train.getTrainMuseum().getSpeed() * speedCoeficient).intValue();
+        return Double.valueOf(train.getTrainMuseum().getSpeed() * (1 + speedCoeficient)).intValue();
     }
 }

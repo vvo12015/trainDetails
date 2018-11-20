@@ -8,10 +8,6 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
 
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
 CREATE TABLE public.cargo (
     id bigint NOT NULL,
     name character varying(255)
@@ -46,7 +42,6 @@ CREATE SEQUENCE public.hibernate_sequence
     NO MAXVALUE
     CACHE 1;
 
-
 CREATE TABLE public.order_state (
     id bigint NOT NULL,
     name character varying(255),
@@ -67,7 +62,6 @@ CREATE TABLE public.orders (
     state_id bigint,
     train_id bigint
 );
-
 
 CREATE TABLE public.route (
     id bigint NOT NULL,
@@ -91,7 +85,6 @@ CREATE TABLE public.train_detail_museum (
     train_museum_id bigint NOT NULL,
     detail_id bigint NOT NULL
 );
-
 
 CREATE TABLE public.train_museum (
     id bigint NOT NULL,
@@ -141,9 +134,6 @@ COPY public.company (id, cash, name, train_count, user_id) FROM stdin;
 COPY public.detail_museum (id, is_repaired, name, type, wear) FROM stdin;
 \.
 
-
-SELECT pg_catalog.setval('public.hibernate_sequence', 4, true);
-
 COPY public.order_state (id, name) FROM stdin;
 1	wainting
 2	deadline1
@@ -154,7 +144,6 @@ COPY public.order_state (id, name) FROM stdin;
 7	cancelled
 \.
 
-
 COPY public.orders (id, car_count, creation_date, deadline1, deadline2, full_wear, profit, waiting_deadline, cargo_id, route_id, state_id, train_id) FROM stdin;
 1	3	2018-11-05 00:00:00	2018-11-05 00:03:00	2018-11-05 00:05:00	10	2000	2018-11-05 00:01:00	1	1	7	1
 \.
@@ -162,7 +151,6 @@ COPY public.orders (id, car_count, creation_date, deadline1, deadline2, full_wea
 COPY public.route (id, distance, city1, city2) FROM stdin;
 1	40	1	2
 \.
-
 
 COPY public.train (id, corps_state, creation_date, name, company_id, train_museum_id) FROM stdin;
 1	100	2018-11-05 00:00:00	ex_train1	1	1

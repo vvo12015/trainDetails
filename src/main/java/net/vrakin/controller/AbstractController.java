@@ -53,6 +53,7 @@ abstract class AbstractController {
             fields = prepareList.get(0).getFields();
 
         model.put("listValue", valueList);
+        model.put("listMap", new HashMap<>());
         model.put("fields", fields);
         model.put("header_page", capitalizeName());
         model.put("path_page", objectName);
