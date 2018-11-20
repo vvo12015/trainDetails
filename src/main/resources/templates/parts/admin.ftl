@@ -8,7 +8,7 @@
     </#if>
     <table>
         <tr>
-            <#if listValue[1]["button"]??>
+            <#if path_page == "orders">
                 <th>Action</th>
             </#if>
             <th> ${button_name}</th>
@@ -21,14 +21,14 @@
         </tr>
     <#list listValue as value>
         <tr>
-            <form action="/${path_page}_${value["button"]}/${value["id"]}">
             <#if value["button"]??>
-                <td>
-                    <input type="submit" value="${value["button"]}"/>
-                    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                </td>
+                <form action="/${path_page}_${value["button"]}/${value["id"]}">
+                    <td>
+                        <input type="submit" value="${value["button"]}"/>
+                        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                    </td>
+                </form>
             </#if>
-            </form>
             <form action="/${path_page}" method="post">
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                 <td><input type="submit" value="${button_name}"/></td>

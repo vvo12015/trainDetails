@@ -5,5 +5,8 @@
 
 <@l.logout />
 <@c.page "${header_page}">
+    <#if path_page = "orders">
+        <@comp.company_info "${company.name}", "${company.cash}", "${company.trainCount}"/>
+    </#if>
     <@adm.table_out listValue, "Update", "button_remove_on"/>
 </@c.page>
