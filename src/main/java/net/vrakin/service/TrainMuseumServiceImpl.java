@@ -5,9 +5,9 @@ import net.vrakin.repository.TrainMuseumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class TrainMuseumServiceImpl implements TrainMuseumService {
@@ -24,7 +24,7 @@ public class TrainMuseumServiceImpl implements TrainMuseumService {
 
 
     @Override
-    public void saveOrUpdate(TrainMuseum trainMuseum) {
+    public void save(TrainMuseum trainMuseum) {
         trainMuseumRepo.save(trainMuseum);
     }
 
@@ -34,8 +34,8 @@ public class TrainMuseumServiceImpl implements TrainMuseumService {
     }
 
     @Override
-    public TrainMuseum load(Long id) {
-        return trainMuseumRepo.getOne(id);
+    public TrainMuseum findById(Long id) {
+        return trainMuseumRepo.findById(id).get();
     }
 
     @Override
@@ -46,5 +46,10 @@ public class TrainMuseumServiceImpl implements TrainMuseumService {
     @Override
     public TrainMuseum findFirst() {
         return trainMuseumRepo.findAll().get(0);
+    }
+
+    @Override
+    public List<Map<String, String>> findAllToMap() {
+        return findAll().stream().map(TrainMuseum::toMap).collect(Collectors.toList());
     }
 }

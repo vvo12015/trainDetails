@@ -1,0 +1,2 @@
+ALTER TABLE ORDERS
+ALTER COLUMN creation_date SET DEFAULT now();

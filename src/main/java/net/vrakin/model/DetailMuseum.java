@@ -1,13 +1,11 @@
 package net.vrakin.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name="detail_museum")
-public class DetailsMuseum {
+public class DetailMuseum implements ShowContentsInList{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,27 +23,22 @@ public class DetailsMuseum {
     @Column(name="is_repaired")
     private Boolean isRepaired;
 
-    @ManyToMany(mappedBy = "details")
-    private List<TrainMuseum> trainMuseum = new ArrayList<>();
-
-    public DetailsMuseum(Long id, String name, Byte wear, String type, Boolean isRepaired, List<TrainMuseum> trainMuseum) {
+    public DetailMuseum(Long id, String name, Byte wear, String type, Boolean isRepaired) {
         this.id = id;
         this.name = name;
         this.wear = wear;
         this.type = type;
         this.isRepaired = isRepaired;
-        this.trainMuseum = trainMuseum;
     }
 
-    public DetailsMuseum(String name, Byte wear, String type, Boolean isRepaired, List<TrainMuseum> trainMuseum) {
+    public DetailMuseum(String name, Byte wear, String type, Boolean isRepaired, List<TrainMuseum> trainMuseum) {
         this.name = name;
         this.wear = wear;
         this.type = type;
         this.isRepaired = isRepaired;
-        this.trainMuseum = trainMuseum;
     }
 
-    public DetailsMuseum() {
+    public DetailMuseum() {
     }
 
     public Long getId() {
@@ -88,19 +81,11 @@ public class DetailsMuseum {
         isRepaired = repaired;
     }
 
-    public List<TrainMuseum> getTrainMuseum() {
-        return trainMuseum;
-    }
-
-    public void setTrainMuseum(List<TrainMuseum> trainMuseum) {
-        this.trainMuseum = trainMuseum;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DetailsMuseum that = (DetailsMuseum) o;
+        DetailMuseum that = (DetailMuseum) o;
         return Objects.equals(name, that.name) &&
                 Objects.equals(wear, that.wear) &&
                 Objects.equals(type, that.type) &&
@@ -115,12 +100,39 @@ public class DetailsMuseum {
 
     @Override
     public String toString() {
-        return "DetailsMuseum{" +
+        return "DetailMuseum{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", wear=" + wear +
                 ", type='" + type + '\'' +
                 ", isRepaired=" + isRepaired +
                 '}';
+    }
+
+    @Override
+    public Map<String, String> toMap() {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id.toString());
+        map.put("name", name);
+        map.put("wear", wear.toString());
+        map.put("type", type);
+        map.put("isRepaired", isRepaired.toString());
+
+        return map;
+    }
+
+    @Override
+    public List<String> getFields() {
+
+        List<String> fields = new ArrayList<>();
+
+        fields.add("id");
+        fields.add("name");
+        fields.add("wear");
+        fields.add("type");
+        fields.add("isRepaired");
+
+
+        return fields;
     }
 }

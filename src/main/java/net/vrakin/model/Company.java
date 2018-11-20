@@ -1,13 +1,11 @@
 package net.vrakin.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name="company")
-public class Company {
+public class Company implements ShowContentsInList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,27 +24,35 @@ public class Company {
     @OneToMany(fetch = FetchType.EAGER, mappedBy="company")
     private List<Train> trains=new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="city_id")
+    private City city;
+
     private Integer trainCount;
 
-    public Company(Long id, String name, Float cash, User user, List<Train> trains) {
+    public Company(Long id, String name, Float cash, User user, List<Train> trains, City city, Integer trainCount) {
         this.id = id;
         this.name = name;
         this.cash = cash;
         this.user = user;
         this.trains = trains;
+        this.city = city;
+        this.trainCount = trainCount;
     }
 
-    public Company(String name, Float cash, User user, List<Train> trains) {
+    public Company(String name, Float cash, User user, List<Train> trains, City city) {
         this.name = name;
         this.cash = cash;
         this.user = user;
+        this.city = city;
         this.trains = trains;
     }
 
-    public Company(String name, Float cash, User user) {
+    public Company(String name, Float cash, User user, City city) {
         this.name = name;
         this.cash = cash;
         this.user = user;
+        this.city = city;
     }
 
     public Company() {
@@ -96,6 +102,18 @@ public class Company {
         this.trains = trains;
     }
 
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public void setTrainCount(Integer trainCount) {
+        this.trainCount = trainCount;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -121,7 +139,30 @@ public class Company {
                 ", name='" + name + '\'' +
                 ", cash=" + cash +
                 ", user=" + user +
-                ", trains=" + trains +
                 '}';
+    }
+
+    @Override
+    public Map<String, String> toMap() {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id.toString());
+        map.put("name", name);
+        map.put("cash", cash.toString());
+        map.put("user", user.getUsername());
+
+        return map;
+    }
+
+    @Override
+    public List<String> getFields() {
+
+        List<String> fields = new ArrayList<>();
+
+        fields.add("id");
+        fields.add("name");
+        fields.add("cash");
+        fields.add("user");
+
+        return fields;
     }
 }

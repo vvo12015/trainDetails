@@ -1,11 +1,12 @@
 package net.vrakin.model;
 import javax.persistence.*;
-import java.util.Date;
-import java.util.Objects;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Entity
 @Table(name = "train")
-public class Train {
+public class Train implements ShowContentsInList{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -28,6 +29,10 @@ public class Train {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="train_museum_id")
     private TrainMuseum trainMuseum;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="city_id")
+    private City city;
 
     public Train(String name, Company company, TrainMuseum trainMuseum) {
         this.name = name;
@@ -87,6 +92,14 @@ public class Train {
         this.trainMuseum = trainMuseum;
     }
 
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,13 +120,46 @@ public class Train {
 
     @Override
     public String toString() {
+        DateFormat format = new SimpleDateFormat("dd:MM:yyyy");
         return "Train{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", creationDate=" + creationDate +
+                ", creationDate=" + format.format(creationDate.getTime()) +
                 ", corpsState=" + corpsState +
                 ", company=" + company +
                 ", trainMuseum=" + trainMuseum +
                 '}';
+    }
+
+    @Override
+    public Map<String, String> toMap() {
+        
+        Map<String, String> map = new HashMap<>();
+        
+        map.put("id", id.toString());
+        map.put("name", name);
+        map.put("corpsState", corpsState.toString());
+        map.put("company", company.toString());
+        map.put("trainMuseum", trainMuseum.toString());
+        map.put("city", city.toString());
+        map.put("creationDate", creationDate.toString());
+
+        return map;
+    }
+
+    @Override
+    public List<String> getFields() {
+
+        List<String> fields = new ArrayList<>();
+
+        fields.add("id");
+        fields.add("name");
+        fields.add("corpsState");
+        fields.add("company");
+        fields.add("trainMuseum");
+        fields.add("city");
+        fields.add("creationDate");
+
+        return fields;
     }
 }

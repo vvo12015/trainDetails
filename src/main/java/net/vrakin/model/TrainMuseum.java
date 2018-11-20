@@ -1,13 +1,11 @@
 package net.vrakin.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "train_museum")
-public class TrainMuseum {
+public class TrainMuseum implements ShowContentsInList{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -207,7 +205,7 @@ public class TrainMuseum {
     public String toString() {
         return "TrainMuseum{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", objectName='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", power=" + power +
                 ", speed=" + speed +
@@ -219,5 +217,43 @@ public class TrainMuseum {
                 ", corpsWear=" + corpsWear +
                 ", details=" + details +
                 '}';
+    }
+
+    @Override
+    public Map<String, String> toMap() {
+        Map<String, String> map = new HashMap<>();
+                map.put("id", id.toString());
+                map.put("name", name);
+                map.put("description", description);
+                map.put("power", power.toString());
+                map.put("speed", speed.toString());
+                map.put("price", price.toString());
+                map.put("mass", mass.toString());
+                map.put("corpsPrice", corpsPrice.toString());
+                map.put("reliability", reliability.toString());
+                map.put("limitAge", limitAge.toString());
+                map.put("corpsWear", corpsWear.toString());
+
+        return map;
+    }
+
+    @Override
+    public List<String> getFields() {
+
+        List<String> fields = new ArrayList<>();
+
+        fields.add("id");
+        fields.add("name");
+        fields.add("description");
+        fields.add("power");
+        fields.add("speed");
+        fields.add("price");
+        fields.add("mass");
+        fields.add("corpsPrice");
+        fields.add("reliability");
+        fields.add("limitAge");
+        fields.add("corpsWear");
+
+        return fields;
     }
 }

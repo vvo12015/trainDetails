@@ -4,12 +4,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
-public class User implements UserDetails {
+public class User implements UserDetails, ShowContentsInList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -73,7 +72,7 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return active;
     }
 
@@ -89,4 +88,27 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    @Override
+    public Map<String, String> toMap() {
+
+        Map<String, String> map = new HashMap<>();
+
+        map.put("username", username);
+        map.put("id", id.toString());
+        map.put("isActive", isActive().toString());
+
+        return map;
+    }
+
+    @Override
+    public List<String> getFields() {
+
+        List<String> fields = new ArrayList<>();
+
+        fields.add("username");
+        fields.add("id");
+        fields.add("isActive");
+
+        return fields;
+    }
 }

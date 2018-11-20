@@ -16,18 +16,18 @@
         </tr>
     <#list orders as order>
         <tr>
-            <td> ${order.id} </td>
-            <td> ${order.route} </td>
-            <td> ${order.train.name}</td>
-            <td> ${order.cargo.name}</td>
-            <td> ${order.state.name}</td>
-            <td> ${order.carCount}</td>
-            <td> ${order.fullWear}</td>
-            <td> ${order.profit}</td>
-            <td> ${order.creationDate?date}</td>
-            <td> ${order.waitingDeadline?date}</td>
-            <td> ${order.deadline1?date}</td>
-            <td> ${order.deadline2?date}</td>
+            <td> ${order["id"]} </td>
+            <td> ${order["route"]} </td>
+            <td> ${order["train"].name}</td>
+            <td> ${order["cargo"].name}</td>
+            <td> ${order["state"].name}</td>
+            <td> ${order["carCount"]}</td>
+            <td> ${order["fullWear"]}</td>
+            <td> ${order["profit"]}</td>
+            <td> ${order["creationDate"]}</td>
+            <td> ${order["waitingDeadline"]}</td>
+            <td> ${order["deadline1"]}</td>
+            <td> ${order["deadline2"]}</td>
         </tr>
     </#list>
     </table>

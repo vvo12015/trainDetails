@@ -7,15 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public interface TrainMuseumService {
-
-    void saveOrUpdate(TrainMuseum trainMuseum);
-
-    List<TrainMuseum> findAll();
-
-    TrainMuseum load(Long id);
-
-    void delete(TrainMuseum trainMuseum);
+public interface TrainMuseumService extends GeneralService<TrainMuseum>{
 
     TrainMuseum findFirst();
 }

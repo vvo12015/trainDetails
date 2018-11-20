@@ -2,6 +2,8 @@ package net.vrakin.controller;
 
 import net.vrakin.model.TrainMuseum;
 import net.vrakin.model.User;
+import net.vrakin.service.TrainMuseumService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,48 +11,45 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Map;
+import javax.annotation.PostConstruct;
 
 @Controller
-public class TrainMuseumController extends AbstractTrainController {
+public class TrainMuseumController extends AbstractController {
 
-    @GetMapping("/train_museum")
-    public ModelAndView listTrain_museum(@AuthenticationPrincipal User user){
-        Map<String, Object> model = getModelList();
+    protected final String name = "train_museum";
 
-        setPageParameters(user, "Train Museum", "train_museum", model);
+    @Autowired
+    private TrainMuseumService trainMuseumService;
 
-        return new ModelAndView("train_museum", model);
+    @PostConstruct
+    protected void init(){
+        generalService = trainMuseumService;
+        objectName = name;
     }
 
-    @GetMapping("/train_museum/{id}")
-    public ModelAndView showTrainMuseum(@AuthenticationPrincipal User user,
-                                          @PathVariable Long id){
-        Map<String, Object> model = getModelList();
+    @GetMapping("/" + name)
+    public ModelAndView toList(@AuthenticationPrincipal User user){
 
-        setPageParameters(user, "Train Museum", "train_museum", model);
-
-        return new ModelAndView("train_museum", model);
+        setModelList(user);
+        return getModelAndView();
     }
 
-    @PostMapping("/train_museum")
+    @PostMapping("/" + name)
     public ModelAndView saveTrainMuseum(@AuthenticationPrincipal User user,
-                                         TrainMuseum trainMuseum){
+                                  TrainMuseum trainMuseum){
 
-        trainMuseumService.saveOrUpdate(trainMuseum);
-        Map<String, Object> model = getModelList();
-        setPageParameters(user, "Train Museum", "train_museum", model);
-        return new ModelAndView("train_museum", model);
+        trainMuseumService.save(trainMuseum);
+        setModelList(user);
+        return getModelAndView();
     }
 
-    @GetMapping("/trainMuseum_remove/{id}")
-    private ModelAndView deleteTrainMuseum(@AuthenticationPrincipal User user,
-                                           @PathVariable("id") Long id){
-        TrainMuseum trainMuseum = trainMuseumService.load(id);
+    @GetMapping("/" + name + "_remove/{id}")
+    public ModelAndView delete(@AuthenticationPrincipal User user,
+                               @PathVariable("id") Long id){
+        TrainMuseum trainMuseum = trainMuseumService.findById(id);
         trainMuseumService.delete(trainMuseum);
-        Map<String, Object> model = getModelList();
-        setPageParameters(user, "Train Museum", "train_museum", model);
+        setModelList(user);
 
-        return new ModelAndView("train_museum", model);
+        return getModelAndView();
     }
 }

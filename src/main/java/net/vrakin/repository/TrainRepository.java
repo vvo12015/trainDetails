@@ -9,4 +9,6 @@ import java.util.List;
 public interface TrainRepository extends JpaRepository<Train, Long> {
     void deleteByCompany(Company company);
     List<Train> findByCompany(Company company);
+
+    List<Train> findByCompanyIn(List<Company> companies);
 }

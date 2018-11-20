@@ -1,11 +1,11 @@
 package net.vrakin.model;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name="city")
-public class City {
+public class City implements ShowContentsInList{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -53,9 +53,26 @@ public class City {
 
     @Override
     public String toString() {
-        return "City{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return name;
+    }
+
+    @Override
+    public Map<String, String> toMap() {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id.toString());
+        map.put("name", name);
+
+        return map;
+    }
+
+    @Override
+    public List<String> getFields() {
+
+        List<String> fields = new ArrayList<>();
+
+        fields.add("id");
+        fields.add("name");
+
+        return fields;
     }
 }

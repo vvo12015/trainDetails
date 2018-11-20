@@ -1,53 +1,60 @@
 package net.vrakin.model;
- import javax.persistence.*;
-import java.sql.Date;
-import java.util.Objects;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Entity
 @Table(name="orders")
-@NamedQuery(query = "select o from Order o where o.waitingDeadline > CURRENT_DATE", name = "query_find_wait_orders")
-public class Order {
+public class Order implements ShowContentsInList{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    protected Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="route_id")
-    private Route route;
+    protected Route route;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="train_id")
-    private Train train;
+    protected Train train;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="cargo_id")
-    private Cargo cargo;
+    protected Cargo cargo;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="state_id")
-    private OrderState state;
+    protected OrderState state;
 
     @Column(name="car_count")
-    private Integer carCount;
+    protected Integer carCount;
 
     @Column(name="full_wear")
-    private Integer fullWear;
+    protected Integer fullWear;
 
     @Column(name="profit")
-    private Integer profit;
+    protected Integer profit;
 
-    @Column(name="creation_date")
-    private Date creationDate;
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_date")
+    private Calendar creationDate;
 
     @Column(name="waiting_deadline")
-    private Date waitingDeadline;
+    protected Long waitingDeadline;
 
     @Column(name="deadline1")
-    private Date deadline1;
+    protected Long deadline1;
 
     @Column(name="deadline2")
-    private Date deadline2;
+    protected Long deadline2;
+
+    @Column(name = "execution")
+    protected Integer execution;
 
     public Long getId() {
         return id;
@@ -104,35 +111,11 @@ public class Order {
         this.profit = profit;
     }
 
-    public Date getWaitingDeadline() {
-        return waitingDeadline;
-    }
-
-    public void setWaitingDeadline(Date waitingDeadline) {
-        this.waitingDeadline = waitingDeadline;
-    }
-
-    public Date getDeadline1() {
-        return deadline1;
-    }
-
-    public void setDeadline1(Date deadline1) {
-        this.deadline1 = deadline1;
-    }
-
-    public Date getDeadline2() {
-        return deadline2;
-    }
-
-    public void setDeadline2(Date deadline2) {
-        this.deadline2 = deadline2;
-    }
-
-    public Date getCreationDate() {
+    public Calendar getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(Calendar creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -144,33 +127,108 @@ public class Order {
         this.state = state;
     }
 
+    public Long getWaitingDeadline() {
+        return waitingDeadline;
+    }
 
-    public Order(Long id, Route route, Train train, Cargo cargo, Integer carCount, Integer fullWear, Integer profit, Date creationDate, Date waitingDeadline, Date deadline1, Date deadline2) {
+    public void setWaitingDeadline(Long waitingDeadline) {
+        this.waitingDeadline = waitingDeadline;
+    }
+
+    public Long getDeadline1() {
+        return deadline1;
+    }
+
+    public void setDeadline1(Long deadline1) {
+        this.deadline1 = deadline1;
+    }
+
+    public Long getDeadline2() {
+        return deadline2;
+    }
+
+    public void setDeadline2(Long deadline2) {
+        this.deadline2 = deadline2;
+    }
+
+    public Integer getExecution() {
+        return execution;
+    }
+
+    public void setExecution(Integer execution) {
+        this.execution = execution;
+    }
+
+    protected Integer getDistance() {
+        return route.getDistance();
+    }
+
+    public Order() {
+    }
+
+    public Order getOrder(Order order) {
+
+        order.setTrain(this.train);
+        order.setCarCount(this.carCount);
+        order.setCargo(this.cargo);
+        order.setRoute(this.route);
+        order.setDeadline1(this.deadline1);
+        order.setDeadline2(this.deadline2);
+        order.setWaitingDeadline(this.waitingDeadline);
+        order.setState(this.state);
+        order.setFullWear(this.fullWear);
+        order.setProfit(this.profit);
+        order.setExecution(this.execution);
+
+        return order;
+    }
+    public Order(Long id, Route route, Train train, Cargo cargo, OrderState state, Integer carCount, Integer fullWear,
+                 Integer profit, Calendar creationDate, Long waitingDeadline, Long deadline1, Long deadline2) {
         this.id = id;
         this.route = route;
         this.train = train;
         this.cargo = cargo;
+        this.state = state;
         this.carCount = carCount;
         this.fullWear = fullWear;
         this.profit = profit;
+        this.creationDate = creationDate;
         this.waitingDeadline = waitingDeadline;
         this.deadline1 = deadline1;
         this.deadline2 = deadline2;
+        this.execution = 0;
     }
 
-    public Order(Route route, Train train, Cargo cargo, Integer carCount, Integer fullWear, Integer profit, Date waitingDeadline, Date deadline1, Date deadline2) {
+    public void setOrder(Order order) {
+        this.id = order.getId();
+        this.route = order.getRoute();
+        this.train = order.getTrain();
+        this.cargo = order.getCargo();
+        this.state = order.getState();
+        this.carCount = order.getCarCount();
+        this.fullWear = order.getFullWear();
+        this.profit = order.getProfit();
+        this.creationDate = order.getCreationDate();
+        this.waitingDeadline = order.getWaitingDeadline();
+        this.deadline1 = order.getDeadline1();
+        this.deadline2 = order.getDeadline2();
+        this.execution = order.getExecution();
+    }
+
+    public Order(Route route, Train train, Cargo cargo, OrderState state, Integer carCount, Integer fullWear,
+                 Integer profit, Calendar creationDate, Long waitingDeadline, Long deadline1, Long deadline2) {
         this.route = route;
         this.train = train;
         this.cargo = cargo;
+        this.state = state;
         this.carCount = carCount;
         this.fullWear = fullWear;
         this.profit = profit;
+        this.creationDate = creationDate;
         this.waitingDeadline = waitingDeadline;
         this.deadline1 = deadline1;
         this.deadline2 = deadline2;
-    }
-
-    public Order() {
+        this.execution = 0;
     }
 
     @Override
@@ -193,7 +251,8 @@ public class Order {
     @Override
     public int hashCode() {
 
-        return Objects.hash(route, train, cargo, carCount, fullWear, profit, creationDate, waitingDeadline, deadline1, deadline2);
+        return Objects.hash(route, train, cargo, carCount, fullWear, profit, creationDate,
+                waitingDeadline, deadline1, deadline2);
     }
 
     @Override
@@ -206,10 +265,72 @@ public class Order {
                 ", carCount=" + carCount +
                 ", fullWear=" + fullWear +
                 ", profit=" + profit +
-                ", creationDate=" + creationDate +
+                ", creationDate=" + creationDate.getTime().toString() +
                 ", waitingDeadline=" + waitingDeadline +
                 ", deadline1=" + deadline1 +
                 ", deadline2=" + deadline2 +
                 '}';
     }
+
+    @Override
+    public Map<String, String> toMap() {
+        
+        Map<String, String> map = new HashMap<>();
+
+        map.put("id", id.toString());
+        map.put("route", route.toString());
+        map.put("name", route.toString() + ", " + cargo.toString() + "x" + carCount);
+        map.put("train", train.getName());
+        map.put("cargo", cargo.getName());
+        map.put("state", state.getName());
+        map.put("carCount", carCount.toString());
+        map.put("fullWear", fullWear.toString());
+        map.put("profit", profit.toString());
+        map.put("waitingDeadline", waitingDeadline.toString());
+        map.put("deadline1", deadline1.toString());
+        map.put("deadline2", deadline2.toString());
+
+        String buttonName = "";
+        switch (state.getId().intValue()){
+            case 1:
+                buttonName = "start";
+                break;
+            case 2: case 3: case 4:
+                buttonName = "progress";
+                break;
+            case 5: case 6:
+                buttonName = "finish";
+                break;
+        }
+        map.put("button", buttonName);
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm dd.MM.yy");
+        map.put("creationDate", simpleDateFormat.format(creationDate.getTime()));
+
+        return map;
+    }
+
+    @Override
+    public List<String> getFields() {
+
+        List<String> fields = new ArrayList<>();
+
+        fields.add("id");
+        fields.add("route");
+        fields.add("name");
+        fields.add("train");
+        fields.add("cargo");
+        fields.add("state");
+        fields.add("carCount");
+        fields.add("fullWear");
+        fields.add("profit");
+        fields.add("waitingDeadline");
+        fields.add("deadline1");
+        fields.add("deadline2");
+        fields.add("creationDate");
+
+        return fields;
+    }
+
+
 }

@@ -2,32 +2,51 @@ package net.vrakin.controller;
 
 import net.vrakin.model.Company;
 import net.vrakin.model.User;
+import net.vrakin.service.CompanyService;
+import net.vrakin.service.TrainService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.annotation.PostConstruct;
 
-@Controller
-public class TrainController extends AbstractTrainController {
+@org.springframework.stereotype.Controller
+public class TrainController extends AbstractController {
+
+    protected final String name = "trains";
+
+    @Autowired
+    private CompanyService companyService;
+
+    @Autowired
+    private TrainService trainService;
+
+    @PostConstruct
+    protected void init(){
+        generalService = trainService;
+        objectName = name;
+    }
 
     @GetMapping("/my_trains")
     public ModelAndView listTrainMarket(@AuthenticationPrincipal User user){
 
         Company company = companyService.findByUser(user).get(0);
-        Map<String, Object> model = getModelList(company);
+        setModelList(user);
 
-        setPageParameters(user, "My trains", "trains", model);
-
-        return new ModelAndView("trains", model);
+        return getModelAndView();
     }
 
-    Map<String, Object> getModelList(Company company) {
-        Map<String, Object> model = new HashMap<>();
-        model.put("trains", trainService.findByCompany(company));
+    @Override
+    protected void setModelList(User user) {
+        pageName = objectName;
+        Company company = companyService.findByUser(user).get(0);
+        company.setTrains(trainService.findByCompany(company));
+        model.put("company", company);
+        model.put("header_page", capitalizeName());
+        model.put("path_page", objectName);
+        model.put("user", user);
 
-        return model;
+        model.put("trains", trainService.findByCompany(company));
     }
 }

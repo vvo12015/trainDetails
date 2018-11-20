@@ -1,11 +1,11 @@
 package net.vrakin.model;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name="route")
-public class Route {
+public class Route implements ShowContentsInList{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -57,5 +57,65 @@ public class Route {
     @Override
     public String toString() {
         return city1.getName() + '-' + city2.getName();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public City getCity1() {
+        return city1;
+    }
+
+    public void setCity1(City city1) {
+        this.city1 = city1;
+    }
+
+    public City getCity2() {
+        return city2;
+    }
+
+    public void setCity2(City city2) {
+        this.city2 = city2;
+    }
+
+    public Integer getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Integer distance) {
+        this.distance = distance;
+    }
+
+    @Override
+    public Map<String, String> toMap() {
+        
+         Map<String, String> map = new HashMap<>();
+
+        map.put("id", id.toString());
+        map.put("city1", city1.toString());
+        map.put("city2", city2.toString());
+        map.put("distance", distance.toString());
+        map.put("name", toString());
+
+         return map;
+    }
+
+    @Override
+    public List<String> getFields() {
+
+        List<String> fields = new ArrayList<>();
+
+        fields.add("id");
+        fields.add("city1");
+        fields.add("city2");
+        fields.add("distance");
+        fields.add("name");
+
+        return fields;
     }
 }

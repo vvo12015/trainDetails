@@ -1,13 +1,15 @@
 package net.vrakin.service;
 
-import net.vrakin.model.Order;
 import net.vrakin.model.OrderState;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface OrderStateService {
+public interface OrderStateService extends GeneralService<OrderState>{
 
-    Optional<OrderState> findByName(String name);
     OrderState getWaitState();
+    List<OrderState> findByNames(List<String> names);
+    List<OrderState> findByName(String name);
+    List<OrderState> findByInMotion(boolean inMotion);
+
 }

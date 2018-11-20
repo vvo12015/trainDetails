@@ -66,6 +66,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -80,6 +84,20 @@
                     <source>1.8</source>
 					<target>1.8</target>
                 </configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>5.2.1</version>
+				<configuration>
+					<url>jdbc:postgresql://localhost:5432/trainDetails</url>
+					<user>postgres</user>
+					<password>111</password>
+					<placeholders>
+						<keyABC>valueXYZ</keyABC>
+						<otherplaceholder>value123</otherplaceholder>
+					</placeholders>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

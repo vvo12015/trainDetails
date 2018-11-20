@@ -38,22 +38,4 @@ public class CompanyController {
         model.put("company", company);
         return new ModelAndView("main", model);
     }
-
-    /*@GetMapping("/new_game")
-    public ModelAndView newGame(@AuthenticationPrincipal User user){
-        Map<String, Object> model = new HashMap<>();
-        Company company = companyService.findByUser(user);
-        TrainMuseum trainMuseum = trainMuseumService.findFirst();
-        String trainName = trainMuseum.getName() + "1";
-        Train train = new Train(trainName, company, trainMuseum);
-        trainService.save(train);
-
-
-        company.setCash(15000F);
-        company.setTrains(trainService.findByCompany(company));
-
-        companyService.save(company);
-        model.put("company", company);
-        return new ModelAndView("main", model);
-    }*/
 }
