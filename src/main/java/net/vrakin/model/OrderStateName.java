@@ -6,8 +6,7 @@ public enum OrderStateName {
     DEADLINE1("deadline1"),
     DEADLINE2("deadline2"),
     BELATED("belated"),
-    DONE("done"),
-    BELATED_DONE("belated_done");
+    DONE("done");
 
     private final String name;
 

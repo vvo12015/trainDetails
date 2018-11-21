@@ -70,8 +70,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void refresh(User user){
         orderRepository.refresh_orders();
-        orderMaker.makeOrders(user);
-        orderGenerator.generateOrders(user);
+        trainService.findByUser(user).forEach(t-> {
+            if (orderRepository.findNotGenerationOrders(t.getId()).size() > 0){
+                orderMaker.makeOrders(user);
+            }else if (findByTrainWaiting(t).size() < orderGenerator.getCarCountMax()){
+                orderGenerator.generateOrders(t);
+            }
+        });
+
     }
 
     @Override
@@ -101,16 +107,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void startOrder(Order order) {
-
-        String stateNameForStart = OrderStateName.DEADLINE1.get();
-
-        OrderState stateForStart = orderStateService.findByName(stateNameForStart).get(0);
-
-        order.setState(stateForStart);
-
-        save(order);
-
-        orderRepository.deleteAll(findByTrainWaiting(order.getTrain()));
+        orderRepository.start_order(order.getId(), order.getTrain().getId());
     }
 
     @Override
@@ -130,8 +127,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void finishOrder(Order order) {
-        if (order.getState().getName().equals(OrderStateName.DONE.get()) ||
-                order.getState().getName().equals(OrderStateName.BELATED_DONE.get())){
+        if (order.getState().getName().equals(OrderStateName.DONE.get())){
             Train train = order.getTrain();
             train.setCorpsState(trainService.checkTechnicalStatus(train));
             trainService.save(train);
@@ -143,7 +139,6 @@ public class OrderServiceImpl implements OrderService {
             companyService.save(company);
 
             delete(order);
-            refresh(company.getUser());
         }
     }
 
@@ -151,5 +146,16 @@ public class OrderServiceImpl implements OrderService {
     public List<Map<String, String>> findAllToMap() {
 
         return findAll().stream().map(Order::toMap).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Order> findByTrainAndStateIn(Train train, List<OrderState> states) {
+
+        return orderRepository.findByTrainAndStateIn(train, states);
+    }
+
+    @Override
+    public List<Order> findByNotGenerationOrders(Train train) {
+        return orderRepository.findNotGenerationOrders(train.getId());
     }
 }

@@ -44,10 +44,8 @@ public class OrderGeneratorImpl extends Order implements OrderGenerator {
     }
 
     @Override
-    public void generateOrders(User user){
-        List<Train> trains = trainService.findByUser(user);
-
-        trains.forEach(this::runOrders);
+    public void generateOrders(Train train){
+        runOrders(train);
     }
 
     protected void runOrders(Train train){
@@ -120,5 +118,8 @@ public class OrderGeneratorImpl extends Order implements OrderGenerator {
         return 0;
     }
 
-
+    @Override
+    public Integer getCarCountMax() {
+        return CAR_COUNT_MAX;
+    }
 }

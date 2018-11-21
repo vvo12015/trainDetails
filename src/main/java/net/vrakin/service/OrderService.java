@@ -18,6 +18,10 @@ public interface OrderService extends GeneralService<Order>{
 
     List<Order> findByTrainAndState(Train train, String orderStateName);
 
+    List<Order>  findByTrainAndStateIn(Train train, List<OrderState> states);
+
+    List<Order> findByNotGenerationOrders(Train train);
+
     void refresh(User user);
 
     List<Order> findByTrain(Train train);

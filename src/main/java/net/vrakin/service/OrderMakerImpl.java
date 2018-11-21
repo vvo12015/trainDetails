@@ -35,9 +35,9 @@ public class OrderMakerImpl extends OrderGeneratorImpl implements OrderMaker {
             execution = (differenceTime * getRealSpeed() * PERCENT100 / COEFICIENT_TIME) / getDistance();
             if (execution > 100) {
                 execution = 100;
-                if (state.getName().equals(OrderStateName.DEADLINE1)) {
+                if (state.getName().equals(OrderStateName.DEADLINE1.get())) {
                     profit = Float.valueOf(profit * 1.2f).intValue();
-                } else if (state.getName().equals(OrderStateName.BELATED)) {
+                } else if (state.getName().equals(OrderStateName.BELATED.get())) {
                     profit = Float.valueOf(profit * 0.8f).intValue();
                 }
                 state = orderStateService.findByName(OrderStateName.DONE.get()).get(0);

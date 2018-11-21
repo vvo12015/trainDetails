@@ -1,8 +1,9 @@
 package net.vrakin.service;
 
-import net.vrakin.model.User;
+import net.vrakin.model.Train;
 
 public interface OrderGenerator {
 
-    void generateOrders(User user);
+    void generateOrders(Train train);
+    Integer getCarCountMax();
 }

@@ -44,6 +44,10 @@ public class Order implements ShowContentsInList{
     @Column(name = "creation_date")
     private Calendar creationDate;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "active_date")
+    private Calendar activeDate;
+
     @Column(name="waiting_deadline")
     protected Long waitingDeadline;
 
@@ -305,8 +309,10 @@ public class Order implements ShowContentsInList{
         }
         map.put("button", buttonName);
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm dd.MM.yy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss dd.MM.yy");
         map.put("creationDate", simpleDateFormat.format(creationDate.getTime()));
+        if (activeDate != null) map.put("activeDate", simpleDateFormat.format(activeDate.getTime()));
+        else map.put("activeDate", "-");
 
         return map;
     }
@@ -317,8 +323,10 @@ public class Order implements ShowContentsInList{
         List<String> fields = new ArrayList<>();
 
         fields.add("id");
-        fields.add("route");
+        fields.add("train");
+        fields.add("activeDate");
         fields.add("creationDate");
+        fields.add("state");
         fields.add("execution");
         fields.add("profit");
         fields.add("deadline1");
@@ -327,9 +335,8 @@ public class Order implements ShowContentsInList{
         fields.add("carCount");
         fields.add("cargo");
         fields.add("fullWear");
-        fields.add("train");
-        fields.add("state");
         fields.add("name");
+        fields.add("route");
 
         return fields;
     }

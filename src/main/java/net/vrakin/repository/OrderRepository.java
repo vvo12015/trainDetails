@@ -3,7 +3,9 @@ package net.vrakin.repository;
 import net.vrakin.model.Order;
 import net.vrakin.model.OrderState;
 import net.vrakin.model.Train;
+import net.vrakin.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.stereotype.Repository;
 
@@ -26,8 +28,11 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findByTrainAndStateIn(Train train, List<OrderState> state);
 
     @Procedure
-    public boolean refresh_orders();
+    boolean refresh_orders();
 
     @Procedure
-    public boolean genareting_orders();
+    boolean start_order(Long order_id, Long train_id);
+
+    @Query(value = "select * from Orders o where o.train_id = ?1 and o.state_id between 2 and 5", nativeQuery = true)
+    List<Order> findNotGenerationOrders(Long train_id);
 }
