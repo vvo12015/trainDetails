@@ -16,7 +16,7 @@ import javax.annotation.PostConstruct;
 @Controller
 public class DetailsMuseumController extends AbstractController {
 
-    protected final String name = "detailMuseum";
+    protected final String name = "detailsMuseum";
 
     @Autowired
     private GeneralService<DetailMuseum> detailMuseumService;

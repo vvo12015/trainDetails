@@ -6,7 +6,7 @@
 
 <@c.page "${header_page}">
      <@c.auth/>
-    <#if path_page = "orders">
+    <#if path_page = "order">
         <@comp.company_info "${company.name}", "${company.cash}", "${company.trainCount}"/>
     </#if>
     <@adm.table_out listValue, "Update", "button_remove_on"/>

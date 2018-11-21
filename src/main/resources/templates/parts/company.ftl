@@ -6,6 +6,6 @@
     <div>Train count = ${trainsCount}</div>
 
     <div><a href="/my_trains">My trains</a><div>
-    <div><a href="/orders">Orders</a><div>
+    <div><a href="/order">Orders</a><div>
     <div><a href="/train_market">Train market</a><div>
 </#macro>

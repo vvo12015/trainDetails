@@ -11,7 +11,7 @@
     <#list trains as train>
         <tr>
             <td>
-                <a href="/orders/train${train.id}">Orders</a>
+                <a href="/order/train${train.id}">Orders</a>
             </td>
             <td><input type="text" name="id" value="${train.id?c}" readonly/> </td>
             <td><input type="text" name="name" value="${train.name}" readonly/> </td>

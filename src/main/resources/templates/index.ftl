@@ -2,9 +2,9 @@
 <#import "parts/login.ftl" as l>
 
 <@c.page "Hello page">
-    <@c.auth/>
+    <@c.auth/><br>
+    <a href="/new_game">Name game</a>
     <center><a href="/company_page">Resume</a></center>
-    <center><a href="/new_game">Name game</a></center>
     <center><a href="/train_museum">Train museum</a></center>
     <center><a href="/detailsMuseum">Details museum</a></center>
     <center><a href="/cargo">Cargo</a></center>

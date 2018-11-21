@@ -10,6 +10,10 @@ import java.util.List;
 public class OrderMakerImpl extends OrderGeneratorImpl implements OrderMaker {
 
     private static final int CAR_MASS = 70;
+    public static final int PERCENT100 = 100;
+    public static final int COEFICIENT_TIME = 60;
+    public static final float SPEED_COEFICIENT_MAX = 0.1F;
+    public static final float SPEED_COEFICIENT_MIN = -0.2F;
 
     @Override
     public void makeOrders(User user) {
@@ -28,7 +32,7 @@ public class OrderMakerImpl extends OrderGeneratorImpl implements OrderMaker {
                                     getCreationDate().getTimeInMillis())
                                     / 1000).intValue();
 
-            execution = (differenceTime * getRealSpeed() * 5 / 3) / getDistance();
+            execution = (differenceTime * getRealSpeed() * PERCENT100 / COEFICIENT_TIME) / getDistance();
             if (execution > 100) {
                 execution = 100;
                 if (state.getName().equals(OrderStateName.DEADLINE1)) {
@@ -50,13 +54,14 @@ public class OrderMakerImpl extends OrderGeneratorImpl implements OrderMaker {
     }
 
     private Integer getRealSpeed(){
-        int difference = train.getTrainMuseum().getPower() - train.getTrainMuseum().getMass() - carCount * CAR_MASS;
+        int power = train.getTrainMuseum().getPower();
+        int difference = power - train.getTrainMuseum().getMass() - carCount * CAR_MASS;
 
         float speedCoeficient = 0;
 
-        if (difference >= 0) speedCoeficient = 0.1F;
+        if (difference > 0.1*power) speedCoeficient = SPEED_COEFICIENT_MAX;
 
-        if (difference < 0) speedCoeficient = -0.8F;
+        if (difference < 0) speedCoeficient = SPEED_COEFICIENT_MIN;
 
         return Double.valueOf(train.getTrainMuseum().getSpeed() * (1 + speedCoeficient)).intValue();
     }

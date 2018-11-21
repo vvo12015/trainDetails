@@ -289,6 +289,7 @@ public class Order implements ShowContentsInList{
         map.put("waitingDeadline", waitingDeadline.toString());
         map.put("deadline1", deadline1.toString());
         map.put("deadline2", deadline2.toString());
+        map.put("execution", execution.toString());
 
         String buttonName = "";
         switch (state.getId().intValue()){
@@ -317,17 +318,18 @@ public class Order implements ShowContentsInList{
 
         fields.add("id");
         fields.add("route");
-        fields.add("name");
-        fields.add("train");
-        fields.add("cargo");
-        fields.add("state");
-        fields.add("carCount");
-        fields.add("fullWear");
+        fields.add("creationDate");
+        fields.add("execution");
         fields.add("profit");
-        fields.add("waitingDeadline");
         fields.add("deadline1");
         fields.add("deadline2");
-        fields.add("creationDate");
+        fields.add("waitingDeadline");
+        fields.add("carCount");
+        fields.add("cargo");
+        fields.add("fullWear");
+        fields.add("train");
+        fields.add("state");
+        fields.add("name");
 
         return fields;
     }

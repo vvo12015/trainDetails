@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Controller
 public class OrderController extends AbstractController{
 
-    private final String name = "orders";
+    private final String name = "order";
 
     private User user;
 
@@ -59,6 +59,7 @@ public class OrderController extends AbstractController{
     private void initPage(User user) {
         this.user = user;
         orderService.refresh(user);
+        setModelList(user);
         model.put("company", companyService.findByUser(user).get(0));
     }
 
@@ -81,6 +82,14 @@ public class OrderController extends AbstractController{
                                      @PathVariable("id") Long order_id){
         Order order = orderService.findById(order_id);
         orderService.startOrder(order);
+
+        return orderOfTrain(user, order.getTrain().getId());
+    }
+
+    @GetMapping("/" + name + "_progress/{id}")
+    public ModelAndView progresOrder(@AuthenticationPrincipal User user,
+                                   @PathVariable("id") Long order_id){
+        Order order = orderService.findById(order_id);
 
         return orderOfTrain(user, order.getTrain().getId());
     }

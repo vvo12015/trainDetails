@@ -42,13 +42,6 @@ public class OrderAdminController extends AbstractController {
         objectName = name;
     }
 
-    @GetMapping("/" + name)
-    public ModelAndView toList(@AuthenticationPrincipal User user){
-
-        setModelList(user);
-        return getModelAndView();
-    }
-
     @PostMapping("/" + name)
     public ModelAndView saveOrder(@AuthenticationPrincipal User user,
                                          Order order){

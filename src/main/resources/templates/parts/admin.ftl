@@ -4,11 +4,11 @@
     <@c.save_form>
     </@c.save_form>
     <#if listMap["refreshTrain"]??>
-        <a href="/orders/train${listMap["refreshTrain"]}">Refresh</a>
+        <a href="/order/train${listMap["refreshTrain"]}">Refresh</a>
     </#if>
     <table>
         <tr>
-            <#if path_page == "orders">
+            <#if path_page == "order">
                 <th>Action</th>
             </#if>
             <th> ${button_name}</th>
