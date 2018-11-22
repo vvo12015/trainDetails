@@ -17,7 +17,14 @@
             <td><input type="text" name="name" value="${train.name}" readonly/> </td>
             <td><input type="text" name="creationDate" value="${train.creationDate}"  readonly</td>
             <td><input type="text" name="power" value="${train.corpsState?c}"  readonly</td>
-            <td><input type="text" name="power" value="${train.city}"  readonly</td>
+            <td>
+                <#if train.city??>
+                    <#assign city = train.city>
+                    <#else>
+                    city = "-";
+                </#if>
+                <input type="text" name="city" value="${city}"  readonly>
+            </td>
         </tr>
     </#list>
     </table>
