@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -72,5 +73,10 @@ public class TrainServiceImpl implements TrainService {
         Float currentState = train.getCorpsState() * 0.9F;
 
         return currentState.byteValue();
+    }
+
+    @Override
+    public Optional<Train> findByName(String name) {
+        return trainRepository.findByName(name);
     }
 }

@@ -62,7 +62,6 @@ public class OrderController extends AbstractController{
 
         orderService.refreshTrainOrders(train);
         initPage(user);
-        createListMap(train_id);
 //        filter listValue for train
         model.put("listValue", orderService.findByTrain(train).stream().map(Order::toMap).collect(Collectors.toList()));
         return getModelAndView();
@@ -106,15 +105,24 @@ public class OrderController extends AbstractController{
         model.put("company", companyService.findByUser(user).get(0));
     }
 
-
-    private void createListMap(Long train_id) {
+    @Override
+    protected void createListMap() {
         Map<String, Object> listMap = new HashMap<>();
 
-        listMap.put("refreshTrain", train_id.toString());
-        listMap.put("orderState", orderStateService.findAll().stream().map(OrderState::toMap).collect(Collectors.toList()));
-        listMap.put("cargo", cargoSevice.findAll().stream().map(Cargo::toMap).collect(Collectors.toList()));
-        listMap.put("route", routService.findAll().stream().map(Route::toMap).collect(Collectors.toList()));
-
-        model.put("listMap", listMap);
+        List<Map<String, String>> listValue;
+        try {
+            listValue = (List<Map<String, String>>) model.get("listValue");
+            if (listValue.size() > 0) {
+                Train train = trainService.findByName(listValue.get(0).get("train")).get();
+                listMap.put("refreshTrain", train.getId().toString());
+                listMap.put("orderState", orderStateService.findAll().stream().map(OrderState::toMap).collect(Collectors.toList()));
+                listMap.put("cargo", cargoSevice.findAll().stream().map(Cargo::toMap).collect(Collectors.toList()));
+                listMap.put("route", routService.findAll().stream().map(Route::toMap).collect(Collectors.toList()));
+            }
+        }catch (ClassCastException ex){
+            ex.printStackTrace();
+        }finally {
+            model.put("listMap", listMap);
+        }
     }
 }

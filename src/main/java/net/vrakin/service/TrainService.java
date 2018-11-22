@@ -5,6 +5,7 @@ import net.vrakin.model.Train;
 import net.vrakin.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TrainService extends GeneralService<Train>{
 
@@ -17,4 +18,6 @@ public interface TrainService extends GeneralService<Train>{
     List<Train> findByUser(User user);
 
     Byte checkTechnicalStatus(Train train);
+
+    Optional<Train> findByName(String name);
 }

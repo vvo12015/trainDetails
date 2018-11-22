@@ -1,15 +1,12 @@
 package net.vrakin.controller;
 
-import net.vrakin.model.Company;
-import net.vrakin.model.Train;
-import net.vrakin.model.TrainMuseum;
-import net.vrakin.model.User;
-import net.vrakin.service.CompanyService;
-import net.vrakin.service.TrainService;
+import net.vrakin.model.*;
+import net.vrakin.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,18 +24,25 @@ public class TrainMarketController extends AbstractController {
     @Autowired
     private TrainService trainService;
 
-    @GetMapping("/train_market")
+    @Autowired
+    private TrainMuseumService trainMuseumService;
+
+    @Autowired
+    private CityService cityService;
+
+    @GetMapping("/" + name)
     public ModelAndView listTrainMarket(@AuthenticationPrincipal User user){
 
         setModelList(user);
 
-        return new ModelAndView("train_market", model);
+        return getModelAndView();
     }
 
-    @PostMapping("/train_market")
+    @GetMapping("/" + name + "_buy/{id}")
     public ModelAndView trainBuy(@AuthenticationPrincipal User user,
-                                 TrainMuseum trainMuseum){
+                                 @PathVariable("id") Long trainMuseum_id){
 
+        TrainMuseum trainMuseum = trainMuseumService.findById(trainMuseum_id);
         Company company = companyService.findByUser(user).get(0);
         Long trainOfTypeCount = company.getTrains()
                 .stream()
@@ -49,11 +53,12 @@ public class TrainMarketController extends AbstractController {
                 company,
                 trainMuseum
                 );
+        train.setCity(company.getCity()==null?cityService.findById(1L):company.getCity());
         company.setCash(company.getCash() - trainMuseum.getPrice());
         companyService.save(company);
         trainService.save(train);
         setModelList(user);
-        return new ModelAndView("train_market", model);
+        return getModelAndView();
     }
 
     @Override
@@ -64,10 +69,11 @@ public class TrainMarketController extends AbstractController {
         model.put("company", company);
     }
 
+
     @PostConstruct
     @Override
     public void init() {
-        generalService = trainService;
+        generalService = trainMuseumService;
         objectName = name;
     }
 }

@@ -1,7 +1,6 @@
 package net.vrakin.controller;
 
-import net.vrakin.model.ShowContentsInList;
-import net.vrakin.model.User;
+import net.vrakin.model.*;
 import net.vrakin.service.GeneralService;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -52,11 +51,11 @@ abstract class AbstractController {
         List<String> fields = getFields(prepareList);
 
         model.put("listValue", listValue);
-        model.put("listMap", new HashMap<>());
         model.put("fields", fields);
         model.put("header_page", capitalizeName());
         model.put("path_page", objectName);
         model.put("user", user);
+        createListMap();
     }
 
     private List<String> getFields(List<ShowContentsInList> prepareList) {
@@ -70,4 +69,9 @@ abstract class AbstractController {
         return new ModelAndView(pageName, model);
     }
 
+    protected void createListMap() {
+        Map<String, Object> listMap = new HashMap<>();
+
+        model.put("listMap", listMap);
+    }
 }

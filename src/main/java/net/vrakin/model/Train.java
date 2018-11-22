@@ -1,4 +1,6 @@
 package net.vrakin.model;
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -15,8 +17,10 @@ public class Train implements ShowContentsInList{
     @Column(name = "name")
     private String name;
 
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_date")
-    private Date creationDate;
+    private Calendar creationDate;
 
     @Column(name="corps_state")
     private Byte corpsState;
@@ -60,11 +64,11 @@ public class Train implements ShowContentsInList{
         this.name = name;
     }
 
-    public Date getCreationDate() {
+    public Calendar getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(Calendar creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -142,7 +146,8 @@ public class Train implements ShowContentsInList{
         map.put("company", company.toString());
         map.put("trainMuseum", trainMuseum.toString());
         map.put("city", city.toString());
-        map.put("creationDate", creationDate.toString());
+        DateFormat format = new SimpleDateFormat("dd:MM:yyyy");
+        map.put("creationDate", format.format(creationDate.getTime()));
 
         return map;
     }

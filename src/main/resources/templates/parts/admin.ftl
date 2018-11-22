@@ -8,8 +8,10 @@
     </#if>
     <table>
         <tr>
-            <#if path_page == "order">
-                <th>Action</th>
+            <#if listValue[0]?? >
+                <#if listValue[0]["button"]??>
+                    <th>Action</th>
+                </#if>
             </#if>
             <th> ${button_name}</th>
             <#if "${button_remove}" == "button_remove_on">

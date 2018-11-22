@@ -31,7 +31,6 @@ public class TrainController extends AbstractController {
     @GetMapping("/my_trains")
     public ModelAndView listTrainMarket(@AuthenticationPrincipal User user){
 
-        Company company = companyService.findByUser(user).get(0);
         setModelList(user);
 
         return getModelAndView();

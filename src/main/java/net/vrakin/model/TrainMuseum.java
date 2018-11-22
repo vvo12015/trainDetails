@@ -233,7 +233,7 @@ public class TrainMuseum implements ShowContentsInList{
                 map.put("reliability", reliability.toString());
                 map.put("limitAge", limitAge.toString());
                 map.put("corpsWear", corpsWear.toString());
-
+                map.put("button", "buy");
         return map;
     }
 
