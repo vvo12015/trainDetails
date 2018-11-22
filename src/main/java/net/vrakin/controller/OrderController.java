@@ -49,8 +49,8 @@ public class OrderController extends AbstractController{
     @GetMapping("/" + name)
     public ModelAndView getOrders(@AuthenticationPrincipal User user){
 
-        initPage(user);
         orderService.refreshUserOrders(user);
+        initPage(user);
 
         return getModelAndView();
     }
