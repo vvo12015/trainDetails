@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -49,31 +47,21 @@ public class OrderController extends AbstractController{
     @GetMapping("/" + name)
     public ModelAndView getOrders(@AuthenticationPrincipal User user){
 
-        this.user = user;
         initPage(user);
-        model.put("orders", orderService.findByUser(user).stream().map(Order::toMap).collect(Collectors.toList()));
+        orderService.refreshUserOrders(user);
 
         return getModelAndView();
     }
 
-    private void initPage(User user) {
-        this.user = user;
-        orderService.refresh(user);
-        setModelList(user);
-        model.put("company", companyService.findByUser(user).get(0));
-    }
-
-
     @GetMapping("/" + name + "/train{id}")
     public ModelAndView orderOfTrain(@AuthenticationPrincipal User user,
             @PathVariable("id") Long train_id){
-        setModelList(user);
-        initPage(user);
-
         Train train = trainService.findById(train_id);
+
+        orderService.refreshTrainOrders(train);
+        initPage(user);
         createListMap(train_id);
 
-        model.put("listValue", orderService.findByTrain(train).stream().map(Order::toMap).collect(Collectors.toList()));
         return getModelAndView();
     }
 
@@ -104,6 +92,17 @@ public class OrderController extends AbstractController{
         return orderOfTrain(user, train_id);
     }
 
+    @Override
+    protected void init() {
+        generalService = orderService;
+        objectName = name;
+    }
+
+    private void initPage(User user) {
+        setModelList(user);
+        model.put("company", companyService.findByUser(user).get(0));
+    }
+
 
     private void createListMap(Long train_id) {
         Map<String, Object> listMap = new HashMap<>();
@@ -114,11 +113,5 @@ public class OrderController extends AbstractController{
         listMap.put("route", routService.findAll().stream().map(Route::toMap).collect(Collectors.toList()));
 
         model.put("listMap", listMap);
-    }
-
-    @Override
-    protected void init() {
-        generalService = orderService;
-        objectName = name;
     }
 }

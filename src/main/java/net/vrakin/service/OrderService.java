@@ -22,7 +22,9 @@ public interface OrderService extends GeneralService<Order>{
 
     List<Order> findByNotGenerationOrders(Train train);
 
-    void refresh(User user);
+    void refreshUserOrders(User user);
+
+    void refreshTrainOrders(Train train);
 
     List<Order> findByTrain(Train train);
 

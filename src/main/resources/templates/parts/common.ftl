@@ -15,8 +15,8 @@
             width: 50;
         }
 
-        input {
-            width: 100;
+        input[type=text] {
+            width: 70px;
         }
     </style>
 </head>

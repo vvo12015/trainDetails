@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class OrderServiceImpl implements OrderService {
 
     public static final boolean IN_MOTION = true;
@@ -68,11 +70,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void refresh(User user){
+    @Transactional
+    public void refreshUserOrders(User user){
         orderRepository.refresh_orders();
         trainService.findByUser(user).forEach(t-> {
             if (orderRepository.findNotGenerationOrders(t.getId()).size() > 0){
-                orderMaker.makeOrders(user);
+                orderMaker.makeUserOrders(user);
             }else if (findByTrainWaiting(t).size() < orderGenerator.getCarCountMax()){
                 orderGenerator.generateOrders(t);
             }
@@ -81,6 +84,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
+    public void refreshTrainOrders(Train train) {
+        orderRepository.refresh_orders();
+        if (orderRepository.findNotGenerationOrders(train.getId()).size() > 0){
+            orderMaker.makeTrainOrders(train);
+        }else if (findByTrainWaiting(train).size() < orderGenerator.getCarCountMax()){
+            orderGenerator.generateOrders(train);
+        }
+    }
+
+    @Override
+    @Transactional
     public void delete(List<Order> orders){
         orderRepository.deleteAll(orders);
     }
@@ -96,6 +111,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public void save(Order order) {
         orderRepository.save(order);
     }
@@ -106,8 +122,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public void startOrder(Order order) {
         orderRepository.start_order(order.getId(), order.getTrain().getId());
+        entityManager.refresh(order);
     }
 
     @Override
@@ -121,11 +139,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public void delete(Order order) {
         orderRepository.delete(order);
     }
 
     @Override
+    @Transactional
     public void finishOrder(Order order) {
         if (order.getState().getName().equals(OrderStateName.DONE.get())){
             Train train = order.getTrain();
