@@ -102,6 +102,10 @@ public class OrderController extends AbstractController{
 
     private void initPage(User user) {
         setModelList(user);
+        model.put("listValue", orderService.findByUser(user)
+                .stream()
+                .map(Order::toMap)
+                .collect(Collectors.toList()));
         model.put("company", companyService.findByUser(user).get(0));
     }
 
