@@ -10,39 +10,19 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class CargoServiceImpl implements CargoService {
+public class CargoServiceImpl extends GeneralAbstractService<Cargo> implements CargoService {
 
     @Autowired
     private CargoRepository cargoRepository;
 
     @Override
-    public Cargo findById(Long id) {
-        return cargoRepository.findById(id).get();
-    }
-
-    @Override
-    public List<Cargo> findAll() {
-        return cargoRepository.findAll();
+    protected void init() {
+        this.repo = cargoRepository;
     }
 
     @Override
     public Cargo findByName(String name) {
         return cargoRepository.findByName(name).get();
-    }
-
-    @Override
-    public void save(Cargo object) {
-        cargoRepository.save(object);
-    }
-
-    @Override
-    public void delete(Cargo object) {
-        cargoRepository.delete(object);
-    }
-
-    @Override
-    public List<Map<String, String>> findAllToMap() {
-        return findAll().stream().map(Cargo::toMap).collect(Collectors.toList());
     }
 
     @Override

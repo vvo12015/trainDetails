@@ -1,6 +1,7 @@
 package net.vrakin.controller;
 
 import net.vrakin.model.Company;
+import net.vrakin.model.Train;
 import net.vrakin.model.User;
 import net.vrakin.service.CompanyService;
 import net.vrakin.service.TrainService;
@@ -25,6 +26,7 @@ public class TrainController extends AbstractController {
     @PostConstruct
     protected void init(){
         generalService = trainService;
+        model.put("fields", Train.getFields());
         objectName = name;
     }
 

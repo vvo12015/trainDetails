@@ -10,42 +10,21 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class TrainMuseumServiceImpl implements TrainMuseumService {
+public class TrainMuseumServiceImpl extends GeneralAbstractService<TrainMuseum> implements TrainMuseumService {
 
     @Autowired
     private TrainMuseumRepository trainMuseumRepo;
+
+    @Override
+    protected void init() {
+        this.repo = trainMuseumRepo;
+    }
 
     public TrainMuseumServiceImpl(TrainMuseumRepository trainMuseumRepo) {
         this.trainMuseumRepo = trainMuseumRepo;
     }
 
     public TrainMuseumServiceImpl() {
-    }
-
-
-    @Override
-    public void save(TrainMuseum trainMuseum) {
-        trainMuseumRepo.save(trainMuseum);
-    }
-
-    @Override
-    public List<TrainMuseum> findAll() {
-        return trainMuseumRepo.findAll();
-    }
-
-    @Override
-    public TrainMuseum findById(Long id) {
-        return trainMuseumRepo.findById(id).get();
-    }
-
-    @Override
-    public void delete(TrainMuseum trainMuseum) {
-        trainMuseumRepo.delete(trainMuseum);
-    }
-
-    @Override
-    public List<Map<String, String>> findAllToMap() {
-        return findAll().stream().map(TrainMuseum::toMap).collect(Collectors.toList());
     }
 
     @Override

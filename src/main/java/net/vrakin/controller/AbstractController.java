@@ -24,6 +24,8 @@ abstract class AbstractController {
 
     protected List<String> errors = new ArrayList<>();
 
+    protected Map<String, Object> listMap = new HashMap<>();
+
     @PostConstruct
     protected abstract void init();
 
@@ -51,10 +53,8 @@ abstract class AbstractController {
         List<ShowContentsInList> prepareList = generalService.findAll();
 
         List<Map<String, String>> listValue = prepareList.stream().map(ShowContentsInList::toMap).collect(Collectors.toList());
-        List<String> fields = getFields(prepareList);
 
         model.put("listValue", listValue);
-        model.put("fields", fields);
         model.put("header_page", capitalizeName());
         model.put("path_page", objectName);
         model.put("user", user);
@@ -62,19 +62,11 @@ abstract class AbstractController {
         createListMap();
     }
 
-    private List<String> getFields(List<ShowContentsInList> prepareList) {
-        List<String> fields = new ArrayList<>();
-        if (prepareList.size() > 0)
-            fields = prepareList.get(0).getFields();
-        return fields;
-    }
-
     protected ModelAndView getModelAndView(){
         return new ModelAndView(pageName, model);
     }
 
     protected void createListMap() {
-        Map<String, Object> listMap = new HashMap<>();
 
         model.put("listMap", listMap);
     }

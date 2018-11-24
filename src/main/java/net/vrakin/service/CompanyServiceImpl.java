@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class CompanyServiceImpl implements CompanyService {
+public class CompanyServiceImpl extends GeneralAbstractService<Company> implements CompanyService {
 
     @Autowired
     private CompanyRepository companyRepository;
@@ -21,8 +21,8 @@ public class CompanyServiceImpl implements CompanyService {
     private CityService cityService;
 
     @Override
-    public void save(Company company) {
-        companyRepository.save(company);
+    protected void init() {
+        this.repo = companyRepository;
     }
 
     @Override
@@ -44,23 +44,8 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public List<Company> findAll() {
-        return companyRepository.findAll();
-    }
-
-    @Override
-    public Company findById(Long id) {
-        return companyRepository.findById(id).get();
-    }
-
-    @Override
     public Company findByUserAndName(User user, String name) {
         return companyRepository.findByUserAndName(user, name).get();
-    }
-
-    @Override
-    public void delete(Company object) {
-        companyRepository.delete(object);
     }
 
     @Override

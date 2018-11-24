@@ -105,8 +105,7 @@ public class Route implements ShowContentsInList{
          return map;
     }
 
-    @Override
-    public List<String> getFields() {
+    public static List<String> getFields() {
 
         List<String> fields = new ArrayList<>();
 

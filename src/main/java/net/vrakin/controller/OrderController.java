@@ -96,6 +96,7 @@ public class OrderController extends AbstractController{
     @Override
     protected void init() {
         generalService = orderService;
+        model.put("fields", Order.getFields());
         objectName = name;
     }
 

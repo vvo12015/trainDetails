@@ -1,6 +1,7 @@
 package net.vrakin.controller;
 
 import net.vrakin.model.City;
+import net.vrakin.model.ShowContentsInList;
 import net.vrakin.model.User;
 import net.vrakin.service.CityService;
 import net.vrakin.service.GeneralService;
@@ -20,11 +21,13 @@ public class CityController extends AbstractController {
     protected final String name = "city";
     
     @Autowired
-    protected GeneralService<City> generalService;
+    protected GeneralService<City> cityService;
 
     @PostConstruct
     protected void init(){
         objectName = name;
+        generalService = cityService;
+        model.put("fields", City.getFields());
     }
 
     @GetMapping("/" + name)
@@ -50,8 +53,8 @@ public class CityController extends AbstractController {
     @GetMapping("/" + name + "_remove/{id}")
     public ModelAndView delete(@AuthenticationPrincipal User user,
                                @PathVariable("id") Long id){
-        City city = generalService.findById(id);
-        generalService.delete(city);
+        City city = cityService.findById(id);
+        cityService.delete(city);
         setModelList(user);
 
         return new ModelAndView("admin_table", model);

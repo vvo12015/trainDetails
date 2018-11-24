@@ -73,11 +73,11 @@ public class DetailMuseum implements ShowContentsInList{
         this.type = type;
     }
 
-    public Boolean getRepaired() {
+    public Boolean getIsRepaired() {
         return isRepaired;
     }
 
-    public void setRepaired(Boolean repaired) {
+    public void setIsRepaired(Boolean repaired) {
         isRepaired = repaired;
     }
 
@@ -121,8 +121,7 @@ public class DetailMuseum implements ShowContentsInList{
         return map;
     }
 
-    @Override
-    public List<String> getFields() {
+    public static List<String> getFields() {
 
         List<String> fields = new ArrayList<>();
 

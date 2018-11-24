@@ -11,10 +11,15 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class OrderStateServiceImpl implements OrderStateService {
+public class OrderStateServiceImpl extends GeneralAbstractService<OrderState> implements OrderStateService {
 
     @Autowired
     private OrderStateRepository orderStateRepository;
+
+    @Override
+    protected void init() {
+        this.repo = orderStateRepository;
+    }
 
     @Override
     public OrderState findByName(String name) {
@@ -28,42 +33,13 @@ public class OrderStateServiceImpl implements OrderStateService {
 
     @Override
     public List<OrderState> findByNames(List<String> names) {
-        return names.stream().map(
-                n->
-                {
-                    return findByName(n);
-                })
+        return names.stream().map(this::findByName)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<OrderState> findByInMotion(boolean inMotion) {
         return orderStateRepository.findByInMotion(inMotion);
-    }
-
-    @Override
-    public OrderState findById(Long id) {
-        return orderStateRepository.findById(id).get();
-    }
-
-    @Override
-    public List<OrderState> findAll() {
-        return orderStateRepository.findAll();
-    }
-
-    @Override
-    public void save(OrderState object) {
-        orderStateRepository.save(object);
-    }
-
-    @Override
-    public void delete(OrderState object) {
-        orderStateRepository.delete(object);
-    }
-
-    @Override
-    public List<Map<String, String>> findAllToMap() {
-        return findAll().stream().map(OrderState::toMap).collect(Collectors.toList());
     }
 
     @Override

@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class DetailsMuseumController extends AbstractController {
 
-    protected final String name = "detailsMuseum";
+    protected final String name = "detail_museum";
 
     @Autowired
     private GeneralService<DetailMuseum> detailMuseumService;
@@ -24,12 +28,15 @@ public class DetailsMuseumController extends AbstractController {
     @PostConstruct
     protected void init(){
         objectName = name;
+        generalService = detailMuseumService;
+        model.put("fields", DetailMuseum.getFields());
     }
 
     @GetMapping("/" + name)
     public ModelAndView toList(@AuthenticationPrincipal User user){
 
         setModelList(user);
+        createListMap();
         return getModelAndView();
     }
 
@@ -54,5 +61,23 @@ public class DetailsMuseumController extends AbstractController {
         setModelList(user);
 
         return new ModelAndView("admin_table", model);
+    }
+
+    @Override
+    protected void createListMap() {
+
+        Map<String, String> valueTrue = new HashMap<>();
+        valueTrue.put("id", "1");
+        valueTrue.put("name", "true");
+        Map<String, String> valueFalse = new HashMap<>();
+        valueFalse.put("id", "0");
+        valueFalse.put("name", "false");
+        List<Map<String, String>> listIsRepaired = new ArrayList<>();
+
+        listIsRepaired.add(valueTrue);
+        listIsRepaired.add(valueFalse);
+        listMap.put("isRepaired", listIsRepaired);
+
+        super.createListMap();
     }
 }

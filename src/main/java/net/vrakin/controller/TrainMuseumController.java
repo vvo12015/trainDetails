@@ -24,6 +24,7 @@ public class TrainMuseumController extends AbstractController {
     @PostConstruct
     protected void init(){
         generalService = trainMuseumService;
+        model.put("fields", TrainMuseum.getFields());
         objectName = name;
     }
 

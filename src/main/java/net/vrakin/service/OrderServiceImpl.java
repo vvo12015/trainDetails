@@ -13,11 +13,21 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl extends GeneralAbstractService<Order> implements  OrderService {
 
     public static final boolean IN_MOTION = true;
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Override
+    protected void init() {
+        this.repo = orderRepository;
+    }
+
+    @Override
+    public void delete(List<Order> orders) {
+        orders.forEach(this::delete);
+    }
 
     @Autowired
     private OrderRepository orderRepository;
@@ -94,12 +104,6 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    @Override
-    @Transactional
-    public void delete(List<Order> orders){
-        orderRepository.deleteAll(orders);
-    }
-
     private List<Order> findByTrainAndState(Train train, OrderState state) {
         return orderRepository.findByTrainAndState(train, state);
     }
@@ -108,12 +112,6 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findByTrainAndState(Train train, String orderStateName) {
         OrderState state = orderStateService.findByName(orderStateName);
         return orderRepository.findByTrainAndState(train, state);
-    }
-
-    @Override
-    @Transactional
-    public void save(Order order) {
-        orderRepository.save(order);
     }
 
     @Override
@@ -126,22 +124,6 @@ public class OrderServiceImpl implements OrderService {
     public void startOrder(Order order) {
         orderRepository.start_order(order.getId(), order.getTrain().getId());
         entityManager.refresh(order);
-    }
-
-    @Override
-    public List<Order> findAll() {
-        return orderRepository.findAll();
-    }
-
-    @Override
-    public Order findById(Long id) {
-        return orderRepository.findById(id).get();
-    }
-
-    @Override
-    @Transactional
-    public void delete(Order order) {
-        orderRepository.delete(order);
     }
 
     @Override
@@ -160,12 +142,6 @@ public class OrderServiceImpl implements OrderService {
 
             delete(order);
         }
-    }
-
-    @Override
-    public List<Map<String, String>> findAllToMap() {
-
-        return findAll().stream().map(Order::toMap).collect(Collectors.toList());
     }
 
     @Override

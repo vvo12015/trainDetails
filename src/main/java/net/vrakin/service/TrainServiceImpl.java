@@ -13,10 +13,15 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class TrainServiceImpl implements TrainService {
+public class TrainServiceImpl extends GeneralAbstractService<Train> implements TrainService {
 
     @Autowired
     private TrainRepository trainRepository;
+
+    @Override
+    protected void init() {
+        this.repo = trainRepository;
+    }
 
     @Autowired
     private CompanyService companyService;
@@ -27,23 +32,8 @@ public class TrainServiceImpl implements TrainService {
     }
 
     @Override
-    public List<Train> findAll() {
-        return trainRepository.findAll();
-    }
-
-    @Override
-    public void save(Train train) {
-        trainRepository.save(train);
-    }
-
-    @Override
     public List<Train> findByCompany(Company company) {
         return trainRepository.findByCompany(company);
-    }
-
-    @Override
-    public Train findById(Long trainId) {
-        return trainRepository.findById(trainId).get();
     }
 
     @Override
@@ -56,16 +46,6 @@ public class TrainServiceImpl implements TrainService {
     @Override
     public List<Train> findByCompanyIn(List<Company> companies) {
         return trainRepository.findByCompanyIn(companies);
-    }
-
-    @Override
-    public void delete(Train object) {
-        trainRepository.delete(object);
-    }
-
-    @Override
-    public List<Map<String, String>> findAllToMap() {
-        return findAll().stream().map(Train::toMap).collect(Collectors.toList());
     }
 
     @Override

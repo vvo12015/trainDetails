@@ -34,6 +34,7 @@ public class RouteController extends AbstractController {
     @PostConstruct
     protected void init(){
         generalService = routeService;
+        model.put("fields", Route.getFields());
         objectName = name;
     }
 
@@ -67,13 +68,15 @@ public class RouteController extends AbstractController {
     protected void setModelList(User user) {
         super.setModelList(user);
 
-        List<Map<String, String>> cities = cityService.findAll().stream().map(City::toMap).collect(Collectors.toList());
+        createListMap();
+    }
 
-        Map<String, Object> listMap = new HashMap<>();
+    protected void createListMap() {
+        List<Map<String, String>> cities = cityService.findAll().stream().map(City::toMap).collect(Collectors.toList());
 
         listMap.put("city1", cities);
         listMap.put("city2", cities);
 
-        model.put("listMap", listMap);
+        super.createListMap();
     }
 }

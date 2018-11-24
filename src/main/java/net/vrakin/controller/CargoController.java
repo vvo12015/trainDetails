@@ -27,6 +27,7 @@ public class CargoController extends AbstractController {
     protected void init(){
         generalService = cargoService;
         objectName = name;
+        model.put("fields", Cargo.getFields());
     }
 
     @GetMapping("/" + name)

@@ -11,39 +11,19 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class CityServiceImpl implements CityService{
+public class CityServiceImpl extends GeneralAbstractService<City> implements CityService{
 
     @Autowired
     private CityRepository cityRepository;
 
     @Override
-    public City findById(Long id) {
-        return cityRepository.findById(id).get();
-    }
-
-    @Override
-    public List<City> findAll() {
-        return cityRepository.findAll();
+    protected void init() {
+        this.repo = cityRepository;
     }
 
     @Override
     public City findByName(String name) {
         return cityRepository.findByName(name).get();
-    }
-
-    @Override
-    public void save(City object) {
-        cityRepository.save(object);
-    }
-
-    @Override
-    public void delete(City object) {
-        cityRepository.delete(object);
-    }
-
-    @Override
-    public List<Map<String, String>> findAllToMap() {
-        return findAll().stream().map(City::toMap).collect(Collectors.toList());
     }
 
     @Override

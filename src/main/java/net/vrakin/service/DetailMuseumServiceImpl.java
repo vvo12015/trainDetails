@@ -11,38 +11,23 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class DetailMuseumServiceImpl implements DetailMuseumService {
+public class DetailMuseumServiceImpl extends GeneralAbstractService<DetailMuseum> implements DetailMuseumService {
 
     @Autowired
     private DetailsMuseumRepository detailsMuseumRepository;
 
     @Override
-    public List<DetailMuseum> findAll() {
-        return detailsMuseumRepository.findAll();
-    }
-
-    @Override
-    public DetailMuseum findById(Long id) {
-        return detailsMuseumRepository.findById(id).get();
-    }
-
-    @Override
-    public void save(DetailMuseum object) {
-        detailsMuseumRepository.save(object);
-    }
-
-    @Override
-    public void delete(DetailMuseum object) {
-        detailsMuseumRepository.delete(object);
-    }
-
-    @Override
-    public List<Map<String, String>> findAllToMap() {
-        return findAll().stream().map(DetailMuseum::toMap).collect(Collectors.toList());
+    protected void init() {
+        this.repo = detailsMuseumRepository;
     }
 
     @Override
     public boolean checkUniqueName(String name) {
-        return false;
+        return detailsMuseumRepository.findByName(name).isPresent();
+    }
+
+    @Override
+    public DetailMuseum findByName(String name) {
+        return detailsMuseumRepository.findByName(name).get();
     }
 }

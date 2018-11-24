@@ -39,6 +39,8 @@ public class OrderAdminController extends AbstractController {
     @PostConstruct
     protected void init(){
         objectName = name;
+        generalService = orderService;
+        model.put("fields", Order.getFields());
     }
 
     @PostMapping("/" + name)

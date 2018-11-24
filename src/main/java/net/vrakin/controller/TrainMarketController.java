@@ -61,7 +61,14 @@ public class TrainMarketController extends AbstractController {
         return getModelAndView();
     }
 
-    @Override
+    @GetMapping("/train_museum_buy/{id}")
+    public ModelAndView trainMuseumBuy(@AuthenticationPrincipal User user,
+                                 @PathVariable("id") Long trainMuseum_id){
+        return trainBuy(user, trainMuseum_id);
+    }
+
+
+        @Override
     protected void setModelList(User user) {
         super.setModelList(user);
         Company company = companyService.findByUser(user).get(0);
@@ -75,5 +82,6 @@ public class TrainMarketController extends AbstractController {
     public void init() {
         generalService = trainMuseumService;
         objectName = name;
+        model.put("fields", Train.getFields());
     }
 }
