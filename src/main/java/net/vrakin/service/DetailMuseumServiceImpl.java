@@ -40,4 +40,9 @@ public class DetailMuseumServiceImpl implements DetailMuseumService {
     public List<Map<String, String>> findAllToMap() {
         return findAll().stream().map(DetailMuseum::toMap).collect(Collectors.toList());
     }
+
+    @Override
+    public boolean checkUniqueName(String name) {
+        return false;
+    }
 }

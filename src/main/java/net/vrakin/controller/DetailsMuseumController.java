@@ -23,7 +23,6 @@ public class DetailsMuseumController extends AbstractController {
 
     @PostConstruct
     protected void init(){
-        generalService = detailMuseumService;
         objectName = name;
     }
 
@@ -38,7 +37,11 @@ public class DetailsMuseumController extends AbstractController {
     public ModelAndView saveDetailMuseum(@AuthenticationPrincipal User user,
                                   DetailMuseum detailMuseum){
 
-        detailMuseumService.save(detailMuseum);
+        if (generalService.checkUniqueName(detailMuseum.getName())){
+            errors.add("Тhe name is not unique");
+        }else {
+            generalService.save(detailMuseum);
+        }
         setModelList(user);
         return new ModelAndView("admin_table", model);
     }

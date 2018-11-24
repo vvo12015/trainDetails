@@ -30,7 +30,7 @@ public class TrainMuseumServiceImpl implements TrainMuseumService {
 
     @Override
     public List<TrainMuseum> findAll() {
-        return (List<TrainMuseum>) trainMuseumRepo.findAll();
+        return trainMuseumRepo.findAll();
     }
 
     @Override
@@ -44,12 +44,12 @@ public class TrainMuseumServiceImpl implements TrainMuseumService {
     }
 
     @Override
-    public TrainMuseum findFirst() {
-        return trainMuseumRepo.findAll().get(0);
+    public List<Map<String, String>> findAllToMap() {
+        return findAll().stream().map(TrainMuseum::toMap).collect(Collectors.toList());
     }
 
     @Override
-    public List<Map<String, String>> findAllToMap() {
-        return findAll().stream().map(TrainMuseum::toMap).collect(Collectors.toList());
+    public boolean checkUniqueName(String name) {
+        return trainMuseumRepo.findByName(name).isPresent();
     }
 }

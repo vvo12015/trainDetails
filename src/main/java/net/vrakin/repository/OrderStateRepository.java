@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface OrderStateRepository extends JpaRepository<OrderState, Long> {
 
-    List<OrderState> findByName(String name);
+    Optional<OrderState> findByName(String name);
 
     List<OrderState> findByInMotion(boolean inMotion);
 }

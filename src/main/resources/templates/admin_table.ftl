@@ -6,6 +6,13 @@
 
 <@c.page "${header_page}">
      <@c.auth/>
+    <#if errors??>
+        <#list errors as error>
+            <p class=error>
+                ${error}
+            </p>
+        </#list>
+     </#if>
     <#if company??>
         <@comp.company_info "${company.name}", "${company.cash}", "${company.trainCount}"/>
     </#if>

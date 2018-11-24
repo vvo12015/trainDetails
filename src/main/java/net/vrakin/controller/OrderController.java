@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +31,7 @@ public class OrderController extends AbstractController{
     private TrainService trainService;
 
     @Autowired
-    private CargoSevice cargoSevice;
+    private CargoService cargoService;
 
     @Autowired
     private RouteService routService;
@@ -102,11 +101,15 @@ public class OrderController extends AbstractController{
 
     private void initPage(User user) {
         setModelList(user);
-        model.put("listValue", orderService.findByUser(user)
+        List<Map<String, String>> orders = orderService.findByUser(user)
                 .stream()
                 .map(Order::toMap)
-                .collect(Collectors.toList()));
-        model.put("company", companyService.findByUser(user).get(0));
+                .collect(Collectors.toList());
+        Company company = companyService.findByUser(user).get(0);
+        model.put("listValue", orders);
+        model.put("company", company);
+        Train train = trainService.findByCompanyAndName(company, orders.get(0).get("train"));
+        model.put("refreshTrain", train.getId().toString());
     }
 
     @Override
@@ -117,10 +120,8 @@ public class OrderController extends AbstractController{
         try {
             listValue = (List<Map<String, String>>) model.get("listValue");
             if (listValue.size() > 0) {
-                Train train = trainService.findByName(listValue.get(0).get("train")).get();
-                listMap.put("refreshTrain", train.getId().toString());
                 listMap.put("orderState", orderStateService.findAll().stream().map(OrderState::toMap).collect(Collectors.toList()));
-                listMap.put("cargo", cargoSevice.findAll().stream().map(Cargo::toMap).collect(Collectors.toList()));
+                listMap.put("cargo", cargoService.findAll().stream().map(Cargo::toMap).collect(Collectors.toList()));
                 listMap.put("route", routService.findAll().stream().map(Route::toMap).collect(Collectors.toList()));
             }
         }catch (ClassCastException ex){

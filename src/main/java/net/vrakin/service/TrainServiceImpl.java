@@ -76,7 +76,12 @@ public class TrainServiceImpl implements TrainService {
     }
 
     @Override
-    public Optional<Train> findByName(String name) {
-        return trainRepository.findByName(name);
+    public Train findByCompanyAndName(Company company, String name) {
+        return trainRepository.findByCompanyAndName(company, name).get();
+    }
+
+    @Override
+    public boolean checkUniqueName(String name) {
+        return false;
     }
 }

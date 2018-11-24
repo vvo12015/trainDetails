@@ -4,10 +4,11 @@ import net.vrakin.model.Company;
 import net.vrakin.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CompanyService extends GeneralService<Company>{
 
     List<Company> findByUser(User user);
     void registrationCompany(User user);
-    List<Company> findByName(String name);
+    Company findByUserAndName(User user, String name);
 }

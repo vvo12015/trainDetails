@@ -9,7 +9,7 @@ public interface OrderStateService extends GeneralService<OrderState>{
 
     OrderState getWaitState();
     List<OrderState> findByNames(List<String> names);
-    List<OrderState> findByName(String name);
+    OrderState findByName(String name);
     List<OrderState> findByInMotion(boolean inMotion);
 
 }

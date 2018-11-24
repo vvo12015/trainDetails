@@ -28,7 +28,7 @@ public class OrderAdminController extends AbstractController {
     private RouteService routeService;
 
     @Autowired
-    private CargoSevice cargoService;
+    private CargoService cargoService;
 
     @Autowired
     private TrainService trainService;
@@ -38,7 +38,6 @@ public class OrderAdminController extends AbstractController {
 
     @PostConstruct
     protected void init(){
-        generalService = orderService;
         objectName = name;
     }
 

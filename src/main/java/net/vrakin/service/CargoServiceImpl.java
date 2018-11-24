@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class CargoSeviceImpl implements CargoSevice {
+public class CargoServiceImpl implements CargoService {
 
     @Autowired
     private CargoRepository cargoRepository;
@@ -26,8 +26,8 @@ public class CargoSeviceImpl implements CargoSevice {
     }
 
     @Override
-    public List<Cargo> findByName(String name) {
-        return cargoRepository.findByName(name);
+    public Cargo findByName(String name) {
+        return cargoRepository.findByName(name).get();
     }
 
     @Override
@@ -43,5 +43,10 @@ public class CargoSeviceImpl implements CargoSevice {
     @Override
     public List<Map<String, String>> findAllToMap() {
         return findAll().stream().map(Cargo::toMap).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean checkUniqueName(String name) {
+        return cargoRepository.findByName(name).isPresent();
     }
 }

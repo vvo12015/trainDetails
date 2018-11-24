@@ -2,6 +2,7 @@ package net.vrakin.controller;
 
 import net.vrakin.model.*;
 import net.vrakin.service.GeneralService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.PostConstruct;
@@ -20,6 +21,8 @@ abstract class AbstractController {
     protected String pageName = "admin_table";
 
     protected Map<String, Object> model = new HashMap<>();
+
+    protected List<String> errors = new ArrayList<>();
 
     @PostConstruct
     protected abstract void init();
@@ -55,6 +58,7 @@ abstract class AbstractController {
         model.put("header_page", capitalizeName());
         model.put("path_page", objectName);
         model.put("user", user);
+        model.put("errors", errors);
         createListMap();
     }
 

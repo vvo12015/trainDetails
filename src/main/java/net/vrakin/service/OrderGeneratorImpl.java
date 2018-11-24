@@ -21,7 +21,7 @@ public class OrderGeneratorImpl extends Order implements OrderGenerator {
     private Integer speed;
 
     @Autowired
-    protected CargoSevice cargoService;
+    protected CargoService cargoService;
 
     @Autowired
     protected RouteService routeService;
@@ -64,7 +64,7 @@ public class OrderGeneratorImpl extends Order implements OrderGenerator {
             this.fullWear = generateFullWear();
             this.profit = generateProfit();
             this.execution = 0;
-            this.state = orderStateService.findByName(OrderStateName.WAITING.get()).get(0);
+            this.state = orderStateService.findByName(OrderStateName.WAITING.get());
 
             Order order = new Order();
             orderService.save(getOrder(order));

@@ -38,7 +38,11 @@ public class TrainMuseumController extends AbstractController {
     public ModelAndView saveTrainMuseum(@AuthenticationPrincipal User user,
                                   TrainMuseum trainMuseum){
 
-        trainMuseumService.save(trainMuseum);
+        if (generalService.checkUniqueName(trainMuseum.getName())){
+            errors.add("Тhe name is not unique");
+        }else {
+            trainMuseumService.save(trainMuseum);
+        }
         setModelList(user);
         return getModelAndView();
     }

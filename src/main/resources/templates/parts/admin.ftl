@@ -3,8 +3,8 @@
 <#macro table_out listValue button_name button_remove>
     <@c.save_form>
     </@c.save_form>
-    <#if listMap["refreshTrain"]??>
-        <a href="/order/train${listMap["refreshTrain"]}">Refresh</a>
+    <#if refreshTrain??>
+        <a href="/order/train${refreshTrain}">Refresh</a>
     </#if>
     <table>
         <tr>
@@ -41,7 +41,7 @@
             </#if>
 
             <#list fields as field>
-                <td><input type="text" name="name" value="${value["${field}"]}"/> </td>
+                <td><input type="text" name="${field}" value="${value["${field}"]}"/> </td>
             </#list>
             <#nested>
             </form>

@@ -2,6 +2,7 @@ package net.vrakin.controller;
 
 import net.vrakin.model.Cargo;
 import net.vrakin.model.User;
+import net.vrakin.service.CargoService;
 import net.vrakin.service.GeneralService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,10 +18,10 @@ import java.util.Map;
 @Controller
 public class CargoController extends AbstractController {
 
-    protected final String name = "cargo";
-
     @Autowired
-    private GeneralService<Cargo> cargoService;
+    private CargoService cargoService;
+
+    protected final String name = "cargo";
 
     @PostConstruct
     protected void init(){
@@ -38,8 +39,11 @@ public class CargoController extends AbstractController {
     @PostMapping("/" + name)
     public ModelAndView saveCargo(@AuthenticationPrincipal User user,
                                          Cargo cargo){
-
-        cargoService.save(cargo);
+        if (generalService.checkUniqueName(cargo.getName())){
+            errors.add("Тhe name is not unique");
+        }else {
+            generalService.save(cargo);
+        }
         setModelList(user);
         return new ModelAndView("admin_table", model);
     }
@@ -47,10 +51,12 @@ public class CargoController extends AbstractController {
     @GetMapping("/" + name + "_remove/{id}")
     public ModelAndView delete(@AuthenticationPrincipal User user,
                                            @PathVariable("id") Long id){
-        Cargo cargo = cargoService.findById(id);
-        cargoService.delete(cargo);
+        Cargo cargo = (Cargo) generalService.findById(id);
+        generalService.delete(cargo);
         setModelList(user);
 
         return new ModelAndView("admin_table", model);
     }
+
+
 }

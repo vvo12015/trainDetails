@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,8 +27,8 @@ public class CityServiceImpl implements CityService{
     }
 
     @Override
-    public List<City> findByName(String name) {
-        return cityRepository.findByName(name);
+    public City findByName(String name) {
+        return cityRepository.findByName(name).get();
     }
 
     @Override
@@ -43,5 +44,10 @@ public class CityServiceImpl implements CityService{
     @Override
     public List<Map<String, String>> findAllToMap() {
         return findAll().stream().map(City::toMap).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean checkUniqueName(String name) {
+        return cityRepository.findByName(name).isPresent();
     }
 }

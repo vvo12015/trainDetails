@@ -17,13 +17,13 @@ public class OrderStateServiceImpl implements OrderStateService {
     private OrderStateRepository orderStateRepository;
 
     @Override
-    public List<OrderState> findByName(String name) {
-        return orderStateRepository.findByName(name);
+    public OrderState findByName(String name) {
+        return orderStateRepository.findByName(name).get();
     }
 
     @Override
     public OrderState getWaitState() {
-        return findByName(OrderStateName.WAITING.get()).get(0);
+        return findByName(OrderStateName.WAITING.get());
     }
 
     @Override
@@ -31,7 +31,7 @@ public class OrderStateServiceImpl implements OrderStateService {
         return names.stream().map(
                 n->
                 {
-                    return findByName(n).get(0);
+                    return findByName(n);
                 })
                 .collect(Collectors.toList());
     }
@@ -64,5 +64,10 @@ public class OrderStateServiceImpl implements OrderStateService {
     @Override
     public List<Map<String, String>> findAllToMap() {
         return findAll().stream().map(OrderState::toMap).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean checkUniqueName(String name) {
+        return orderStateRepository.findByName(name).isPresent();
     }
 }

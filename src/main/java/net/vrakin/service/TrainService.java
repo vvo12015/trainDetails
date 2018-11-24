@@ -19,5 +19,5 @@ public interface TrainService extends GeneralService<Train>{
 
     Byte checkTechnicalStatus(Train train);
 
-    Optional<Train> findByName(String name);
+    Train findByCompanyAndName(Company company, String name);
 }

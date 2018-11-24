@@ -12,4 +12,6 @@ public interface GeneralService<T extends ShowContentsInList> {
     T findById(Long id);
     void save(T object);
     void delete(T object);
+
+    boolean checkUniqueName(String name);
 }

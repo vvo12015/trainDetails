@@ -32,7 +32,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderStateService orderStateService;
 
     @Autowired
-    private CargoSevice cargoSevice;
+    private CargoService cargoService;
 
     @Autowired
     private RouteService routeService;
@@ -106,7 +106,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> findByTrainAndState(Train train, String orderStateName) {
-        OrderState state = orderStateService.findByName(orderStateName).get(0);
+        OrderState state = orderStateService.findByName(orderStateName);
         return orderRepository.findByTrainAndState(train, state);
     }
 
@@ -177,5 +177,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> findByNotGenerationOrders(Train train) {
         return orderRepository.findNotGenerationOrders(train.getId());
+    }
+
+    @Override
+    public boolean checkUniqueName(String name) {
+        return false;
     }
 }

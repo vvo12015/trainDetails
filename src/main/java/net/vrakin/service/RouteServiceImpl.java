@@ -45,4 +45,9 @@ public class RouteServiceImpl implements RouteService {
     public List<Map<String, String>> findAllToMap() {
         return findAll().stream().map(Route::toMap).collect(Collectors.toList());
     }
+
+    @Override
+    public boolean checkUniqueName(String name) {
+        return false;
+    }
 }

@@ -42,7 +42,7 @@ public class OrderMakerImpl extends OrderGeneratorImpl implements OrderMaker {
     }
 
     private City getCurrentCity(Train train, Order order) {
-        state = orderStateService.findByName(OrderStateName.DONE.get()).get(0);
+        state = orderStateService.findByName(OrderStateName.DONE.get());
         String trainCity = train.getCity().getName();
         Route route = order.getRoute();
 

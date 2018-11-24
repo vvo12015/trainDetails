@@ -3,8 +3,9 @@ package net.vrakin.service;
 import net.vrakin.model.City;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CityService extends GeneralService<City>{
 
-    List<City> findByName(String name);
+    City findByName(String name);
 }

@@ -9,5 +9,4 @@ import java.util.Optional;
 @Service
 public interface TrainMuseumService extends GeneralService<TrainMuseum>{
 
-    TrainMuseum findFirst();
 }

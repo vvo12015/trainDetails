@@ -3,6 +3,7 @@ package net.vrakin.controller;
 import net.vrakin.model.City;
 import net.vrakin.model.User;
 import net.vrakin.service.CityService;
+import net.vrakin.service.GeneralService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -19,11 +20,10 @@ public class CityController extends AbstractController {
     protected final String name = "city";
     
     @Autowired
-    private CityService cityService;
+    protected GeneralService<City> generalService;
 
     @PostConstruct
     protected void init(){
-        generalService = cityService;
         objectName = name;
     }
 
@@ -38,7 +38,11 @@ public class CityController extends AbstractController {
     public ModelAndView saveCity(@AuthenticationPrincipal User user,
                                   City city){
 
-        cityService.save(city);
+        if (generalService.checkUniqueName(city.getName())){
+            errors.add("Тhe name is not unique");
+        }else {
+            generalService.save(city);
+        }
         setModelList(user);
         return new ModelAndView("admin_table", model);
     }
@@ -46,8 +50,8 @@ public class CityController extends AbstractController {
     @GetMapping("/" + name + "_remove/{id}")
     public ModelAndView delete(@AuthenticationPrincipal User user,
                                @PathVariable("id") Long id){
-        City city = cityService.findById(id);
-        cityService.delete(city);
+        City city = generalService.findById(id);
+        generalService.delete(city);
         setModelList(user);
 
         return new ModelAndView("admin_table", model);
