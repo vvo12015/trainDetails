@@ -1,14 +1,17 @@
 package net.vrakin.controller;
 
 import net.vrakin.model.DetailMuseum;
+import net.vrakin.model.TrainMuseum;
 import net.vrakin.model.User;
 import net.vrakin.service.GeneralService;
+import net.vrakin.service.TrainMuseumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.PostConstruct;
@@ -24,6 +27,9 @@ public class DetailsMuseumController extends AbstractController {
 
     @Autowired
     private GeneralService<DetailMuseum> detailMuseumService;
+
+    @Autowired
+    private TrainMuseumService trainMuseumService;
 
     @PostConstruct
     protected void init(){
@@ -79,5 +85,21 @@ public class DetailsMuseumController extends AbstractController {
         listMap.put("isRepaired", listIsRepaired);
 
         super.createListMap();
+    }
+
+    @GetMapping("/train_museum_details/{id}")
+    public ModelAndView trainMuseumDetails(@AuthenticationPrincipal User user,
+                                           @PathVariable("id") Long trainMuseum_id        ){
+        initPage(trainMuseum_id);
+        setModelList(user);
+        return getModelAndView();
+    }
+
+    private void initPage(Long trainMuseum_id){
+        TrainMuseum trainMuseum = trainMuseumService.findById(trainMuseum_id);
+
+        model.put("trainMuseum", trainMuseum.toMap());
+        model.put("trainMuseumFields", TrainMuseum.getFields());
+
     }
 }

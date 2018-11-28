@@ -28,6 +28,9 @@
                     <td>
                         <input type="submit" value="${value["button"]}"/>
                         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                        <#if trainMuseum??>
+                            <input type="hidden" name="trainMuseumId" value="${trainMuseum["id"]}"/>
+                        </#if>
                     </td>
                 </form>
             </#if>

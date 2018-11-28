@@ -117,6 +117,7 @@ public class DetailMuseum implements ShowContentsInList{
         map.put("wear", wear.toString());
         map.put("type", type);
         map.put("isRepaired", isRepaired.toString());
+        map.put("button", "add");
 
         return map;
     }
@@ -130,7 +131,6 @@ public class DetailMuseum implements ShowContentsInList{
         fields.add("wear");
         fields.add("type");
         fields.add("isRepaired");
-
 
         return fields;
     }

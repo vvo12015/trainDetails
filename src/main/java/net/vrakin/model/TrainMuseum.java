@@ -47,7 +47,7 @@ public class TrainMuseum implements ShowContentsInList{
             joinColumns= @JoinColumn(name = "train_museum_id"),
             inverseJoinColumns  = @JoinColumn(name = "detail_id")
     )
-    private List<TrainMuseum> details = new ArrayList<>();
+    private List<DetailMuseum> details = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -137,18 +137,20 @@ public class TrainMuseum implements ShowContentsInList{
         this.speed = speed;
     }
 
-    public List<TrainMuseum> getDetails() {
+    public List<DetailMuseum> getDetails() {
         return details;
     }
 
-    public void setDetails(List<TrainMuseum> details) {
+    public void setDetails(List<DetailMuseum> details) {
         this.details = details;
     }
 
     public TrainMuseum() {
     }
 
-    public TrainMuseum(String name, String description, Integer power, Integer speed, Integer price, Integer mass, Integer corpsPrice, Byte reliability, Byte limitAge, Byte corpsWear, List<TrainMuseum> details) {
+    public TrainMuseum(String name, String description, Integer power, Integer speed,
+                       Integer price, Integer mass, Integer corpsPrice, Byte reliability,
+                       Byte limitAge, Byte corpsWear, List<DetailMuseum> details) {
         this.name = name;
         this.description = description;
         this.power = power;
@@ -162,7 +164,9 @@ public class TrainMuseum implements ShowContentsInList{
         this.details = details;
     }
 
-    public TrainMuseum(Long id, String name, String description, Integer power, Integer speed, Integer price, Integer mass, Integer corpsPrice, Byte reliability, Byte limitAge, Byte corpsWear, List<TrainMuseum> details) {
+    public TrainMuseum(Long id, String name, String description, Integer power, Integer speed,
+                       Integer price, Integer mass, Integer corpsPrice, Byte reliability, Byte limitAge,
+                       Byte corpsWear, List<DetailMuseum> details) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -215,7 +219,6 @@ public class TrainMuseum implements ShowContentsInList{
                 ", reliability=" + reliability +
                 ", limitAge=" + limitAge +
                 ", corpsWear=" + corpsWear +
-                ", details=" + details +
                 '}';
     }
 
@@ -233,7 +236,7 @@ public class TrainMuseum implements ShowContentsInList{
                 map.put("reliability", reliability.toString());
                 map.put("limitAge", limitAge.toString());
                 map.put("corpsWear", corpsWear.toString());
-                map.put("button", "buy");
+                map.put("button", "details");
         return map;
     }
 

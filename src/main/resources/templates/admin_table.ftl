@@ -13,6 +13,9 @@
             </p>
         </#list>
      </#if>
+    <#if trainMuseum??>
+        <@t_mu.train_museum_info trainMuseum, trainMuseumFields/>
+    </#if>
     <#if company??>
         <@comp.company_info "${company.name}", "${company.cash}", "${company.trainCount}"/>
     </#if>

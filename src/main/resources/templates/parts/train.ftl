@@ -29,3 +29,17 @@
     </#list>
     </table>
 </#macro>
+<#macro train_museum_info trainMuseum trainMuseumFields>
+    <table>
+        <tr>
+            <#list trainMuseumFields as field>
+                <th> ${field}</th>
+            </#list>
+        </tr>
+        <tr>
+            <#list trainMuseumFields as field>
+                <td>${trainMuseum["${field}"]}</td>
+            </#list>
+        </tr>
+    </table>
+</#macro>
