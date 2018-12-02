@@ -92,13 +92,13 @@ public class OrderGeneratorImpl extends Order implements OrderGenerator {
 
         List<Route> routes = routeService.findByCity(this.train.getCity());
 
-        int index = getRandomInteger(routes.size()+1);
+        int index = getRandomInteger(routes.size());
 
         return routes.get(index);
     }
 
     private Integer generateCarCount() {
-        return getRandomInteger(CAR_COUNT_MAX) + 1;
+        return getRandomInteger(CAR_COUNT_MAX);
     }
 
     private Cargo generateCargo() {
@@ -110,8 +110,8 @@ public class OrderGeneratorImpl extends Order implements OrderGenerator {
         return cargoList.get(cargoIndex);
     }
 
-    private int getRandomInteger(Integer count) {
-        return Double.valueOf(Math.random() * (count - 1)).intValue();
+    public static int getRandomInteger(Integer count) {
+        return Long.valueOf(Math.round(Math.random() * (count - 1))).intValue();
     }
 
     private Integer generateCargoQuantity() {
