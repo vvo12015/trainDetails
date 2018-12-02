@@ -21,7 +21,7 @@ public abstract class GeneralAbstractService<T extends ShowContentsInList> imple
     }
 
     @Override
-    public List<Map<String, String>> findAllToMap() {
+    public List<Map<String, Object>> findAllToMap() {
         return repo.findAll().stream().map(ShowContentsInList::toMap).collect(Collectors.toList());
     }
 

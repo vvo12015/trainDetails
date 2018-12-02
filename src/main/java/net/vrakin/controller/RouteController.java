@@ -72,7 +72,7 @@ public class RouteController extends AbstractController {
     }
 
     protected void createListMap() {
-        List<Map<String, String>> cities = cityService.findAll().stream().map(City::toMap).collect(Collectors.toList());
+        List<Map<String, Object>> cities = cityService.findAll().stream().map(City::toMap).collect(Collectors.toList());
 
         listMap.put("city1", cities);
         listMap.put("city2", cities);

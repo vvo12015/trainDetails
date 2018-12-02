@@ -39,7 +39,7 @@ public class TrainMarketController extends AbstractController {
     }
 
     @GetMapping("/" + name + "_buy/{id}")
-    public ModelAndView trainBuy(@AuthenticationPrincipal User user,
+    public ModelAndView trainMarketBuy(@AuthenticationPrincipal User user,
                                  @PathVariable("id") Long trainMuseum_id){
 
         TrainMuseum trainMuseum = trainMuseumService.findById(trainMuseum_id);
@@ -59,6 +59,12 @@ public class TrainMarketController extends AbstractController {
         trainService.save(train);
         setModelList(user);
         return getModelAndView();
+    }
+
+    @GetMapping("/train_museum_buy/{id}")
+    public ModelAndView trainMuseumBuy(@AuthenticationPrincipal User user,
+                                 @PathVariable("id") Long trainMuseum_id){
+        return trainMarketBuy(user, trainMuseum_id);
     }
 
     @Override

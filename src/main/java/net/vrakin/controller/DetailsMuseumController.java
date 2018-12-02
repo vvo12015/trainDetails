@@ -3,6 +3,7 @@ package net.vrakin.controller;
 import net.vrakin.model.DetailMuseum;
 import net.vrakin.model.TrainMuseum;
 import net.vrakin.model.User;
+import net.vrakin.service.DetailMuseumService;
 import net.vrakin.service.GeneralService;
 import net.vrakin.service.TrainMuseumService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class DetailsMuseumController extends AbstractController {
@@ -26,7 +28,7 @@ public class DetailsMuseumController extends AbstractController {
     protected final String name = "detail_museum";
 
     @Autowired
-    private GeneralService<DetailMuseum> detailMuseumService;
+    private DetailMuseumService detailMuseumService;
 
     @Autowired
     private TrainMuseumService trainMuseumService;
@@ -43,6 +45,7 @@ public class DetailsMuseumController extends AbstractController {
 
         setModelList(user);
         createListMap();
+
         return getModelAndView();
     }
 
@@ -69,6 +72,34 @@ public class DetailsMuseumController extends AbstractController {
         return new ModelAndView("admin_table", model);
     }
 
+    @GetMapping("/" + name + "_add_{trainMuseum_id}/{detail_id}")
+    public String addDetailToTrainMuseum(@AuthenticationPrincipal User user,
+                               @PathVariable("detail_id") Long detailId,
+                               @PathVariable("trainMuseum_id") Long trainMuseumId){
+        DetailMuseum detailMuseum = detailMuseumService.findById(detailId);
+        TrainMuseum trainMuseum = trainMuseumService.findById(trainMuseumId);
+        List<DetailMuseum> detailMuseumList = trainMuseum.getDetails();
+        detailMuseumList.add(detailMuseum);
+        trainMuseum.setDetails(detailMuseumList);
+        trainMuseumService.save(trainMuseum);
+
+        return "redirect:" + "/train_museum_details/" + trainMuseumId;
+    }
+
+    @GetMapping("/" + name + "_remove_{trainMuseum_id}/{detail_id}")
+    public String removeDetailToTrainMuseum(@AuthenticationPrincipal User user,
+                                               @PathVariable("detail_id") Long detailId,
+                                               @PathVariable("trainMuseum_id") Long trainMuseumId){
+        DetailMuseum detailMuseum = detailMuseumService.findById(detailId);
+        TrainMuseum trainMuseum = trainMuseumService.findById(trainMuseumId);
+        List<DetailMuseum> detailMuseumList = trainMuseum.getDetails().stream()
+                .filter(d-> detailMuseum.getId()!=d.getId())
+                .collect(Collectors.toList());
+        trainMuseum.setDetails(detailMuseumList);
+        trainMuseumService.save(trainMuseum);
+
+        return "redirect:" + "/train_museum_details/" + trainMuseumId;
+    }
     @Override
     protected void createListMap() {
 
@@ -89,10 +120,18 @@ public class DetailsMuseumController extends AbstractController {
 
     @GetMapping("/train_museum_details/{id}")
     public ModelAndView trainMuseumDetails(@AuthenticationPrincipal User user,
-                                           @PathVariable("id") Long trainMuseum_id        ){
+                                           @PathVariable("id") Long trainMuseum_id){
         initPage(trainMuseum_id);
         setModelList(user);
+        TrainMuseum trainMuseum = trainMuseumService.findById(trainMuseum_id);
+        model.put("listValue", detailMuseumService.findAllWithButton(trainMuseum));
         return getModelAndView();
+    }
+
+    @GetMapping("/train_market_details/{id}")
+    public ModelAndView trainMarketDetails(@AuthenticationPrincipal User user,
+                                           @PathVariable("id") Long trainMuseum_id){
+        return trainMuseumDetails(user, trainMuseum_id);
     }
 
     private void initPage(Long trainMuseum_id){

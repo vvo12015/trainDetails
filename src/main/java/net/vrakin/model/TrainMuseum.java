@@ -223,8 +223,8 @@ public class TrainMuseum implements ShowContentsInList{
     }
 
     @Override
-    public Map<String, String> toMap() {
-        Map<String, String> map = new HashMap<>();
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
                 map.put("id", id.toString());
                 map.put("name", name);
                 map.put("description", description);
@@ -236,7 +236,12 @@ public class TrainMuseum implements ShowContentsInList{
                 map.put("reliability", reliability.toString());
                 map.put("limitAge", limitAge.toString());
                 map.put("corpsWear", corpsWear.toString());
-                map.put("button", "details");
+                List<String> buttons = new ArrayList<>();
+
+                buttons.add("buy");
+                buttons.add("details");
+
+                map.put("buttons", buttons);
         return map;
     }
 

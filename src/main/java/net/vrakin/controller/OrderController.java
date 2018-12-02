@@ -72,7 +72,7 @@ public class OrderController extends AbstractController{
         Order order = orderService.findById(order_id);
         orderService.startOrder(order);
 
-        return orderOfTrain(user, order.getTrain().getId());
+        return getOrders(user);
     }
 
     @GetMapping("/" + name + "_progress/{id}")
@@ -80,7 +80,7 @@ public class OrderController extends AbstractController{
                                    @PathVariable("id") Long order_id){
         Order order = orderService.findById(order_id);
 
-        return orderOfTrain(user, order.getTrain().getId());
+        return getOrders(user);
     }
 
     @GetMapping("/" + name + "_finish/{id}")
@@ -90,7 +90,7 @@ public class OrderController extends AbstractController{
         Long train_id = order.getTrain().getId();
         orderService.finishOrder(order);
 
-        return orderOfTrain(user, train_id);
+        return getOrders(user);
     }
 
     @Override
@@ -102,14 +102,14 @@ public class OrderController extends AbstractController{
 
     private void initPage(User user) {
         setModelList(user);
-        List<Map<String, String>> orders = orderService.findByUser(user)
+        List<Map<String, Object>> orders = orderService.findByUser(user)
                 .stream()
                 .map(Order::toMap)
                 .collect(Collectors.toList());
         Company company = companyService.findByUser(user).get(0);
         model.put("listValue", orders);
         model.put("company", company);
-        Train train = trainService.findByCompanyAndName(company, orders.get(0).get("train"));
+        Train train = trainService.findByCompanyAndName(company, orders.get(0).get("train").toString());
         model.put("refreshTrain", train.getId().toString());
     }
 

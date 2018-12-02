@@ -4,13 +4,15 @@
     <@c.save_form>
     </@c.save_form>
     <#if refreshTrain??>
-        <a href="/order/train${refreshTrain}">Refresh</a>
+        <a href="/order">Refresh</a>
     </#if>
     <table>
         <tr>
             <#if listValue[0]?? >
-                <#if listValue[0]["button"]??>
-                    <th>Action</th>
+                <#if listValue[0]["buttons"]??>
+                    <#list listValue[0]["buttons"] as button>
+                        <th>${button}</th>
+                    </#list>
                 </#if>
             </#if>
             <th> ${button_name}</th>
@@ -23,17 +25,22 @@
         </tr>
     <#list listValue as value>
         <tr>
-            <#if value["button"]??>
-                <form action="/${path_page}_${value["button"]}/${value["id"]}">
+            <#list value["buttons"] as button>
+                <#assign first_button_name = button>
+                <form action="/${path_page}_${first_button_name}/${value["id"]}">
                     <td>
-                        <input type="submit" value="${value["button"]}"/>
+                        <#assign indexSymbol = first_button_name?index_of("_")>
+                        <#if (indexSymbol > 0)>
+                            <#assign first_button_name = first_button_name?substring(0,indexSymbol)>
+                        </#if>
+                        <input type="submit" value="${first_button_name}"/>
                         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                         <#if trainMuseum??>
                             <input type="hidden" name="trainMuseumId" value="${trainMuseum["id"]}"/>
                         </#if>
                     </td>
                 </form>
-            </#if>
+            </#list>
             <form action="/${path_page}" method="post">
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                 <td><input type="submit" value="${button_name}"/></td>

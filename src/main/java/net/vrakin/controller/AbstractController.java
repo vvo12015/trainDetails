@@ -52,7 +52,7 @@ abstract class AbstractController {
     protected void setModelList(User user) {
         List<ShowContentsInList> prepareList = generalService.findAll();
 
-        List<Map<String, String>> listValue = prepareList.stream().map(ShowContentsInList::toMap).collect(Collectors.toList());
+        List<Map<String, Object>> listValue = prepareList.stream().map(ShowContentsInList::toMap).collect(Collectors.toList());
 
         model.put("listValue", listValue);
         model.put("header_page", capitalizeName());

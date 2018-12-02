@@ -110,14 +110,15 @@ public class DetailMuseum implements ShowContentsInList{
     }
 
     @Override
-    public Map<String, String> toMap() {
-        Map<String, String> map = new HashMap<>();
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
         map.put("id", id.toString());
         map.put("name", name);
         map.put("wear", wear.toString());
         map.put("type", type);
         map.put("isRepaired", isRepaired.toString());
-        map.put("button", "add");
+        List<String> buttons = new ArrayList<>();
+        map.put("buttons", buttons);
 
         return map;
     }

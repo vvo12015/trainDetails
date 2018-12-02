@@ -66,10 +66,10 @@ public class OrderAdminController extends AbstractController {
     protected void setModelList(User user) {
         super.setModelList(user);
 
-        List<Map<String, String>> routes = routeService.findAll().stream().map(Route::toMap).collect(Collectors.toList());
-        List<Map<String, String>> cargo = cargoService.findAll().stream().map(Cargo::toMap).collect(Collectors.toList());
-        List<Map<String, String>> trains = trainService.findAll().stream().map(Train::toMap).collect(Collectors.toList());
-        List<Map<String, String>> states = orderStateService.findAll().stream().map(OrderState::toMap).collect(Collectors.toList());
+        List<Map<String, Object>> routes = routeService.findAll().stream().map(Route::toMap).collect(Collectors.toList());
+        List<Map<String, Object>> cargo = cargoService.findAll().stream().map(Cargo::toMap).collect(Collectors.toList());
+        List<Map<String, Object>> trains = trainService.findAll().stream().map(Train::toMap).collect(Collectors.toList());
+        List<Map<String, Object>> states = orderStateService.findAll().stream().map(OrderState::toMap).collect(Collectors.toList());
 
         Map<String, Object> listMap = new HashMap<>();
 

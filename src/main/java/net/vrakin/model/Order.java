@@ -277,9 +277,9 @@ public class Order implements ShowContentsInList{
     }
 
     @Override
-    public Map<String, String> toMap() {
+    public Map<String, Object> toMap() {
         
-        Map<String, String> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
 
         map.put("id", id.toString());
         map.put("route", route.toString());
@@ -295,6 +295,7 @@ public class Order implements ShowContentsInList{
         map.put("deadline2", deadline2.toString());
         map.put("execution", execution.toString());
 
+        List<String> buttons = new ArrayList<>();
         String buttonName = "";
         switch (state.getId().intValue()){
             case 1:
@@ -307,7 +308,9 @@ public class Order implements ShowContentsInList{
                 buttonName = "finish";
                 break;
         }
-        map.put("button", buttonName);
+
+        buttons.add(buttonName);
+        map.put("buttons", buttons);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss dd.MM.yy");
         map.put("creationDate", simpleDateFormat.format(creationDate.getTime()));

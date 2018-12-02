@@ -143,8 +143,8 @@ public class Company implements ShowContentsInList {
     }
 
     @Override
-    public Map<String, String> toMap() {
-        Map<String, String> map = new HashMap<>();
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
         map.put("id", id.toString());
         map.put("name", name);
         map.put("cash", cash.toString());

@@ -136,9 +136,9 @@ public class Train implements ShowContentsInList{
     }
 
     @Override
-    public Map<String, String> toMap() {
+    public Map<String, Object> toMap() {
         
-        Map<String, String> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         
         map.put("id", id.toString());
         map.put("name", name);
@@ -148,6 +148,12 @@ public class Train implements ShowContentsInList{
         map.put("city", city.toString());
         DateFormat format = new SimpleDateFormat("dd:MM:yyyy");
         map.put("creationDate", format.format(creationDate.getTime()));
+        List<String> buttons = new ArrayList<>();
+
+        buttons.add("buy");
+        buttons.add("details");
+
+        map.put("buttons", buttons);
 
         return map;
     }

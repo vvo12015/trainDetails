@@ -89,9 +89,9 @@ public class User implements UserDetails, ShowContentsInList {
     }
 
     @Override
-    public Map<String, String> toMap() {
+    public Map<String, Object> toMap() {
 
-        Map<String, String> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
 
         map.put("username", username);
         map.put("id", id.toString());

@@ -92,9 +92,9 @@ public class Route implements ShowContentsInList{
     }
 
     @Override
-    public Map<String, String> toMap() {
+    public Map<String, Object> toMap() {
         
-         Map<String, String> map = new HashMap<>();
+         Map<String, Object> map = new HashMap<>();
 
         map.put("id", id.toString());
         map.put("city1", city1.toString());

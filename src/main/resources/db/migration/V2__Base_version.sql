@@ -215,7 +215,6 @@ ALTER TABLE ONLY public.orders
 ALTER TABLE ONLY public.orders
     ADD CONSTRAINT fkeop7en0d481ppxbnglcmxd5u9 FOREIGN KEY (route_id) REFERENCES public.route(id);
 
-
 ALTER TABLE ONLY public.train_detail_museum
     ADD CONSTRAINT fkf2lxty4na57h32rtjg9yy37ch FOREIGN KEY (detail_id) REFERENCES public.train_museum(id);
 

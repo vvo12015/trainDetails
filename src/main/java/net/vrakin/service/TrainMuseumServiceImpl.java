@@ -1,5 +1,6 @@
 package net.vrakin.service;
 
+import net.vrakin.model.DetailMuseum;
 import net.vrakin.model.TrainMuseum;
 import net.vrakin.repository.TrainMuseumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class TrainMuseumServiceImpl extends GeneralAbstractService<TrainMuseum> 
     @Override
     public boolean checkUniqueName(String name) {
         return trainMuseumRepo.findByName(name).isPresent();
+    }
+
+    @Override
+    public List<TrainMuseum> findByDetails(List<DetailMuseum> details) {
+        return findByDetails(details);
     }
 }
