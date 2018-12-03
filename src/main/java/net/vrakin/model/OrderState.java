@@ -62,6 +62,8 @@ public class OrderState implements ShowContentsInList{
         Map<String, Object> map = new HashMap<>();
         map.put("id", id.toString());
         map.put("name", name);
+        List<String> buttons = new ArrayList<>();
+        map.put("buttons", buttons);
 
         return map;
     }

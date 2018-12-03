@@ -88,6 +88,8 @@ public class Cargo implements ShowContentsInList{
         map.put("name", name);
         map.put("minPrice", minPrice.toString());
         map.put("maxPrice", maxPrice.toString());
+        List<String> buttons = new ArrayList<>();
+        map.put("buttons", buttons);
 
         return map;
     }

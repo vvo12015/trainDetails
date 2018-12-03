@@ -149,6 +149,8 @@ public class Company implements ShowContentsInList {
         map.put("name", name);
         map.put("cash", cash.toString());
         map.put("user", user.getUsername());
+        List<String> buttons = new ArrayList<>();
+        map.put("buttons", buttons);
 
         return map;
     }

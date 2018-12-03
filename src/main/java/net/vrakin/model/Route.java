@@ -101,6 +101,8 @@ public class Route implements ShowContentsInList{
         map.put("city2", city2.toString());
         map.put("distance", distance.toString());
         map.put("name", toString());
+        List<String> buttons = new ArrayList<>();
+        map.put("buttons", buttons);
 
          return map;
     }

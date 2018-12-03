@@ -135,6 +135,14 @@ public class Train implements ShowContentsInList{
                 '}';
     }
 
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "train_detail",
+            joinColumns= @JoinColumn(name = "train_id"),
+            inverseJoinColumns  = @JoinColumn(name = "detail_id")
+    )
+    private List<Detail> details = new ArrayList<>();
+
+
     @Override
     public Map<String, Object> toMap() {
         
@@ -171,5 +179,9 @@ public class Train implements ShowContentsInList{
         fields.add("creationDate");
 
         return fields;
+    }
+
+    public List<Detail> getDetails() {
+        return details;
     }
 }
