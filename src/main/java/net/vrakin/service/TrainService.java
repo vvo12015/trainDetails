@@ -20,4 +20,6 @@ public interface TrainService extends GeneralService<Train>{
     Byte checkTechnicalStatus(Train train);
 
     Train findByCompanyAndName(Company company, String name);
+
+    void trainBuy(User user, Long trainMuseumId);
 }

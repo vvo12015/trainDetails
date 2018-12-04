@@ -2,6 +2,7 @@
     <table>
         <tr>
             <th> Orders</th>
+            <th> Details</th>
             <th> Id </th>
             <th> Name </th>
             <th> Creation date</th>
@@ -11,15 +12,18 @@
     <#list trains as train>
         <tr>
             <td>
-                <a href="/order/train${train.id?c}">Orders</a>
+                <a href="/order/train${train["id"]}">Orders</a>
             </td>
-            <td><input type="text" name="id" value="${train.id?c}" readonly/> </td>
-            <td><input type="text" name="name" value="${train.name}" readonly/> </td>
-            <td><input type="text" name="creationDate" value="${train.creationDate}"  readonly</td>
-            <td><input type="text" name="power" value="${train.corpsState?c}"  readonly</td>
             <td>
-                <#if train.city??>
-                    <#assign city = train.city>
+                <a href="/detail/train${train["id"]}">Details</a>
+            </td>
+            <td><input type="text" name="id" value="${train["id"]}" readonly/> </td>
+            <td><input type="text" name="name" value="${train["name"]}" readonly/> </td>
+            <td><input type="text" name="creationDate" value="${train["creationDate"]}"  readonly</td>
+            <td><input type="text" name="power" value="${train["corpsState"]}"  readonly</td>
+            <td>
+                <#if train["city"]??>
+                    <#assign city = train["city"]>
                     <#else>
                     city = "-";
                 </#if>

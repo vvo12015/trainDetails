@@ -1,8 +1,10 @@
 <#import "common.ftl" as c>
 
-<#macro table_out listValue button_name button_remove>
-    <@c.save_form>
-    </@c.save_form>
+<#macro table_out listValue fields button_name button_remove>
+    <#if !save_not??>
+        <@c.save_form>
+        </@c.save_form>
+    </#if>
     <#if refreshTrain??>
         <a href="/order">Refresh</a>
     </#if>
@@ -11,7 +13,12 @@
             <#if listValue[0]?? >
                 <#if listValue[0]["buttons"]??>
                     <#list listValue[0]["buttons"] as button>
-                        <th>${button}</th>
+                    <#assign head_button_name = button>
+                        <#assign indexSymbol = head_button_name?index_of("_")>
+                        <#if (indexSymbol > 0)>
+                            <#assign head_button_name = head_button_name?substring(0,indexSymbol)>
+                        </#if>
+                        <th>${head_button_name}</th>
                     </#list>
                 </#if>
             </#if>

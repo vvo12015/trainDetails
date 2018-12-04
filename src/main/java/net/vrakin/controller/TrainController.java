@@ -1,6 +1,7 @@
 package net.vrakin.controller;
 
 import net.vrakin.model.Company;
+import net.vrakin.model.ShowContentsInList;
 import net.vrakin.model.Train;
 import net.vrakin.model.User;
 import net.vrakin.service.CompanyService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.PostConstruct;
+import java.util.stream.Collectors;
 
 @org.springframework.stereotype.Controller
 public class TrainController extends AbstractController {
@@ -34,8 +36,6 @@ public class TrainController extends AbstractController {
     public ModelAndView listTrainMarket(@AuthenticationPrincipal User user){
 
         setModelList(user);
-
-
         return getModelAndView();
     }
 
@@ -49,6 +49,8 @@ public class TrainController extends AbstractController {
         model.put("path_page", objectName);
         model.put("user", user);
 
-        model.put("trains", trainService.findByCompany(company));
+        model.put("trains", trainService.findByCompany(company).stream()
+                .map(ShowContentsInList::toMap)
+                .collect(Collectors.toList()));
     }
 }

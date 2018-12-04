@@ -38,10 +38,13 @@ public class Train implements ShowContentsInList{
     @JoinColumn(name="city_id")
     private City city;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="train")
+    private List<Detail> details=new ArrayList<>();
+
     public Train(String name, Company company, TrainMuseum trainMuseum) {
         this.name = name;
-        this.corpsState = 100;
         this.company = company;
+        this.corpsState = 100;
         this.trainMuseum = trainMuseum;
     }
 
@@ -104,6 +107,10 @@ public class Train implements ShowContentsInList{
         this.city = city;
     }
 
+    public void setDetails(List<Detail> details) {
+        this.details = details;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -134,14 +141,6 @@ public class Train implements ShowContentsInList{
                 ", trainMuseum=" + trainMuseum +
                 '}';
     }
-
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "train_detail",
-            joinColumns= @JoinColumn(name = "train_id"),
-            inverseJoinColumns  = @JoinColumn(name = "detail_id")
-    )
-    private List<Detail> details = new ArrayList<>();
-
 
     @Override
     public Map<String, Object> toMap() {

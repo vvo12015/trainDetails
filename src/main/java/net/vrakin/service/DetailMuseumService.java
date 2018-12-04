@@ -11,4 +11,6 @@ public interface DetailMuseumService extends GeneralService<DetailMuseum> {
     DetailMuseum findByName(String name);
 
     List<Map<String, Object>> findAllWithButton(TrainMuseum trainMuseum);
+
+    List<Map<String, Object>> findOfTrainWithButton(Long train_id);
 }

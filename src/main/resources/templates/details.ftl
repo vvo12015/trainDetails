@@ -6,18 +6,9 @@
 
 <@c.page "${header_page}">
      <@c.auth/>
-    <#if errors??>
-        <#list errors as error>
-            <p class=error>
-                ${error}
-            </p>
-        </#list>
-     </#if>
-    <#if trainMuseum??>
-        <@t_mu.train_museum_info trainMuseum, trainMuseumFields/>
-    </#if>
     <#if company??>
         <@comp.company_info "${company.name}", "${company.cash}", "${company.trainCount}"/>
     </#if>
     <@adm.table_out listValue, fields, "Update", "button_remove_on"/>
+    <@adm.table_out detailMuseumList, detailMuseumFields, "Update", "button_remove_on"/>
 </@c.page>

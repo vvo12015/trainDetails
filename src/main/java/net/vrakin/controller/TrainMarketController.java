@@ -42,21 +42,7 @@ public class TrainMarketController extends AbstractController {
     public ModelAndView trainMarketBuy(@AuthenticationPrincipal User user,
                                  @PathVariable("id") Long trainMuseum_id){
 
-        TrainMuseum trainMuseum = trainMuseumService.findById(trainMuseum_id);
-        Company company = companyService.findByUser(user).get(0);
-        Long trainOfTypeCount = company.getTrains()
-                .stream()
-                .filter(train -> train.getTrainMuseum().equals(trainMuseum))
-                .count();
-        Train train = new Train(
-                trainMuseum.getName() + trainOfTypeCount.toString(),
-                company,
-                trainMuseum
-                );
-        train.setCity(company.getCity()==null?cityService.findById(1L):company.getCity());
-        company.setCash(company.getCash() - trainMuseum.getPrice());
-        companyService.save(company);
-        trainService.save(train);
+        trainService.trainBuy(user, trainMuseum_id);
         setModelList(user);
         return getModelAndView();
     }

@@ -23,6 +23,16 @@ public class Detail implements ShowContentsInList{
     @Column(name="distance_from_repair")
     private Integer distance_from_repair;
 
+    @ManyToOne(fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    @JoinColumn(name="train_id")
+    private Train train;
+
+    @ManyToOne(fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    @JoinColumn(name="detail_museum_id")
+    private DetailMuseum detailMuseum;
+
     public Long getId() {
         return id;
     }
@@ -63,20 +73,32 @@ public class Detail implements ShowContentsInList{
         this.distance_from_repair = distance_from_repair;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Detail detail = (Detail) o;
-        return Objects.equals(name, detail.name) &&
-                Objects.equals(state, detail.state) &&
-                Objects.equals(distance_from_creation, detail.distance_from_creation) &&
-                Objects.equals(distance_from_repair, detail.distance_from_repair);
+    public Train getTrain() {
+        return train;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, state, distance_from_creation, distance_from_repair);
+    public void setTrain(Train train) {
+        this.train = train;
+    }
+
+    public DetailMuseum getDetailMuseum() {
+        return detailMuseum;
+    }
+
+    public void setDetailMuseum(DetailMuseum detailMuseum) {
+        this.detailMuseum = detailMuseum;
+    }
+
+    public Detail(Train train, DetailMuseum detailMuseum) {
+        this.name = detailMuseum.getName();
+        this.train = train;
+        this.detailMuseum = detailMuseum;
+        this.distance_from_creation = 0;
+        this.distance_from_repair = 0;
+        this.state = 100;
+    }
+
+    public Detail() {
     }
 
     @Override
@@ -87,6 +109,8 @@ public class Detail implements ShowContentsInList{
                 ", state=" + state +
                 ", distance_from_creation=" + distance_from_creation +
                 ", distance_from_repair=" + distance_from_repair +
+                ", train=" + train +
+                ", detailMuseum=" + detailMuseum +
                 '}';
     }
 
@@ -95,14 +119,16 @@ public class Detail implements ShowContentsInList{
 
         Map<String , Object> result = new HashMap<>();
 
-                result.put("id",  id);
-                result.put("name", name);
-                result.put("state", state);
-                result.put("distance_from_creation", distance_from_creation);
-                result.put("distance_from_repair", distance_from_repair);
+        result.put("id",  id);
+        result.put("name", name);
+        result.put("state", state.toString());
+        result.put("distance_from_creation", distance_from_creation);
+        result.put("distance_from_repair", distance_from_repair);
         List<String> buttons = new ArrayList<>();
         result.put("buttons", buttons);
-        
+        result.put("train", train.getName());
+        result.put("detailMuseum", detailMuseum.getName());
+
         return result;
     }
 
@@ -115,6 +141,8 @@ public class Detail implements ShowContentsInList{
         fields.add("state");
         fields.add("distance_from_creation");
         fields.add("distance_from_repair");
+        fields.add("train");
+        fields.add("detailMuseum");
 
         return fields;
     }
