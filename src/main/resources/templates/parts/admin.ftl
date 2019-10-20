@@ -58,7 +58,7 @@
             </#if>
 
             <#list fields as field>
-                <#if ${value["${field}"]?is_collection}>
+                <#if value["${field}"]?is_collection>
                     <td>
                     <input type="text" name="${field}" value="
                     <#list ${value[{$field}] as f>
