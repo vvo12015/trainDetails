@@ -1,6 +1,6 @@
 CREATE TABLE public.game_config (
     id bigint NOT NULL PRIMARY KEY,
     name character varying(255),
-    value_str character varying(255),
-    value_int bigint
+    valueStr character varying(255),
+    valueInt bigint
 );
