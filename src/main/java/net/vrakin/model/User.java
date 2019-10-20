@@ -98,6 +98,7 @@ public class User implements UserDetails, ShowContentsInList {
         map.put("isActive", isActive().toString());
         List<String> buttons = new ArrayList<>();
         map.put("buttons", buttons);
+        map.put("list.roles", roles);
 
         return map;
     }
@@ -109,6 +110,7 @@ public class User implements UserDetails, ShowContentsInList {
         fields.add("username");
         fields.add("id");
         fields.add("isActive");
+        fields.add("list.roles");
 
         return fields;
     }

@@ -58,7 +58,17 @@
             </#if>
 
             <#list fields as field>
+                <#if ${field}?starts_with("list.")>
+                    <td>
+                    <input type="text" name="${field}" value="
+                    <#list ${value[{$field}] as f>
+                        f,
+                    </#list>
+                    "/>
+                    </td>
+                <#else>
                 <td><input type="text" name="${field}" value="${value["${field}"]}"/> </td>
+                </#if>
             </#list>
             <#nested>
             </form>
