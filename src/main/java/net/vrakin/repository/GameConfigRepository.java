@@ -1,12 +1,12 @@
 package net.vrakin.repository;
 
-import net.vrakin.model.Cargo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import net.vrakin.model.GameConfig;
 
 import java.util.Optional;
 
 @Repository
-public interface CargoRepository extends JpaRepository<Cargo, Long> {
-    Optional<Cargo> findByName(String name);
+public interface GameConfigRepository extends JpaRepository<GameConfig, Long> {
+    Optional<GameConfig> findByName(String name);
 }
