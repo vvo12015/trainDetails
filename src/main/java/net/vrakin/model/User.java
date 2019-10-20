@@ -96,6 +96,8 @@ public class User implements UserDetails, ShowContentsInList {
         map.put("username", username);
         map.put("id", id.toString());
         map.put("isActive", isActive().toString());
+        List<String> buttons = new ArrayList<>();
+        map.put("buttons", buttons);
 
         return map;
     }
