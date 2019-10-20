@@ -58,7 +58,7 @@
             </#if>
 
             <#list fields as field>
-                <td><input type="text" name="${field}" value="${value["${field}"]}"/> </td>
+                <td><input type="text" name="${field}" value="${value["${field}"]}?join(",")"/> </td>
             </#list>
             <#nested>
             </form>
