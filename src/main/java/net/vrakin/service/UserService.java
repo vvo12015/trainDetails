@@ -19,7 +19,7 @@ public class UserService extends GeneralAbstractService<User> implements UserDet
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return userRepository.findByUsername(s).get();
+        return userRepository.findByUsername(s);
     }
 
 
@@ -30,6 +30,6 @@ public class UserService extends GeneralAbstractService<User> implements UserDet
 
     @Override
     public boolean checkUniqueName(String name) {
-        return userRepository.findByUsername(name).isPresent();
+        return userRepository.findByUsername(name) != null;
     }
 }
