@@ -58,7 +58,17 @@
             </#if>
 
             <#list fields as field>
-                <td><input type="text" name="${field}" value="${value["${field}"]?join(",")}"/> </td>
+                <#if ${value["${field}"]?is_collection}>
+                    <td>
+                    <input type="text" name="${field}" value="
+                    <#list ${value[{$field}] as f>
+                        f,
+                    </#list>
+                    "/>
+                    </td>
+                <#else>
+                <td><input type="text" name="${field}" value="${value["${field}"]}"/> </td>
+                </#if>
             </#list>
             <#nested>
             </form>
