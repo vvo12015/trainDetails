@@ -56,8 +56,8 @@
                         <a href="/${path_page}_remove/${value["id"]}">Видалити</a>
                  </td>
             </#if>
-
             <#list fields as field>
+                ${field[0..4]}
                 <#list value as key, val_n>
                     <#if key = field>
                         <#if field[0..4]="list">
