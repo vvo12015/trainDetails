@@ -27,7 +27,8 @@
                 <th> Remove</th>
             </#if>
             <#list fields as field>
-                <th>    <#if field?starts_with("list.")>${field?substring(5, 20)}
+                <th>    <#if field?starts_with("list.")>
+                            ${field?substring(5, field?length)}
                         <#else> ${field}
                         </#if></th>
              </#list>
