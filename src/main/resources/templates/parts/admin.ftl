@@ -58,18 +58,18 @@
             </#if>
 
             <#list fields as field>
-                <#list value as key, val>
+                <#list value as key, val_n>
                     <#if key = field>
                         <#if !val?is_collection>
                             <td>
                             <input type="text" name="${field}" value="
-                            <#list val as f>
+                            <#list val_n as f>
                                 f,
                             </#list>
                             "/>
                             </td>
                         <#else>
-                            <td><input type="text" name="${field}" value="${val}"/> </td>
+                            <td><input type="text" name="${field}" value="${val_n}"/> </td>
                         </#if>
                     </#if>
                 </#list>
