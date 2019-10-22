@@ -40,7 +40,12 @@
                     <#if field != "id">
                         <#if field?item_parity_cap = "Odd">
                             <tr>
-                            <td>${field?capitalize}</td>
+                            <td>
+                                <#if field?starts_with("list.")>
+                                    ${field?substring(5, field?length)?capitalize}
+                                <#else> ${field?capitalize}
+                                </#if>
+                            </td>
                             <td>
                                 <input list="${field}List" type="text" name="${field}"/>
                                 <#if listMap["${field}"]??>
@@ -52,7 +57,12 @@
                                 </#if>
                             </td>
                         <#else>
-                            <td> ${field?capitalize}</td>
+                            <td>
+                                <#if field?starts_with("list.")>
+                                    ${field?substring(5, field?length)?capitalize}
+                                <#else> ${field?capitalize}
+                                </#if>
+                            </td>
                             <td>
                                 <input list="${field}List" type="text" name="${field}"/>
                                 <#if listMap["${field}"]??>
