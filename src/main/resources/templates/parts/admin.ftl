@@ -65,7 +65,7 @@
                         <#if key?starts_with("list")>
                             <td>
                             <input type="text" name="${field}" value="
-                            <#list val_n as f>${f}, </#list>)
+                            <#list val_n as f>${f?trim}, </#list>)
                             "/>
                             </td>
                         <#else>
