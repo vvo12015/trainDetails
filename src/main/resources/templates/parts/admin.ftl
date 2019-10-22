@@ -60,7 +60,7 @@
             <#list fields as field>
                 <#list value as key, val_n>
                     <#if key = field>
-                        <#if !val_n?is_collection>
+                        <#if val_n?is_collection>
                             <td>
                             <input type="text" name="${field}" value="
                             <#list val_n as f>
