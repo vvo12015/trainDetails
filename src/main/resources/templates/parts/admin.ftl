@@ -69,7 +69,7 @@
                             "/>
                             </td>
                         <#else>
-                            <td><input type="text" name="${field}" value="${value["${field}"]}"/> </td>
+                            <td><input type="text" name="${field}" value="${val}"/> </td>
                         </#if>
                     </#if>
                 </#list>
