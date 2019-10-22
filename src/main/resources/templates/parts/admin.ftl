@@ -63,7 +63,7 @@
                         <#if val?is_collection>
                             <td>
                             <input type="text" name="${field}" value="
-                            <#list ${value[{$field}] as f>
+                            <#list val as f>
                                 f,
                             </#list>
                             "/>
