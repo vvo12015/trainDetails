@@ -66,7 +66,7 @@
                             <td>
                             <input type="text" name="${field}" value="
                             <#list val_n as f>
-                                f,
+                                ${f},
                             </#list>
                             "/>
                             </td>
