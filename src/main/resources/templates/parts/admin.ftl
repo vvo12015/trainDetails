@@ -27,7 +27,7 @@
                 <th> Remove</th>
             </#if>
             <#list fields as field>
-                <th>${field[0..4]}</th>
+                <th>${field[1..4]}</th>
              </#list>
         </tr>
     <#list listValue as value>
