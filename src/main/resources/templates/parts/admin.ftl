@@ -64,8 +64,8 @@
             </#if>
             <#list fields as field>
                 <#list value as key, val_n>
-                    <#if key == field>
-                        <#if field[0..4]=="list">
+                    <#if (key == field)>
+                        <#if key?starts_with("list")>
                             <td>
                             <input type="text" name="${field}" value="
                             <#list val_n as f>
