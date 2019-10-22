@@ -27,7 +27,9 @@
                 <th> Remove</th>
             </#if>
             <#list fields as field>
-                <th>${field[1..4]}</th>
+                <th><#if field?length > 3>${field[1..3]}
+                    <#else>${field}
+                    </#if></th>
              </#list>
         </tr>
     <#list listValue as value>
@@ -58,8 +60,8 @@
             </#if>
             <#list fields as field>
                 <#list value as key, val_n>
-                    <#if key = field>
-                        <#if field[0..4]="list">
+                    <#if key == field>
+                        <#if field[0..4]=="list">
                             <td>
                             <input type="text" name="${field}" value="
                             <#list val_n as f>
