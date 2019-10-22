@@ -27,7 +27,7 @@
                 <th> Remove</th>
             </#if>
             <#list fields as field>
-                <th>${field}</th>
+                <th>${field[0..4]}</th>
              </#list>
         </tr>
     <#list listValue as value>
@@ -57,7 +57,6 @@
                  </td>
             </#if>
             <#list fields as field>
-                ${field[0..4]}
                 <#list value as key, val_n>
                     <#if key = field>
                         <#if field[0..4]="list">
