@@ -27,13 +27,7 @@
                 <th> Remove</th>
             </#if>
             <#list fields as field>
-                <th>
-                    <#if (field?length > 3)>
-                        ${field[1..3]}
-                    <#else>
-                        ${field}
-                    </#if>
-                </th>
+                <th> ${field}</th>
              </#list>
         </tr>
     <#list listValue as value>
