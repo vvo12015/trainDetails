@@ -5,11 +5,11 @@
     <@c.auth/><br>
     <#if user??>
         <#if user.roles?seq_contains("ADMIN")?string("yes", "no") == "yes">
-            <center><a href="/new_game">Name game</a></center>
+            <#if gameConfig["admin.new"]><center><a href="/new_game">Name game</a></center></#if>
             <center><a href="/company_page">Resume</a></center>
             <center><a href="/train_museum">Train museum</a></center>
             <center><a href="/detail_museum">Details museum</a></center>
-            <center><a href="/cargo">Cargo</a></center>
+            <#if gameConfig["adminPanel.cargo"] == 1><center><a href="/cargo">Cargo</a></center></#if>
             <center><a href="/city">Cities</a></center>
             <center><a href="/route">Routes</a></center>
             <center><a href="/order">Orders</a></center>

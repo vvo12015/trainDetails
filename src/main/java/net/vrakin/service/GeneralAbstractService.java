@@ -32,7 +32,7 @@ public abstract class GeneralAbstractService<T extends ShowContentsInList> imple
 
     @Override
     public void save(T object) {
-        repo.save(object);
+        repo.saveAndFlush(object);
     }
 
     @Override
