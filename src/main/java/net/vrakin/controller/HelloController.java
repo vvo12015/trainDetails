@@ -1,11 +1,13 @@
 package net.vrakin.controller;
 
+import net.vrakin.model.GameConfig;
 import net.vrakin.model.Role;
 import net.vrakin.model.TrainMuseum;
 import net.vrakin.model.User;
 import net.vrakin.repository.TrainMuseumRepository;
 import net.vrakin.repository.UserRepository;
 import net.vrakin.service.CompanyService;
+import net.vrakin.service.GameConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -31,10 +33,17 @@ public class HelloController {
     @Autowired
     private CompanyService companyService;
 
+    @Autowired
+    private GameConfigService gameConfigService;
+
     @RequestMapping("/")
     public ModelAndView index(@AuthenticationPrincipal User user){
         Map<String, Object> model = new HashMap<>();
         List<TrainMuseum> trainMuseum = trainMuseumRepository.findAll();
+
+        List<GameConfig> gameConfigs = gameConfigService.findAll();
+
+
         model.put("user", user);
         return new ModelAndView("index", model);
     }

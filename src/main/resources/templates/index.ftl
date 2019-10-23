@@ -3,6 +3,7 @@
 
 <@c.page "Hello page">
     <@c.auth/><br>
+    <p><#list user.roles as r>r,</#list></p>
     <center><a href="/new_game">Name game</a></center>
     <center><a href="/company_page">Resume</a></center>
     <center><a href="/train_museum">Train museum</a></center>
