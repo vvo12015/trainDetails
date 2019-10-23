@@ -5,7 +5,7 @@
     <@c.auth/><br>
     <#if user??>
         <#if user.roles?seq_contains("ADMIN")?string("yes", "no") == "yes">
-            <center><a href="/new_game">Name game</a></center></#if>
+            <center><a href="/new_game">Name game</a></center>
             <center><a href="/company_page">Resume</a></center>
             <center><a href="/train_museum">Train museum</a></center>
             <center><a href="/detail_museum">Details museum</a></center>
