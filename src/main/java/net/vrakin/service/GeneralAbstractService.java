@@ -31,10 +31,8 @@ public abstract class GeneralAbstractService<T extends ShowContentsInList>
         return repo.findById(id).get();
     }
 
-    public void save(T entity) {
-        if (repo.findAll().contains(entity)){
-            //repo.
-        }
+    public T save(T entity) {
+        return repo.saveAndFlush(entity);
     }
     @Override
     public void delete(T object) {

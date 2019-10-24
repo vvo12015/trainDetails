@@ -10,7 +10,7 @@ public interface GeneralService<T extends ShowContentsInList> {
     List<T> findAll();
     List<Map<String, Object>> findAllToMap();
     T findById(Long id);
-    void save(T object);
+    T save(T object);
     void delete(T object);
 
     boolean checkUniqueName(String name);

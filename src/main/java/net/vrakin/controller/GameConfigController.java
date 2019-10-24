@@ -36,13 +36,10 @@ public class GameConfigController extends AbstractController {
     }
 
     @PostMapping("/" + name)
-    public ModelAndView saveCargo(@AuthenticationPrincipal User user,
+    public ModelAndView save(@AuthenticationPrincipal User user,
                                          GameConfig gameConfig){
-        if (generalService.checkUniqueName(gameConfig.getName())){
-            errors.add("Тhe name is not unique");
-        }else {
-            generalService.save(gameConfig);
-        }
+        generalService.save(gameConfig);
+
         setModelList(user);
         return new ModelAndView("admin_table", model);
     }
