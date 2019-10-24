@@ -5,9 +5,12 @@
     <@c.auth/><br>
     <#if user??>
         <#if user.roles?seq_contains("ADMIN")?string("yes", "no") == "yes">
-            <#list gameConfig as key, val>
-                ${key} - ${val} <br>
-            </#list>
+            <#if gameConfig??>
+                <#list gameConfig as key, val>
+                    ${key} - ${val} <br>
+                </#list>
+            <#else> gameConfig - empty
+            </#if>
             <center><a href="/new_game">Name game</a></center>
             <center><a href="/company_page">Resume</a></center>
             <center><a href="/train_museum">Train museum</a></center>
