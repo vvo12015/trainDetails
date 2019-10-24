@@ -5,7 +5,7 @@ import java.util.*;
 
 @Entity
 @Table(name="company")
-public class Company implements ShowContentsInList {
+public class Company implements ShowContentsInList{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

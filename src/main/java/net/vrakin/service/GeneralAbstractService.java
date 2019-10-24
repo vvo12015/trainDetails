@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public abstract class GeneralAbstractService<T extends ShowContentsInList> implements GeneralService<T> {
+public abstract class GeneralAbstractService<T extends ShowContentsInList>
+        implements GeneralService<T> {
 
     protected JpaRepository<T, Long> repo;
 
@@ -30,11 +31,11 @@ public abstract class GeneralAbstractService<T extends ShowContentsInList> imple
         return repo.findById(id).get();
     }
 
-    @Override
-    public void save(T object) {
-        repo.saveAndFlush(object);
+    public void save(T entity) {
+        if (repo.findAll().contains(entity)){
+            //repo.
+        }
     }
-
     @Override
     public void delete(T object) {
         repo.delete(object);

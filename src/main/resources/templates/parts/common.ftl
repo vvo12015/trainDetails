@@ -12,7 +12,7 @@
 
         th, td {
             text-align: center;
-            width: 50;
+            width: 150;
         }
 
         input[type=text] {
