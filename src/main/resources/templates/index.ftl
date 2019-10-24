@@ -6,8 +6,8 @@
     <#if user??>
         <#if user.roles?seq_contains("ADMIN")?string("yes", "no") == "yes">
             <#if gameConfig??>
-                <#list gameConfig as key, val>
-                    ${key} - ${val["valueStr"]} <br>
+                <#list gameConfig as val>
+                    ${val["valueStr"]} <br>
                 </#list>
             <#else> gameConfig - empty
             </#if>
