@@ -45,7 +45,7 @@ public class HelloController {
 
 
         model.put("user", user);
-        model.put("gameConfigs", gameConfigs);
+        model.put("gameConfig", gameConfigs);
         return new ModelAndView("index", model);
     }
 
