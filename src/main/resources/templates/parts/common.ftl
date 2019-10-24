@@ -12,11 +12,11 @@
 
         th, td {
             text-align: center;
-            width: 150;
+            width: 250;
         }
 
         input[type=text] {
-            width: 70px;
+            width: 170px;
         }
         .error{
             color:red;
