@@ -12,7 +12,7 @@
                     <center><a href="/company_page">Resume</a></center>
                     <center><a href="/train_museum">Train museum</a></center>
                     <center><a href="/detail_museum">Details museum</a></center>
-                    <#if val["name"] == adminPanel.cargo && val["valueInt"]=="1">
+                    <#if val["name"] == "adminPanel.cargo" && val["valueInt"]=="1">
                         <center><a href="/cargo">Cargo</a></center>
                     </#if>
                     <center><a href="/city">Cities</a></center>
