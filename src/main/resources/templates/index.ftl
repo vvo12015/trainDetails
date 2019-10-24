@@ -9,7 +9,7 @@
             <center><a href="/company_page">Resume</a></center>
             <center><a href="/train_museum">Train museum</a></center>
             <center><a href="/detail_museum">Details museum</a></center>
-            <center><a href="/cargo">Cargo</a></center>
+            <#if gameConfig["adminPanel.cargo"][valueInt]==1><center><a href="/cargo">Cargo</a></center></#if>
             <center><a href="/city">Cities</a></center>
             <center><a href="/route">Routes</a></center>
             <center><a href="/order">Orders</a></center>
