@@ -41,6 +41,10 @@ public class Train implements ShowContentsInList{
     @OneToMany(fetch = FetchType.EAGER, mappedBy="train")
     private List<Detail> details=new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="status_ref")
+    private TrainStatus statusRef ;
+
     public Train(String name, Company company, TrainMuseum trainMuseum) {
         this.name = name;
         this.company = company;

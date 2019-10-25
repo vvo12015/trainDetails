@@ -102,7 +102,6 @@ public class TrainServiceImpl extends GeneralAbstractService<Train> implements T
         company.setCash(company.getCash() + cost);
         companyService.save(company);
 
-
         save(train);
 
         detailService.buyDetails(train);
