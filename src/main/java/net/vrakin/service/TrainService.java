@@ -22,4 +22,6 @@ public interface TrainService extends GeneralService<Train>{
     Train findByCompanyAndName(Company company, String name);
 
     void trainBuy(User user, Long trainMuseumId);
+
+    void trainSell(Long trainId);
 }

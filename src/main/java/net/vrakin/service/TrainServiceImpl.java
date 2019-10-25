@@ -93,4 +93,18 @@ public class TrainServiceImpl extends GeneralAbstractService<Train> implements T
 
         detailService.buyDetails(train);
     }
+
+    public void trainSell(@PathVariable("id") Long train_id) {
+        Train train = findById(train_id);
+        Company company = train.getCompany();
+
+        Float cost = Float.valueOf(train.getCorpsState()) * train.getTrainMuseum().getPrice() / 100;
+        company.setCash(company.getCash() + cost);
+        companyService.save(company);
+
+
+        save(train);
+
+        detailService.buyDetails(train);
+    }
 }
