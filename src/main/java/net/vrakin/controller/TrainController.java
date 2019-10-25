@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Controller
 public class TrainController extends AbstractController {
 
-//    protected final String name = "trains";
+    protected final String name = "trains";
 
     @Autowired
     private CompanyService companyService;
@@ -30,7 +30,7 @@ public class TrainController extends AbstractController {
     protected void init(){
         generalService = trainService;
         model.put("fields", Train.getFields());
-//        objectName = name;
+        objectName = name;
     }
 
     @GetMapping("/my_trains")
