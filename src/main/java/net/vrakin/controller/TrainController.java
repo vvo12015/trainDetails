@@ -36,6 +36,7 @@ public class TrainController extends AbstractController {
     public ModelAndView listTrainMarket(@AuthenticationPrincipal User user){
 
         setModelList(user);
+        System.out.println("Test running");
         return getModelAndView();
     }
 
