@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @org.springframework.stereotype.Controller
 public class TrainController extends AbstractController {
 
-//    protected final String name = "admin_table";
+    protected final String name = "trains";
 
     @Autowired
     private CompanyService companyService;
@@ -41,7 +41,7 @@ public class TrainController extends AbstractController {
 
     @Override
     protected void setModelList(User user) {
-//        pageName = objectName;
+        pageName = objectName;
         Company company = companyService.findByUser(user).get(0);
         company.setTrains(trainService.findByCompany(company));
         model.put("company", company);
