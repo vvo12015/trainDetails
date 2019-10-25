@@ -29,7 +29,7 @@ public class TrainController extends AbstractController {
     protected void init(){
         generalService = trainService;
         model.put("fields", Train.getFields());
-        objectName = name;
+//        objectName = name;
     }
 
     @GetMapping("/my_trains")
