@@ -6,6 +6,7 @@ import net.vrakin.model.Train;
 import net.vrakin.model.User;
 import net.vrakin.service.CompanyService;
 import net.vrakin.service.TrainService;
+import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.PostConstruct;
 import java.util.stream.Collectors;
 
-@org.springframework.stereotype.Controller
+@Controller
 public class TrainController extends AbstractController {
 
 //    protected final String name = "trains";
@@ -36,13 +37,12 @@ public class TrainController extends AbstractController {
     public ModelAndView listTrainMarket(@AuthenticationPrincipal User user){
 
         setModelList(user);
-        System.out.println("Test running");
         return getModelAndView();
     }
 
     @Override
     protected void setModelList(User user) {
-//        pageName = objectName;
+        pageName = objectName;
         Company company = companyService.findByUser(user).get(0);
         company.setTrains(trainService.findByCompany(company));
         model.put("company", company);
