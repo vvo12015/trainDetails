@@ -8,6 +8,7 @@
             <th> Creation date</th>
             <th> State</th>
             <th> City</th>
+            <th> Status </th>
         </tr>
     <#list trains as train>
         <tr>
@@ -29,6 +30,7 @@
                 </#if>
                 <input type="text" name="city" value="${city}"  readonly>
             </td>
+            <td><input type="text" name="status" value="${train["status"]}"  </td>
         </tr>
     </#list>
     </table>

@@ -30,6 +30,9 @@ public class TrainServiceImpl extends GeneralAbstractService<Train> implements T
     @Autowired
     private DetailService detailService;
 
+    @Autowired
+    private TrainStatusService trainStatusService;
+
     @Override
     protected void init() {
         this.repo = trainRepository;
@@ -86,7 +89,9 @@ public class TrainServiceImpl extends GeneralAbstractService<Train> implements T
                 company,
                 trainMuseum
         );
+        TrainStatus trainStatus = trainStatusService.findByName("PROGRESS");
         train.setCity(company.getCity()==null?cityService.findById(1L):company.getCity());
+        train.setStatus(trainStatus);
         company.setCash(company.getCash() - trainMuseum.getPrice());
         companyService.save(company);
         save(train);

@@ -43,7 +43,7 @@ public class Train implements ShowContentsInList{
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="status_ref")
-    private TrainStatus statusRef ;
+    private TrainStatus status;
 
     public Train(String name, Company company, TrainMuseum trainMuseum) {
         this.name = name;
@@ -115,6 +115,14 @@ public class Train implements ShowContentsInList{
         this.details = details;
     }
 
+    public TrainStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TrainStatus status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -143,6 +151,7 @@ public class Train implements ShowContentsInList{
                 ", corpsState=" + corpsState +
                 ", company=" + company +
                 ", trainMuseum=" + trainMuseum +
+                ", status=" + status +
                 '}';
     }
 
@@ -157,6 +166,7 @@ public class Train implements ShowContentsInList{
         map.put("company", company.toString());
         map.put("trainMuseum", trainMuseum.toString());
         map.put("city", city.toString());
+        map.put("status", status.getName());
         DateFormat format = new SimpleDateFormat("dd:MM:yyyy");
         map.put("creationDate", format.format(creationDate.getTime()));
         List<String> buttons = new ArrayList<>();
@@ -165,7 +175,6 @@ public class Train implements ShowContentsInList{
         buttons.add("details");
 
         map.put("buttons", buttons);
-
         return map;
     }
 
