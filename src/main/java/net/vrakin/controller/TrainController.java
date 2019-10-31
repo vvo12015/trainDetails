@@ -35,23 +35,7 @@ public class TrainController extends AbstractController {
 
     @GetMapping("/my_trains")
     public ModelAndView listTrainMarket(@AuthenticationPrincipal User user){
-
         setModelList(user);
         return getModelAndView();
-    }
-
-    @Override
-    protected void setModelList(User user) {
-        pageName = objectName;
-        Company company = companyService.findByUser(user).get(0);
-        company.setTrains(trainService.findByCompany(company));
-        model.put("company", company);
-        model.put("header_page", capitalizeName());
-        model.put("path_page", objectName);
-        model.put("user", user);
-
-        model.put("trains", trainService.findByCompany(company).stream()
-                .map(ShowContentsInList::toMap)
-                .collect(Collectors.toList()));
     }
 }
