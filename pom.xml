@@ -75,7 +75,17 @@
 			<artifactId>javassist</artifactId>
 			<version>3.27.0-GA</version>
 		</dependency>
+<<<<<<< HEAD
 	</dependencies>dele
+=======
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.16</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+>>>>>>> a50298bf4847c960744936946f974e38c6653ebd
 
 	<build>
 		<plugins>
