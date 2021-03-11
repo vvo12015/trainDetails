@@ -1,11 +1,14 @@
 package net.vrakin.controller;
 
+import net.vrakin.SpringBootApplication;
 import net.vrakin.model.Role;
 import net.vrakin.model.TrainMuseum;
 import net.vrakin.model.User;
 import net.vrakin.repository.TrainMuseumRepository;
 import net.vrakin.repository.UserRepository;
 import net.vrakin.service.CompanyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -31,11 +34,15 @@ public class HelloController {
     @Autowired
     private CompanyService companyService;
 
+    Logger logger = LoggerFactory.getLogger(HelloController.class);
+
+
     @RequestMapping("/")
     public ModelAndView index(@AuthenticationPrincipal User user){
         Map<String, Object> model = new HashMap<>();
         List<TrainMuseum> trainMuseum = trainMuseumRepository.findAll();
         model.put("user", user);
+        logger.info("call method index");
         return new ModelAndView("index", model);
     }
 
