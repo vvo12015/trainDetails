@@ -75,6 +75,10 @@
 			<artifactId>javassist</artifactId>
 			<version>3.27.0-GA</version>
 		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
 	</dependencies>
 
 
@@ -96,9 +100,9 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>5.2.1</version>
 				<configuration>
-					<url>postgres://bpptcrbngilcyk:79c412e414bf6b8dc236794b3dfe86571e45fcb895fbabd985b0e9cdacd4ce48@ec2-18-214-208-89.compute-1.amazonaws.com:5432/df12l1fq2sgar7</url>
-					<user>bpptcrbngilcyk</user>
-					<password>79c412e414bf6b8dc236794b3dfe86571e45fcb895fbabd985b0e9cdacd4ce48</password>
+					<url>locahost/traindetails</url>
+					<user>postgres</user>
+					<password>111</password>
 					<placeholders>
 						<keyABC>valueXYZ</keyABC>
 						<otherplaceholder>value123</otherplaceholder>
