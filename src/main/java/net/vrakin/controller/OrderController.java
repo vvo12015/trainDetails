@@ -109,8 +109,12 @@ public class OrderController extends AbstractController{
         Company company = companyService.findByUser(user).get(0);
         model.put("listValue", orders);
         model.put("company", company);
-        Train train = trainService.findByCompanyAndName(company, orders.get(0).get("train").toString());
-        model.put("refreshTrain", train.getId().toString());
+        String trainName = "поїздів не знайдено";
+        if (!orders.isEmpty()) {
+            Train train = trainService.findByCompanyAndName(company, orders.get(0).get("train").toString());
+            trainName = train.getId().toString();
+        }
+        model.put("refreshTrain", trainName);
     }
 
     @Override
