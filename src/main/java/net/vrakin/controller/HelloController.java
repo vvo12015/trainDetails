@@ -1,6 +1,5 @@
 package net.vrakin.controller;
 
-import net.vrakin.SpringBootApplication;
 import net.vrakin.model.Role;
 import net.vrakin.model.TrainMuseum;
 import net.vrakin.model.User;

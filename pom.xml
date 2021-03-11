@@ -81,13 +81,6 @@
 			<version>1.18.16</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.2.3</version>
-			<scope>test</scope>
-		</dependency>
 
 	</dependencies>
 
@@ -109,13 +102,7 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>5.2.1</version>
 				<configuration>
-					<url>jdbc:postgresql://localhost:5432/trainDetails</url>
-					<user>postgres</user>
-					<password>111</password>
-					<placeholders>
-						<keyABC>valueXYZ</keyABC>
-						<otherplaceholder>value123</otherplaceholder>
-					</placeholders>
+					<url>${env.JDBC_DATABASE_URL}</url>
 				</configuration>
 			</plugin>
 		</plugins>
