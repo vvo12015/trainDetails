@@ -42,7 +42,7 @@ public class HelloController {
         Map<String, Object> model = new HashMap<>();
         List<TrainMuseum> trainMuseum = trainMuseumRepository.findAll();
         model.put("user", user);
-        logger.info("call method index");
+        logger.debug("call method index");
         return new ModelAndView("index", model);
     }
 
