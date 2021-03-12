@@ -1,5 +1,6 @@
 package net.vrakin.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import net.vrakin.model.*;
 import net.vrakin.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
+@Slf4j
 public class DetailsController extends AbstractController {
 
     protected final String name = "detail";
@@ -39,6 +41,7 @@ public class DetailsController extends AbstractController {
 
     @PostConstruct
     protected void init(){
+        log.debug("call method: init");
         objectName = name;
         generalService = detailService;
         model.put("fields", Detail.getFields());
@@ -48,7 +51,7 @@ public class DetailsController extends AbstractController {
     @GetMapping("/" + name + "/train{id}")
     public ModelAndView toList(@AuthenticationPrincipal User user,
                                @PathVariable("id") Long train_id){
-
+        log.debug("call method toList with user: " + user.getUsername() + " and train_id " + train_id);
         setModelList(user);
         model.put("listValue", detailService.findAllWithButton(train_id));
         model.put("company", companyService.findByUser(user).get(0));

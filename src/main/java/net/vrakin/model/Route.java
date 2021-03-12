@@ -56,7 +56,12 @@ public class Route implements ShowContentsInList{
 
     @Override
     public String toString() {
-        return city1.getName() + '-' + city2.getName();
+        return "Route{" +
+                "id=" + id +
+                ", city1=" + city1 +
+                ", city2=" + city2 +
+                ", distance=" + distance +
+                '}';
     }
 
     public Long getId() {
@@ -100,11 +105,16 @@ public class Route implements ShowContentsInList{
         map.put("city1", city1.toString());
         map.put("city2", city2.toString());
         map.put("distance", distance.toString());
-        map.put("name", toString());
+        map.put("name", getName());
         List<String> buttons = new ArrayList<>();
         map.put("buttons", buttons);
 
          return map;
+    }
+
+    @Override
+    public String getName() {
+        return city1.getName() + '-' + city2.getName() + ". Distance: " + distance;
     }
 
     public static List<String> getFields() {
@@ -119,4 +129,5 @@ public class Route implements ShowContentsInList{
 
         return fields;
     }
+
 }

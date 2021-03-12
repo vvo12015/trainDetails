@@ -1,5 +1,6 @@
 package net.vrakin.service;
 
+import net.vrakin.exception.CompanyNotFoundException;
 import net.vrakin.model.Order;
 import net.vrakin.model.OrderState;
 import net.vrakin.model.Train;
@@ -10,7 +11,7 @@ import java.util.Optional;
 
 public interface OrderService extends GeneralService<Order>{
 
-    List<Order> findByUser(User user);
+    List<Order> findByUser(User user) throws CompanyNotFoundException;
 
     List<Order> findByTrainWaiting(Train train);
 
@@ -34,5 +35,5 @@ public interface OrderService extends GeneralService<Order>{
 
     void delete(Order order);
 
-    void delete(List<Order> orders);
+    void deleteOrderList(List<Order> orders);
 }

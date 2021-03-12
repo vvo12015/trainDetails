@@ -1,5 +1,6 @@
 package net.vrakin.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import net.vrakin.model.*;
 import net.vrakin.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
+@Slf4j
 public class OrderAdminController extends AbstractController {
 
     protected final String name = "order";
@@ -38,6 +40,7 @@ public class OrderAdminController extends AbstractController {
 
     @PostConstruct
     protected void init(){
+        log.debug("call method: init");
         objectName = name;
         generalService = orderService;
         model.put("fields", Order.getFields());
@@ -46,8 +49,10 @@ public class OrderAdminController extends AbstractController {
     @PostMapping("/" + name)
     public ModelAndView saveOrder(@AuthenticationPrincipal User user,
                                          Order order){
+        log.debug("call method: saveOrder with user: " + user.getUsername() + " and order object");
 
         orderService.save(order);
+        log.debug("saving order: " + order.getId() + " successfully");
         setModelList(user);
         return new ModelAndView("admin_table", model);
     }
@@ -55,8 +60,11 @@ public class OrderAdminController extends AbstractController {
     @GetMapping("/" + name + "_remove/{id}")
     public ModelAndView delete(@AuthenticationPrincipal User user,
                                            @PathVariable("id") Long id){
+
+        log.debug("call method: delete with user: " + user.getUsername() + " and order id");
         Order order = orderService.findById(id);
         orderService.delete(order);
+        log.debug("deleting order with " + id + " successfully");
         setModelList(user);
 
         return new ModelAndView("admin_table", model);
@@ -65,6 +73,7 @@ public class OrderAdminController extends AbstractController {
     @Override
     protected void setModelList(User user) {
         super.setModelList(user);
+        log.debug("call method: setModelList with user " + user.getUsername());
 
         List<Map<String, Object>> routes = routeService.findAll().stream().map(Route::toMap).collect(Collectors.toList());
         List<Map<String, Object>> cargo = cargoService.findAll().stream().map(Cargo::toMap).collect(Collectors.toList());

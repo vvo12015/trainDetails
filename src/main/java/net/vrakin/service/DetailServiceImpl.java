@@ -1,5 +1,6 @@
 package net.vrakin.service;
 
+import lombok.extern.slf4j.Slf4j;
 import net.vrakin.model.Detail;
 import net.vrakin.model.ShowContentsInList;
 import net.vrakin.model.Train;
@@ -14,6 +15,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class DetailServiceImpl extends GeneralAbstractService<Detail> implements DetailService {
 
     @Autowired
@@ -27,17 +29,33 @@ public class DetailServiceImpl extends GeneralAbstractService<Detail> implements
 
     @Override
     protected void init() {
+        log.debug("call method: init");
+
         this.repo = detailRepository;
     }
 
     @Override
     public boolean checkUniqueName(String name) {
-        return detailRepository.findByName(name).isPresent();
+        boolean b = detailRepository.findByName(name).isPresent();
+
+        log.debug("call method: checkUniqueName with name:" + name + ". Value - " + b);
+
+        return b;
     }
 
     @Override
     public Detail findByName(String name) {
-        return detailRepository.findByName(name).get();
+        log.debug("call method: findByName with name: " + name);
+        if (detailRepository.findByName(name).isPresent()){
+            Detail detail = detailRepository.findByName(name).get();
+            log.debug("findByName with name: " + name + " successfully. Found detail: " + detail.getName());
+
+            return detail;
+        }
+
+        log.debug("no found with name: " + name);
+
+        return null;
     }
 
     @Override

@@ -36,6 +36,11 @@ public class User implements UserDetails, ShowContentsInList {
     }
 
     @Override
+    public String getName() {
+        return username;
+    }
+
+    @Override
     public boolean isAccountNonExpired() {
         return true;
     }

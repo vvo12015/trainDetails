@@ -1,5 +1,6 @@
 package net.vrakin.service;
 
+import net.vrakin.exception.OrderStateNotFoundException;
 import net.vrakin.model.OrderState;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public interface OrderStateService extends GeneralService<OrderState>{
 
     OrderState getWaitState();
     List<OrderState> findByNames(List<String> names);
-    OrderState findByName(String name);
+    OrderState findByName(String name) throws OrderStateNotFoundException;
     List<OrderState> findByInMotion(boolean inMotion);
 
 }

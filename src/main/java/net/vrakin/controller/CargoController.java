@@ -1,5 +1,6 @@
 package net.vrakin.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import net.vrakin.model.Cargo;
 import net.vrakin.model.User;
 import net.vrakin.service.CargoService;
@@ -16,6 +17,7 @@ import javax.annotation.PostConstruct;
 import java.util.Map;
 
 @Controller
+@Slf4j
 public class CargoController extends AbstractController {
 
     @Autowired
@@ -25,6 +27,7 @@ public class CargoController extends AbstractController {
 
     @PostConstruct
     protected void init(){
+        log.debug("call method: init");
         generalService = cargoService;
         objectName = name;
         model.put("fields", Cargo.getFields());
@@ -32,7 +35,7 @@ public class CargoController extends AbstractController {
 
     @GetMapping("/" + name)
     public ModelAndView toList(@AuthenticationPrincipal User user){
-
+        log.debug("call method: toList with user: " + user.getUsername());
         setModelList(user);
         return getModelAndView();
     }
@@ -40,10 +43,13 @@ public class CargoController extends AbstractController {
     @PostMapping("/" + name)
     public ModelAndView saveCargo(@AuthenticationPrincipal User user,
                                          Cargo cargo){
+        log.debug("call method: saveCargo with user: " + user.getUsername() + "with cargo object");
         if (generalService.checkUniqueName(cargo.getName())){
             errors.add("Тhe name is not unique");
+            log.debug("Тhe name is not unique");
         }else {
             generalService.save(cargo);
+            log.debug("save cargo with name " + cargo.getName() + " successfully");
         }
         setModelList(user);
         return new ModelAndView("admin_table", model);
@@ -52,8 +58,10 @@ public class CargoController extends AbstractController {
     @GetMapping("/" + name + "_remove/{id}")
     public ModelAndView delete(@AuthenticationPrincipal User user,
                                            @PathVariable("id") Long id){
+        log.debug("call method: delete with user: " +  user.getUsername() + " and id: " + id);
         Cargo cargo = (Cargo) generalService.findById(id);
         generalService.delete(cargo);
+        log.debug("delete cargo with name " + cargo.getName() + " successfully");
         setModelList(user);
 
         return new ModelAndView("admin_table", model);

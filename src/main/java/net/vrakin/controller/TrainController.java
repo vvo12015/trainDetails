@@ -1,5 +1,6 @@
 package net.vrakin.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import net.vrakin.model.Company;
 import net.vrakin.model.ShowContentsInList;
 import net.vrakin.model.Train;
@@ -15,6 +16,7 @@ import javax.annotation.PostConstruct;
 import java.util.stream.Collectors;
 
 @org.springframework.stereotype.Controller
+@Slf4j
 public class TrainController extends AbstractController {
 
     protected final String name = "trains";
@@ -27,6 +29,7 @@ public class TrainController extends AbstractController {
 
     @PostConstruct
     protected void init(){
+        log.debug("call method: init");
         generalService = trainService;
         model.put("fields", Train.getFields());
         objectName = name;
@@ -34,13 +37,14 @@ public class TrainController extends AbstractController {
 
     @GetMapping("/my_trains")
     public ModelAndView listTrainMarket(@AuthenticationPrincipal User user){
-
+        log.debug("call method: listTrainMarket with user: " + user.getUsername());
         setModelList(user);
         return getModelAndView();
     }
 
     @Override
     protected void setModelList(User user) {
+        log.debug("call method: setModelList with user: " + user.getUsername());
         pageName = objectName;
         Company company = companyService.findByUser(user).get(0);
         company.setTrains(trainService.findByCompany(company));

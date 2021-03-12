@@ -1,5 +1,6 @@
 package net.vrakin.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import net.vrakin.model.DetailMuseum;
 import net.vrakin.model.TrainMuseum;
 import net.vrakin.model.User;
@@ -23,6 +24,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
+@Slf4j
 public class DetailsMuseumController extends AbstractController {
 
     protected final String name = "detail_museum";
@@ -35,6 +37,7 @@ public class DetailsMuseumController extends AbstractController {
 
     @PostConstruct
     protected void init(){
+        log.debug("call method: init");
         objectName = name;
         generalService = detailMuseumService;
         model.put("fields", DetailMuseum.getFields());
@@ -42,7 +45,7 @@ public class DetailsMuseumController extends AbstractController {
 
     @GetMapping("/" + name)
     public ModelAndView toList(@AuthenticationPrincipal User user){
-
+        log.debug("call method: toList");
         setModelList(user);
         createListMap();
 
@@ -52,9 +55,10 @@ public class DetailsMuseumController extends AbstractController {
     @PostMapping("/" + name)
     public ModelAndView saveDetailMuseum(@AuthenticationPrincipal User user,
                                   DetailMuseum detailMuseum){
-
+        log.debug("call method: saveDetailMuseum with user: " + user.getUsername() + " and detailMuseum object");
         if (generalService.checkUniqueName(detailMuseum.getName())){
             errors.add("Тhe name is not unique");
+            log.debug("Тhe name is not unique");
         }else {
             generalService.save(detailMuseum);
         }

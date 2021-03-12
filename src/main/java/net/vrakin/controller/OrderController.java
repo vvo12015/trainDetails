@@ -1,5 +1,6 @@
 package net.vrakin.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import net.vrakin.model.*;
 import net.vrakin.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
+@Slf4j
 public class OrderController extends AbstractController{
 
     private final String name = "order";
@@ -48,6 +50,7 @@ public class OrderController extends AbstractController{
     @GetMapping("/" + name)
     public ModelAndView getOrders(@AuthenticationPrincipal User user){
 
+        log.debug("call method: getOrders with user: " + user.getUsername());
         orderService.refreshUserOrders(user);
         initPage(user);
 
@@ -57,6 +60,7 @@ public class OrderController extends AbstractController{
     @GetMapping("/" + name + "/train{id}")
     public ModelAndView orderOfTrain(@AuthenticationPrincipal User user,
             @PathVariable("id") Long train_id){
+        log.debug("call method: orderOfTrain with user: " + user.getUsername() + " and train_id " + train_id);
         Train train = trainService.findById(train_id);
 
         orderService.refreshTrainOrders(train);
@@ -69,6 +73,7 @@ public class OrderController extends AbstractController{
     @GetMapping("/" + name + "_start/{id}")
     public ModelAndView startOrder(@AuthenticationPrincipal User user,
                                      @PathVariable("id") Long order_id){
+        log.debug("call method: startOrder with user: " + user.getUsername() + " and order_id: " + order_id );
         Order order = orderService.findById(order_id);
         orderService.startOrder(order);
 
@@ -76,8 +81,9 @@ public class OrderController extends AbstractController{
     }
 
     @GetMapping("/" + name + "_progress/{id}")
-    public ModelAndView progresOrder(@AuthenticationPrincipal User user,
-                                   @PathVariable("id") Long order_id){
+    public ModelAndView progressOrder(@AuthenticationPrincipal User user,
+                                      @PathVariable("id") Long order_id){
+        log.debug("call method progressOrder with user: " + user.getUsername() + " and order_id: " + order_id);
         Order order = orderService.findById(order_id);
 
         return getOrders(user);
@@ -86,6 +92,8 @@ public class OrderController extends AbstractController{
     @GetMapping("/" + name + "_finish/{id}")
     public ModelAndView finishOrder(@AuthenticationPrincipal User user,
                                    @PathVariable("id") Long order_id){
+        log.debug("call method finishOrder with user: " + user.getUsername() + " and order_id: " + order_id);
+
         Order order = orderService.findById(order_id);
         Long train_id = order.getTrain().getId();
         orderService.finishOrder(order);
@@ -95,12 +103,14 @@ public class OrderController extends AbstractController{
 
     @Override
     protected void init() {
+        log.debug("call method: init");
         generalService = orderService;
         model.put("fields", Order.getFields());
         objectName = name;
     }
 
     private void initPage(User user) {
+        log.debug("call method: initPage");
         setModelList(user);
         List<Map<String, Object>> orders = orderService.findByUser(user)
                 .stream()
@@ -119,6 +129,7 @@ public class OrderController extends AbstractController{
 
     @Override
     protected void createListMap() {
+        log.debug("call method: createListMap");
         Map<String, Object> listMap = new HashMap<>();
 
         List<Map<String, String>> listValue;

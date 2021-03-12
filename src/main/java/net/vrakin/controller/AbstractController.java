@@ -32,7 +32,7 @@ abstract class AbstractController {
     protected abstract void init();
 
     protected String capitalizeName(){
-        log.debug("call capitalizeName method");
+        log.debug("call method: capitalizeName");
         String[] names;
 
         if (objectName.contains("_")) {
@@ -52,7 +52,7 @@ abstract class AbstractController {
     }
 
     protected void setModelList(User user) {
-        log.debug("call setModelList method with user");
+        log.debug("call method: setModelList with user");
         List<ShowContentsInList> prepareList = generalService.findAll();
 
         List<Map<String, Object>> listValue = prepareList.stream().map(ShowContentsInList::toMap).collect(Collectors.toList());
@@ -66,12 +66,12 @@ abstract class AbstractController {
     }
 
     protected ModelAndView getModelAndView(){
-        log.debug("call getModelAndView method");
+        log.debug("call method: getModelAndView");
         return new ModelAndView(pageName, model);
     }
 
     protected void createListMap() {
-        log.debug("call createListMap method");
+        log.debug("call method: createListMap");
         model.put("listMap", listMap);
     }
 }

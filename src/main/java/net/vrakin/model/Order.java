@@ -283,7 +283,7 @@ public class Order implements ShowContentsInList{
 
         map.put("id", id.toString());
         map.put("route", route.toString());
-        map.put("name", route.toString() + ", " + cargo.toString() + "x" + carCount);
+        map.put("name", getName());
         map.put("train", train.getName());
         map.put("cargo", cargo.getName());
         map.put("state", state.getName());
@@ -318,6 +318,11 @@ public class Order implements ShowContentsInList{
         else map.put("activeDate", "-");
 
         return map;
+    }
+
+    @Override
+    public String getName() {
+        return route.toString() + ", " + cargo.toString() + "x" + carCount;
     }
 
     public static List<String> getFields() {

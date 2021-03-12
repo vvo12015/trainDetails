@@ -1,5 +1,6 @@
 package net.vrakin.service;
 
+import net.vrakin.exception.TrainNotFoundException;
 import net.vrakin.model.Company;
 import net.vrakin.model.Train;
 import net.vrakin.model.User;
@@ -19,7 +20,7 @@ public interface TrainService extends GeneralService<Train>{
 
     Byte checkTechnicalStatus(Train train);
 
-    Train findByCompanyAndName(Company company, String name);
+    Train findByCompanyAndName(Company company, String name) throws TrainNotFoundException;
 
     void trainBuy(User user, Long trainMuseumId);
 }

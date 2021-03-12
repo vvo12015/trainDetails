@@ -1,5 +1,6 @@
 package net.vrakin.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import net.vrakin.model.City;
 import net.vrakin.model.ShowContentsInList;
 import net.vrakin.model.User;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.PostConstruct;
 
 @Controller
+@Slf4j
 public class CityController extends AbstractController {
 
     protected final String name = "city";
@@ -25,6 +27,7 @@ public class CityController extends AbstractController {
 
     @PostConstruct
     protected void init(){
+        log.debug("call method: init");
         objectName = name;
         generalService = cityService;
         model.put("fields", City.getFields());
@@ -32,7 +35,7 @@ public class CityController extends AbstractController {
 
     @GetMapping("/" + name)
     public ModelAndView toList(@AuthenticationPrincipal User user){
-
+        log.debug("call method: toList with user" + user.getUsername());
         setModelList(user);
         return getModelAndView();
     }
@@ -40,11 +43,15 @@ public class CityController extends AbstractController {
     @PostMapping("/" + name)
     public ModelAndView saveCity(@AuthenticationPrincipal User user,
                                   City city){
-
+        log.debug("call method: saveCity with user and city");
+        log.debug("user: " + user.getUsername());
         if (generalService.checkUniqueName(city.getName())){
             errors.add("Тhe name is not unique");
+            log.debug("Тhe name is not unique");
         }else {
             generalService.save(city);
+            log.debug("save cargo with name " + city.getName() + " successfully");
+
         }
         setModelList(user);
         return new ModelAndView("admin_table", model);
@@ -53,10 +60,12 @@ public class CityController extends AbstractController {
     @GetMapping("/" + name + "_remove/{id}")
     public ModelAndView delete(@AuthenticationPrincipal User user,
                                @PathVariable("id") Long id){
+        log.debug("call method: delete with user and id");
+        log.debug("user: " + user.getUsername());
         City city = cityService.findById(id);
         cityService.delete(city);
         setModelList(user);
-
+        log.debug("delete city: cityId - " + city.getId() + " with name " + city.getName() + " successfully");
         return new ModelAndView("admin_table", model);
     }
 }
