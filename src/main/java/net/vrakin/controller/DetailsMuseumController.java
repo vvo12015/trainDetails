@@ -5,7 +5,6 @@ import net.vrakin.model.DetailMuseum;
 import net.vrakin.model.TrainMuseum;
 import net.vrakin.model.User;
 import net.vrakin.service.DetailMuseumService;
-import net.vrakin.service.GeneralService;
 import net.vrakin.service.TrainMuseumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.PostConstruct;
@@ -72,7 +70,7 @@ public class DetailsMuseumController extends AbstractController {
         DetailMuseum detailMuseum = detailMuseumService.findById(id);
         detailMuseumService.delete(detailMuseum);
         setModelList(user);
-
+        log.debug("call method: delete with user: " + user.getUsername() + "and id: " + id);
         return new ModelAndView("admin_table", model);
     }
 
@@ -86,6 +84,10 @@ public class DetailsMuseumController extends AbstractController {
         detailMuseumList.add(detailMuseum);
         trainMuseum.setDetails(detailMuseumList);
         trainMuseumService.save(trainMuseum);
+
+        log.debug("call method: addDetailToTrainMuseum with user: " + user.getUsername() + " and detail_id: " + detailId +
+                    " train" +
+                "trainMuseum: " + trainMuseum.getName());
 
         return "redirect:" + "/train_museum_details/" + trainMuseumId;
     }
@@ -102,11 +104,16 @@ public class DetailsMuseumController extends AbstractController {
         trainMuseum.setDetails(detailMuseumList);
         trainMuseumService.save(trainMuseum);
 
+        log.debug("call method: addDetailToTrainMuseum with user: " + user.getUsername() + " and detail_id: " + detailId +
+                " train" +
+                "trainMuseum: " + trainMuseum.getName());
+
         return "redirect:" + "/train_museum_details/" + trainMuseumId;
     }
     @Override
     protected void createListMap() {
 
+        log.debug("call method: createListMap");
         Map<String, String> valueTrue = new HashMap<>();
         valueTrue.put("id", "1");
         valueTrue.put("name", "true");
@@ -129,6 +136,7 @@ public class DetailsMuseumController extends AbstractController {
         setModelList(user);
         TrainMuseum trainMuseum = trainMuseumService.findById(trainMuseum_id);
         model.put("listValue", detailMuseumService.findAllWithButton(trainMuseum));
+        log.debug("call method: trainMuseumDetails with user: " + user.getUsername() + ", trainMuseum: " + trainMuseum.getName());
         return getModelAndView();
     }
 

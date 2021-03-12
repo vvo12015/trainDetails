@@ -41,7 +41,7 @@ public class HelloController {
         List<TrainMuseum> trainMuseum = trainMuseumRepository.findAll();
         model.put("user", user);
         log.debug("call method: index");
-        log.debug("user: " + user.getUsername());
+        if (user != null) log.debug("user: " + user.getUsername());
         return new ModelAndView("index", model);
     }
 

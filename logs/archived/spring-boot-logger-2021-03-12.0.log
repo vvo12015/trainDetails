@@ -1,4 +1,4 @@
-2021-03-13 00:36:02,959 ERROR org.postgresql.Driver [main] Connection error: 
+2021-03-12 13:23:33,778 ERROR org.postgresql.Driver [main] Connection error: 
 org.postgresql.util.PSQLException: The connection attempt failed.
 	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:257)
 	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49)
@@ -45,7 +45,7 @@ Caused by: java.net.UnknownHostException: bpptcrbngilcyk:79c412e414bf6b8dc236794
 	at org.postgresql.core.PGStream.<init>(PGStream.java:69)
 	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:156)
 	... 37 common frames omitted
-2021-03-13 00:36:03,963 ERROR com.zaxxer.hikari.pool.HikariPool [main] HikariPool-1 - Exception during pool initialization.
+2021-03-12 13:23:34,782 ERROR com.zaxxer.hikari.pool.HikariPool [main] HikariPool-1 - Exception during pool initialization.
 org.postgresql.util.PSQLException: The connection attempt failed.
 	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:257)
 	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49)
@@ -92,7 +92,7 @@ Caused by: java.net.UnknownHostException: bpptcrbngilcyk:79c412e414bf6b8dc236794
 	at org.postgresql.core.PGStream.<init>(PGStream.java:69)
 	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:156)
 	... 37 common frames omitted
-2021-03-13 00:36:03,989 ERROR org.springframework.boot.SpringApplication [main] Application run failed
+2021-03-12 13:23:34,809 ERROR org.springframework.boot.SpringApplication [main] Application run failed
 org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Invocation of init method failed; nested exception is org.flywaydb.core.internal.exception.FlywaySqlException: 
 Unable to obtain database connection
 ------------------------------------
