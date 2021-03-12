@@ -32,6 +32,7 @@ public class OrderStateServiceImpl extends GeneralAbstractService<OrderState> im
         if (orderStateRepository.findByName(name).isPresent()){
             OrderState orderState = orderStateRepository.findByName(name).get();
             log.debug("call method: findByName with name: " + name + ". Found - " + orderState.getName());
+            return  orderState;
         }
         log.debug("call method: findByName with name: " + name + ". No found");
 
