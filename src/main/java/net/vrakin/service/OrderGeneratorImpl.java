@@ -1,6 +1,7 @@
 package net.vrakin.service;
 
 import lombok.extern.slf4j.Slf4j;
+import net.vrakin.exception.OrderStateNotFoundException;
 import net.vrakin.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -69,7 +70,11 @@ public class OrderGeneratorImpl extends Order implements OrderGenerator {
             this.fullWear = generateFullWear();
             this.profit = generateProfit();
             this.execution = 0;
-            this.state = orderStateService.findByName(OrderStateName.WAITING.get());
+            try {
+                this.state = orderStateService.findByName(OrderStateName.WAITING.get());
+            } catch (OrderStateNotFoundException e) {
+                e.printStackTrace();
+            }
 
             Order order = new Order();
             orderService.save(getOrder(order));

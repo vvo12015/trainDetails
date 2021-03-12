@@ -1,6 +1,7 @@
 package net.vrakin.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import net.vrakin.exception.CompanyNotFoundException;
 import net.vrakin.model.Company;
 import net.vrakin.model.Train;
 import net.vrakin.model.TrainMuseum;
@@ -34,12 +35,14 @@ public class CompanyController {
     public ModelAndView companyPage(@AuthenticationPrincipal User user){
         log.debug("call method: company_page");
         Map<String, Object> model = new HashMap<>();
-        if (companyService.findByUser(user).size() == 0){
-            log.debug("don't found company");
+
+        Company company = null;
+        try {
+            company = companyService.findByUser(user).get(0);
+        } catch (CompanyNotFoundException e) {
             companyService.registrationCompany(user);
             log.debug("create company successfully");
-        };
-        Company company = companyService.findByUser(user).get(0);
+        }
         model.put("company", company);
         model.put("user", user);
         log.debug("company: " + company.getName());

@@ -1,6 +1,8 @@
 package net.vrakin.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import net.vrakin.exception.CompanyNotFoundException;
+import net.vrakin.exception.TrainNotFoundException;
 import net.vrakin.model.*;
 import net.vrakin.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,16 +114,32 @@ public class OrderController extends AbstractController{
     private void initPage(User user) {
         log.debug("call method: initPage");
         setModelList(user);
-        List<Map<String, Object>> orders = orderService.findByUser(user)
-                .stream()
-                .map(Order::toMap)
-                .collect(Collectors.toList());
-        Company company = companyService.findByUser(user).get(0);
+        List<Map<String, Object>> orders = null;
+        try {
+            orders = orderService.findByUser(user)
+                    .stream()
+                    .map(Order::toMap)
+                    .collect(Collectors.toList());
+        } catch (CompanyNotFoundException e) {
+            companyService.registrationCompany(user);
+        }
+        Company company = null;
+        try {
+            company = companyService.findByUser(user).get(0);
+        } catch (CompanyNotFoundException e) {
+            e.printStackTrace();
+        }
         model.put("listValue", orders);
         model.put("company", company);
         String trainName = "поїздів не знайдено";
         if (!orders.isEmpty()) {
-            Train train = trainService.findByCompanyAndName(company, orders.get(0).get("train").toString());
+            Train train = null;
+            try {
+                train = trainService.findByCompanyAndName(company, orders.get(0).get("train").toString());
+            } catch (TrainNotFoundException e) {
+
+                e.printStackTrace();
+            }
             trainName = train.getId().toString();
         }
         model.put("refreshTrain", trainName);

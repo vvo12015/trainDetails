@@ -1,6 +1,7 @@
 package net.vrakin.service;
 
 import lombok.extern.slf4j.Slf4j;
+import net.vrakin.exception.OrderStateNotFoundException;
 import net.vrakin.model.*;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +50,11 @@ public class OrderMakerImpl extends OrderGeneratorImpl implements OrderMaker {
 
     private City getCurrentCity(Train train, Order order) {
 
-        state = orderStateService.findByName(OrderStateName.DONE.get());
+        try {
+            state = orderStateService.findByName(OrderStateName.DONE.get());
+        } catch (OrderStateNotFoundException e) {
+            e.printStackTrace();
+        }
         String trainCity = train.getCity().getName();
         Route route = order.getRoute();
 

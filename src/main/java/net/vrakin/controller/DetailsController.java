@@ -1,6 +1,7 @@
 package net.vrakin.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import net.vrakin.exception.CompanyNotFoundException;
 import net.vrakin.model.*;
 import net.vrakin.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,11 @@ public class DetailsController extends AbstractController {
         log.debug("call method toList with user: " + user.getUsername() + " and train_id " + train_id);
         setModelList(user);
         model.put("listValue", detailService.findAllWithButton(train_id));
-        model.put("company", companyService.findByUser(user).get(0));
+        try {
+            model.put("company", companyService.findByUser(user).get(0));
+        } catch (CompanyNotFoundException e) {
+            companyService.registrationCompany(user);
+        }
         model.put("detailMuseumList", detailMuseumService.findOfTrainWithButton(train_id));
         model.put("detailMuseumFields", DetailMuseum.getFields());
         this.pageName = "details";

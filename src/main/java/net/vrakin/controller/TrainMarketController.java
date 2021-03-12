@@ -1,6 +1,7 @@
 package net.vrakin.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import net.vrakin.exception.CompanyNotFoundException;
 import net.vrakin.model.*;
 import net.vrakin.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,13 @@ public class TrainMarketController extends AbstractController {
         log.debug("call method: setModelList with user: " + user.getUsername());
 
         super.setModelList(user);
-        Company company = companyService.findByUser(user).get(0);
+        Company company = null;
+        try {
+            company = companyService.findByUser(user).get(0);
+        } catch (CompanyNotFoundException e) {
+            companyService.registrationCompany(user);
+            e.printStackTrace();
+        }
         company.setTrains(trainService.findByCompany(company));
         model.put("company", company);
     }
