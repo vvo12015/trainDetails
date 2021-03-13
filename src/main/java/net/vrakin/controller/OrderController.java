@@ -67,7 +67,7 @@ public class OrderController extends AbstractController{
 
         orderService.refreshTrainOrders(train);
         initPage(user);
-//        filter listValue for train
+
         model.put("listValue", orderService.findByTrain(train).stream().map(Order::toMap).collect(Collectors.toList()));
         return getModelAndView();
     }
