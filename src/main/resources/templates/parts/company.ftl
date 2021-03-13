@@ -1,9 +1,9 @@
-<#macro company_info>
+<#macro company_info name cash trainCount>
 
-    <div>Company name = ${company.name}</div>
-    <div>Cash = ${company.cash}</div>
+    <div>Company name = ${name}</div>
+    <div>Cash = ${cash}</div>
 
-    <div>Train count = ${company.trains?size}</div>
+    <div>Train count = ${trainCount}</div>
 
     <div><a href="/my_trains">My trains</a><div>
     <div><a href="/order">Orders</a><div>
