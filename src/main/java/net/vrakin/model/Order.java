@@ -149,7 +149,7 @@ public class Order implements ShowContentsInList{
         Map<String, Object> map = new HashMap<>();
 
         map.put("id", id.toString());
-        map.put("route", route.toString());
+        map.put("route", route.getName());
         map.put("name", getName());
         map.put("train", train.getName());
         map.put("cargo", cargo.getName());
@@ -189,7 +189,7 @@ public class Order implements ShowContentsInList{
 
     @Override
     public String getName() {
-        return route.toString() + ", " + cargo.toString() + "x" + carCount;
+        return route.getName() + ", " + cargo.getName() + "x" + carCount;
     }
 
     public static List<String> getFields() {
