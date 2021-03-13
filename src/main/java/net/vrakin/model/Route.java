@@ -1,14 +1,21 @@
 package net.vrakin.model;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
 @Table(name="route")
+@Data
+@NoArgsConstructor
 public class Route implements ShowContentsInList{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @EqualsAndHashCode.Exclude
     private Long id;
 
     @ManyToOne
@@ -32,67 +39,6 @@ public class Route implements ShowContentsInList{
     public Route(City city1, City city2, Integer distance) {
         this.city1 = city1;
         this.city2 = city2;
-        this.distance = distance;
-    }
-
-    public Route() {
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Route route = (Route) o;
-        return Objects.equals(city1, route.city1) &&
-                Objects.equals(city2, route.city2) &&
-                Objects.equals(distance, route.distance);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(city1, city2, distance);
-    }
-
-    @Override
-    public String toString() {
-        return "Route{" +
-                "id=" + id +
-                ", city1=" + city1 +
-                ", city2=" + city2 +
-                ", distance=" + distance +
-                '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public City getCity1() {
-        return city1;
-    }
-
-    public void setCity1(City city1) {
-        this.city1 = city1;
-    }
-
-    public City getCity2() {
-        return city2;
-    }
-
-    public void setCity2(City city2) {
-        this.city2 = city2;
-    }
-
-    public Integer getDistance() {
-        return distance;
-    }
-
-    public void setDistance(Integer distance) {
         this.distance = distance;
     }
 

@@ -1,5 +1,9 @@
 package net.vrakin.model;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -8,10 +12,13 @@ import java.util.*;
 
 @Entity
 @Table(name="orders")
+@Data
+@NoArgsConstructor
 public class Order implements ShowContentsInList{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @EqualsAndHashCode.Exclude
     protected Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -60,114 +67,8 @@ public class Order implements ShowContentsInList{
     @Column(name = "execution")
     protected Integer execution;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Route getRoute() {
-        return route;
-    }
-
-    public void setRoute(Route route) {
-        this.route = route;
-    }
-    public Train getTrain() {
-        return train;
-    }
-
-    public void setTrain(Train train) {
-        this.train = train;
-    }
-
-    public Cargo getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(Cargo cargo) {
-        this.cargo = cargo;
-    }
-
-    public Integer getCarCount() {
-        return carCount;
-    }
-
-    public void setCarCount(Integer carCount) {
-        this.carCount = carCount;
-    }
-
-    public Integer getFullWear() {
-        return fullWear;
-    }
-
-    public void setFullWear(Integer fullWear) {
-        this.fullWear = fullWear;
-    }
-
-    public Integer getProfit() {
-        return profit;
-    }
-
-    public void setProfit(Integer profit) {
-        this.profit = profit;
-    }
-
-    public Calendar getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Calendar creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public OrderState getState() {
-        return state;
-    }
-
-    public void setState(OrderState state) {
-        this.state = state;
-    }
-
-    public Long getWaitingDeadline() {
-        return waitingDeadline;
-    }
-
-    public void setWaitingDeadline(Long waitingDeadline) {
-        this.waitingDeadline = waitingDeadline;
-    }
-
-    public Long getDeadline1() {
-        return deadline1;
-    }
-
-    public void setDeadline1(Long deadline1) {
-        this.deadline1 = deadline1;
-    }
-
-    public Long getDeadline2() {
-        return deadline2;
-    }
-
-    public void setDeadline2(Long deadline2) {
-        this.deadline2 = deadline2;
-    }
-
-    public Integer getExecution() {
-        return execution;
-    }
-
-    public void setExecution(Integer execution) {
-        this.execution = execution;
-    }
-
     protected Integer getDistance() {
         return route.getDistance();
-    }
-
-    public Order() {
     }
 
     public Order getOrder(Order order) {
@@ -233,30 +134,6 @@ public class Order implements ShowContentsInList{
         this.deadline1 = deadline1;
         this.deadline2 = deadline2;
         this.execution = 0;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Order order = (Order) o;
-        return Objects.equals(route, order.route) &&
-                Objects.equals(train, order.train) &&
-                Objects.equals(cargo, order.cargo) &&
-                Objects.equals(carCount, order.carCount) &&
-                Objects.equals(fullWear, order.fullWear) &&
-                Objects.equals(profit, order.profit) &&
-                Objects.equals(creationDate, order.creationDate) &&
-                Objects.equals(waitingDeadline, order.waitingDeadline) &&
-                Objects.equals(deadline1, order.deadline1) &&
-                Objects.equals(deadline2, order.deadline2);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(route, train, cargo, carCount, fullWear, profit, creationDate,
-                waitingDeadline, deadline1, deadline2);
     }
 
     @Override

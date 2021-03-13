@@ -1,24 +1,36 @@
 package net.vrakin.model;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
 @Table(name="company")
+@NoArgsConstructor
+@Data
 public class Company implements ShowContentsInList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @EqualsAndHashCode.Exclude
+    @ToString.Include
     private Long id;
 
     @Column(name="name")
+    @ToString.Include
     private String name;
 
     @Column(name="cash")
+    @ToString.Include
     private Float cash;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="user_id")
+    @ToString.Include
     private User user;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy="company")
@@ -29,16 +41,6 @@ public class Company implements ShowContentsInList {
     private City city;
 
     private Integer trainCount;
-
-    public Company(Long id, String name, Float cash, User user, List<Train> trains, City city, Integer trainCount) {
-        this.id = id;
-        this.name = name;
-        this.cash = cash;
-        this.user = user;
-        this.trains = trains;
-        this.city = city;
-        this.trainCount = trainCount;
-    }
 
     public Company(String name, Float cash, User user, List<Train> trains, City city) {
         this.name = name;
@@ -53,93 +55,6 @@ public class Company implements ShowContentsInList {
         this.cash = cash;
         this.user = user;
         this.city = city;
-    }
-
-    public Company() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Float getCash() {
-        return cash;
-    }
-
-    public void setCash(Float cash) {
-        this.cash = cash;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Integer getTrainCount() {
-        return trains.size();
-    }
-
-    public List<Train> getTrains() {
-        return trains;
-    }
-
-    public void setTrains(List<Train> trains) {
-        this.trains = trains;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public void setTrainCount(Integer trainCount) {
-        this.trainCount = trainCount;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Company company = (Company) o;
-        return Objects.equals(id, company.id) &&
-                Objects.equals(name, company.name) &&
-                Objects.equals(cash, company.cash) &&
-                Objects.equals(user, company.user) &&
-                Objects.equals(trains, company.trains);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id, name, cash, user, trains);
-    }
-
-    @Override
-    public String toString() {
-        return "Company{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", cash=" + cash +
-                ", user=" + user +
-                '}';
     }
 
     @Override

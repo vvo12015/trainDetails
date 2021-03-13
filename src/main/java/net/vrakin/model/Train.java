@@ -1,4 +1,7 @@
 package net.vrakin.model;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -8,10 +11,13 @@ import java.util.*;
 
 @Entity
 @Table(name = "train")
+@Data
+@NoArgsConstructor
 public class Train implements ShowContentsInList{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
+    @EqualsAndHashCode.Exclude
     private Long id;
 
     @Column(name = "name")
@@ -46,100 +52,6 @@ public class Train implements ShowContentsInList{
         this.company = company;
         this.corpsState = 100;
         this.trainMuseum = trainMuseum;
-    }
-
-    public Train() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Calendar getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(Calendar creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public Byte getCorpsState() {
-        return corpsState;
-    }
-
-    public void setCorpsState(Byte corpsState) {
-        this.corpsState = corpsState;
-    }
-
-    public TrainMuseum getTrainMuseum() {
-        return trainMuseum;
-    }
-
-    public void setTrainMuseum(TrainMuseum trainMuseum) {
-        this.trainMuseum = trainMuseum;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public void setDetails(List<Detail> details) {
-        this.details = details;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Train train = (Train) o;
-        return Objects.equals(name, train.name) &&
-                Objects.equals(creationDate, train.creationDate) &&
-                Objects.equals(corpsState, train.corpsState) &&
-                Objects.equals(company, train.company) &&
-                Objects.equals(trainMuseum, train.trainMuseum);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(name, creationDate, corpsState, company, trainMuseum);
-    }
-
-    @Override
-    public String toString() {
-        DateFormat format = new SimpleDateFormat("dd:MM:yyyy");
-        return "Train{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", creationDate=" + format.format(creationDate.getTime()) +
-                ", corpsState=" + corpsState +
-                ", company=" + company +
-                ", trainMuseum=" + trainMuseum +
-                '}';
     }
 
     @Override

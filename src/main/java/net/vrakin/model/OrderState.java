@@ -1,5 +1,9 @@
 package net.vrakin.model;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,10 +12,13 @@ import java.util.Map;
 
 @Entity
 @Table(name="order_state")
+@Data
+@NoArgsConstructor
 public class OrderState implements ShowContentsInList{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @EqualsAndHashCode.Exclude
     private Long id;
 
     @Column(name="name")
@@ -19,33 +26,6 @@ public class OrderState implements ShowContentsInList{
 
     @Column(name = "in_motion")
     private Boolean inMotion;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Boolean getInMotion() {
-        return inMotion;
-    }
-
-    public void setInMotion(Boolean depo) {
-        inMotion = depo;
-    }
-
-    public OrderState() {
-    }
 
     public OrderState(String name) {
         this.name = name;

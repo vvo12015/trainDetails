@@ -1,14 +1,21 @@
 package net.vrakin.model;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
 @Table(name="detail_museum")
+@Data
+@NoArgsConstructor
 public class DetailMuseum implements ShowContentsInList{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @EqualsAndHashCode.Exclude
     private Long id;
 
     @Column(name="name")
@@ -36,77 +43,6 @@ public class DetailMuseum implements ShowContentsInList{
         this.wear = wear;
         this.type = type;
         this.isRepaired = isRepaired;
-    }
-
-    public DetailMuseum() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Byte getWear() {
-        return wear;
-    }
-
-    public void setWear(Byte wear) {
-        this.wear = wear;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Boolean getIsRepaired() {
-        return isRepaired;
-    }
-
-    public void setIsRepaired(Boolean repaired) {
-        isRepaired = repaired;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DetailMuseum that = (DetailMuseum) o;
-        return Objects.equals(name, that.name) &&
-                Objects.equals(wear, that.wear) &&
-                Objects.equals(type, that.type) &&
-                Objects.equals(isRepaired, that.isRepaired);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(name, wear, type, isRepaired);
-    }
-
-    @Override
-    public String toString() {
-        return "DetailMuseum{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", wear=" + wear +
-                ", type='" + type + '\'' +
-                ", isRepaired=" + isRepaired +
-                '}';
     }
 
     @Override
