@@ -42,7 +42,7 @@ public class Company implements ShowContentsInList {
     @ToString.Exclude
     private City city;
 
-    private Integer getTrainCount(){
+    public Integer getTrainCount(){
         return trains.size();
     }
 
