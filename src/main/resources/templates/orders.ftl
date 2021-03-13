@@ -5,7 +5,7 @@
 
 <@c.page "My orders">
     <@c.auth/>
-    <@comp.company_info "${company.name}", "${company.cash}", "${company.trainCount}"/>
+    <@comp.company_info "${company.name}", "${company.cash}", "${company.getTrainCount}"/>
      <@o.my_orders orders>
      </@o.my_orders>
 </@c.page>
