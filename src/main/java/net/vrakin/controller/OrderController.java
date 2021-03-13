@@ -79,7 +79,11 @@ public class OrderController extends AbstractController{
         Order order = orderService.findById(order_id);
         orderService.startOrder(order);
 
-        return getOrders(user);
+        Train train = order.getTrain();
+        initPage(user);
+
+        model.put("listValue", orderService.findByTrain(train).stream().map(Order::toMap).collect(Collectors.toList()));
+        return getModelAndView();
     }
 
     @GetMapping("/" + name + "_progress/{id}")

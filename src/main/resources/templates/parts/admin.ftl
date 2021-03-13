@@ -53,7 +53,7 @@
                 <td><input type="submit" value="${button_name}"/></td>
             <#if "${button_remove}" == "button_remove_on">
                  <td>
-                        <a href="/${path_page}_remove/${value["id"]}">Видалити</a>
+                        <a href="/${path_page}_remove/${value["id"]}">Remove</a>
                  </td>
             </#if>
 
