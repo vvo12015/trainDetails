@@ -17,7 +17,7 @@
         <@t_mu.train_museum_info trainMuseum, trainMuseumFields/>
     </#if>
     <#if company??>
-        <@comp.company_info "${company.name}", "${company.cash}", "${company.getTrainCount}"/>
+        <@comp.company_info/>
     </#if>
     <@adm.table_out listValue, fields, "Update", "button_remove_on"/>
 </@c.page>

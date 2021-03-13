@@ -7,7 +7,7 @@
 <@c.page "${header_page}">
      <@c.auth/>
     <#if company??>
-        <@comp.company_info "${company.name}", "${company.cash}", "${company.trainCount}"/>
+        <@comp.company_info/>
     </#if>
     <@adm.table_out listValue, fields, "Update", "button_remove_on"/>
     <@adm.table_out detailMuseumList, detailMuseumFields, "Update", "button_remove_on"/>
