@@ -108,6 +108,7 @@ public class OrderController extends AbstractController{
         Long train_id = order.getTrain().getId();
         orderService.finishOrder(order);
 
+        orderService.refreshUserOrders(user);
         Train train = order.getTrain();
         initPage(user);
 
