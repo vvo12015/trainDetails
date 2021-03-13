@@ -11,7 +11,6 @@ import java.util.Map;
 @Entity
 @Table(name="cargo")
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Data
 public class Cargo implements ShowContentsInList{
 
