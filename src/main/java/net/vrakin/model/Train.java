@@ -39,17 +39,21 @@ public class Train implements ShowContentsInList{
     @ManyToOne(fetch = FetchType.EAGER,
     cascade = CascadeType.ALL)
     @JoinColumn(name="company_id")
+    @ToString.Exclude
     private Company company;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="train_museum_id")
+    @ToString.Exclude
     private TrainMuseum trainMuseum;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="city_id")
+    @ToString.Exclude
     private City city;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy="train")
+    @ToString.Exclude
     private List<Detail> details=new ArrayList<>();
 
     public Train(String name, Company company, TrainMuseum trainMuseum) {

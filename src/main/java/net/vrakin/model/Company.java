@@ -30,13 +30,16 @@ public class Company implements ShowContentsInList {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="user_id")
+    @ToString.Exclude
     private User user;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy="company")
+    @ToString.Exclude
     private List<Train> trains=new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="city_id")
+    @ToString.Exclude
     private City city;
 
     private Integer trainCount;
