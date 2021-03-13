@@ -189,7 +189,7 @@ public class Order implements ShowContentsInList{
 
     @Override
     public String getName() {
-        return route.getName() + ", " + cargo.getName() + "x" + carCount;
+        return cargo.getName() + "x" + carCount + ", " + route.getName();
     }
 
     public static List<String> getFields() {
