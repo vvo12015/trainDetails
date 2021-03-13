@@ -92,7 +92,11 @@ public class OrderController extends AbstractController{
         log.debug("call method progressOrder with user: " + user.getUsername() + " and order_id: " + order_id);
         Order order = orderService.findById(order_id);
 
-        return getOrders(user);
+        Train train = order.getTrain();
+        initPage(user);
+
+        model.put("listValue", orderService.findByTrain(train).stream().map(Order::toMap).collect(Collectors.toList()));
+        return getModelAndView();
     }
 
     @GetMapping("/" + name + "_finish/{id}")
@@ -104,7 +108,11 @@ public class OrderController extends AbstractController{
         Long train_id = order.getTrain().getId();
         orderService.finishOrder(order);
 
-        return getOrders(user);
+        Train train = order.getTrain();
+        initPage(user);
+
+        model.put("listValue", orderService.findByTrain(train).stream().map(Order::toMap).collect(Collectors.toList()));
+        return getModelAndView();
     }
 
     @Override
