@@ -3,6 +3,7 @@ package net.vrakin.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.*;
@@ -17,36 +18,47 @@ public class TrainMuseum implements ShowContentsInList{
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     @EqualsAndHashCode.Exclude
+    @ToString.Include
     private Long id;
 
     @Column(name = "name")
+    @ToString.Include
     private String name;
 
     @Column(name = "description")
+    @ToString.Include
     private String description;
 
     @Column(name = "power")
+    @ToString.Include
     private Integer power;
 
     @Column(name="speed")
+    @ToString.Include
     private Integer speed;
 
     @Column(name = "price")
+    @ToString.Include
     private Integer price;
 
     @Column(name = "mass")
+    @ToString.Include
     private Integer mass;
 
     @Column(name = "corps_price")
+    @ToString.Include
     private Integer corpsPrice;
 
     @Column(name = "reliability")
+    @ToString.Include
     private Byte reliability;
 
     @Column(name = "limit_age")
+    @ToString.Include
     private Byte limitAge;
 
     @Column(name = "corps_wear")
+    @ToString.Include
     private Byte corpsWear;
 
     @ManyToMany(cascade = {CascadeType.ALL})

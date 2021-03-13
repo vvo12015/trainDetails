@@ -30,7 +30,6 @@ public class Company implements ShowContentsInList {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="user_id")
-    @ToString.Include
     private User user;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy="company")

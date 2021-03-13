@@ -3,6 +3,7 @@ package net.vrakin.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.*;
@@ -16,18 +17,23 @@ public class DetailMuseum implements ShowContentsInList{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Exclude
+    @ToString.Include
     private Long id;
 
     @Column(name="name")
+    @ToString.Include
     private String name;
 
     @Column(name="wear")
+    @ToString.Include
     private Byte wear;
 
     @Column(name="type")
+    @ToString.Include
     private String type;
 
     @Column(name="is_repaired")
+    @ToString.Include
     private Boolean isRepaired;
 
     public DetailMuseum(Long id, String name, Byte wear, String type, Boolean isRepaired) {

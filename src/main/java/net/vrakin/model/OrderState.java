@@ -3,6 +3,7 @@ package net.vrakin.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,12 +20,15 @@ public class OrderState implements ShowContentsInList{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Exclude
+    @ToString.Include
     private Long id;
 
     @Column(name="name")
+    @ToString.Include
     private String name;
 
     @Column(name = "in_motion")
+    @ToString.Include
     private Boolean inMotion;
 
     public OrderState(String name) {

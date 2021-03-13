@@ -1,9 +1,6 @@
 package net.vrakin.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -19,6 +16,7 @@ public class Order implements ShowContentsInList{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Exclude
+    @ToString.Include
     protected Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -38,33 +36,42 @@ public class Order implements ShowContentsInList{
     protected OrderState state;
 
     @Column(name="car_count")
+    @ToString.Include
     protected Integer carCount;
 
     @Column(name="full_wear")
+    @ToString.Include
     protected Integer fullWear;
 
     @Column(name="profit")
+    @ToString.Include
     protected Integer profit;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_date")
+    @ToString.Include
     private Calendar creationDate;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "active_date")
+    @ToString.Include
     private Calendar activeDate;
 
     @Column(name="waiting_deadline")
+    @ToString.Include
     protected Long waitingDeadline;
 
     @Column(name="deadline1")
+    @ToString.Include
     protected Long deadline1;
 
     @Column(name="deadline2")
+    @ToString.Include
     protected Long deadline2;
 
     @Column(name = "execution")
+    @ToString.Include
     protected Integer execution;
 
     protected Integer getDistance() {
@@ -134,23 +141,6 @@ public class Order implements ShowContentsInList{
         this.deadline1 = deadline1;
         this.deadline2 = deadline2;
         this.execution = 0;
-    }
-
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", route=" + route +
-                ", train=" + train +
-                ", cargo=" + cargo +
-                ", carCount=" + carCount +
-                ", fullWear=" + fullWear +
-                ", profit=" + profit +
-                ", creationDate=" + creationDate.getTime().toString() +
-                ", waitingDeadline=" + waitingDeadline +
-                ", deadline1=" + deadline1 +
-                ", deadline2=" + deadline2 +
-                '}';
     }
 
     @Override

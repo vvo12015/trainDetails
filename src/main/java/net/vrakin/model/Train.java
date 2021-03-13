@@ -2,6 +2,7 @@ package net.vrakin.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -18,17 +19,21 @@ public class Train implements ShowContentsInList{
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     @EqualsAndHashCode.Exclude
+    @ToString.Include
     private Long id;
 
     @Column(name = "name")
+    @ToString.Include
     private String name;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "creation_date")
+    @ToString.Include
     private Calendar creationDate;
 
     @Column(name="corps_state")
+    @ToString.Include
     private Byte corpsState;
 
     @ManyToOne(fetch = FetchType.EAGER,

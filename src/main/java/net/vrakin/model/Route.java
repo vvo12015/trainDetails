@@ -3,6 +3,7 @@ package net.vrakin.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.*;
@@ -16,6 +17,7 @@ public class Route implements ShowContentsInList{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @EqualsAndHashCode.Exclude
+    @ToString.Include
     private Long id;
 
     @ManyToOne
@@ -27,6 +29,7 @@ public class Route implements ShowContentsInList{
     private City city2;
 
     @Column(name="distance")
+    @ToString.Include
     private Integer distance;
 
     public Route(Long id, City city1, City city2, Integer distance) {
