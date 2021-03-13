@@ -150,7 +150,6 @@ public class OrderController extends AbstractController{
             try {
                 train = trainService.findByCompanyAndName(company, orders.get(0).get("train").toString());
             } catch (TrainNotFoundException e) {
-
                 e.printStackTrace();
             }
             trainName = train.getId().toString();

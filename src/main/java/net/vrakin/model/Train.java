@@ -71,9 +71,9 @@ public class Train implements ShowContentsInList{
         map.put("id", id.toString());
         map.put("name", name);
         map.put("corpsState", corpsState.toString());
-        map.put("company", company.toString());
-        map.put("trainMuseum", trainMuseum.toString());
-        map.put("city", city.toString());
+        map.put("company", company.getName());
+        map.put("trainMuseum", trainMuseum.getName());
+        map.put("city", city.getName());
         DateFormat format = new SimpleDateFormat("dd:MM:yyyy");
         map.put("creationDate", format.format(creationDate.getTime()));
         List<String> buttons = new ArrayList<>();
