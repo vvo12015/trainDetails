@@ -5,7 +5,7 @@
 
 <@c.page "${header_page}">
     <@c.auth/>
-    <@comp.company_info/>
+    <@comp.company_info "${company.name}", "${company.cash}", "${company.trains?size}"/>
      <@t_mu.museum_out trainMuseum, "Buy", "button_remove_off">
      </@t_mu.museum_out>
 </@c.page>
