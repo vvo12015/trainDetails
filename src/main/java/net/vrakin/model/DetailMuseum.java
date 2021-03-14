@@ -41,24 +41,21 @@ public class DetailMuseum implements ShowContentsInList{
     private Integer mass;
 
     @Column(name = "reliability")
+    @ToString.Include
     private Integer reliability;
 
     @Column(name = "power")
+    @ToString.Include
     private Integer power;
 
-    public DetailMuseum(Long id, String name, Byte wear, String type, Boolean isRepaired) {
-        this.id = id;
+    public DetailMuseum(String name, Byte wear, String type, Boolean isRepaired, Integer mass, Integer reliability, Integer power) {
         this.name = name;
         this.wear = wear;
         this.type = type;
         this.isRepaired = isRepaired;
-    }
-
-    public DetailMuseum(String name, Byte wear, String type, Boolean isRepaired, List<TrainMuseum> trainMuseum) {
-        this.name = name;
-        this.wear = wear;
-        this.type = type;
-        this.isRepaired = isRepaired;
+        this.mass = mass;
+        this.reliability = reliability;
+        this.power = power;
     }
 
     @Override

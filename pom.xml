@@ -102,7 +102,9 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>5.2.1</version>
 				<configuration>
-					<url>${env.JDBC_DATABASE_URL}</url>
+					<url>jdbc:postgresql://ec2-18-214-208-89.compute-1.amazonaws.com:5432/df12l1fq2sgar7</url>
+					<user>bpptcrbngilcyk</user>
+					<password>79c412e414bf6b8dc236794b3dfe86571e45fcb895fbabd985b0e9cdacd4ce48</password>
 				</configuration>
 			</plugin>
 		</plugins>
