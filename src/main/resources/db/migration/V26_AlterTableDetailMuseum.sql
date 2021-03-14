@@ -1,4 +1,3 @@
-ALTER TABLE detail_museum
-ADD COLUMN mass int,
-ADD COLUMN reliability int,
-ADD COLUMN power int;
+ALTER TABLE detail_museum ADD COLUMN mass int;
+ALTER TABLE detail_museum ADD COLUMN reliability int;
+ALTER TABLE detail_museum ADD COLUMN power int;
