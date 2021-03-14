@@ -36,6 +36,16 @@ public class DetailMuseum implements ShowContentsInList{
     @ToString.Include
     private Boolean isRepaired;
 
+    @Column(name = "mass")
+    @ToString.Include
+    private Integer mass;
+
+    @Column(name = "reliability")
+    private Integer reliability;
+
+    @Column(name = "power")
+    private Integer power;
+
     public DetailMuseum(Long id, String name, Byte wear, String type, Boolean isRepaired) {
         this.id = id;
         this.name = name;
