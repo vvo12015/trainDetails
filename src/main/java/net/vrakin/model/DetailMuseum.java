@@ -31,7 +31,7 @@ public class DetailMuseum implements ShowContentsInList{
 
     @Column(name="type_ref")
     @ToString.Include
-    private String type;
+    private Long type;
 
     @Column(name="is_repaired")
     @ToString.Include
