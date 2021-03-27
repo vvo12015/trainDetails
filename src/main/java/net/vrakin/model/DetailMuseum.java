@@ -29,9 +29,25 @@ public class DetailMuseum implements ShowContentsInList{
     @ToString.Include
     private Byte wear;
 
-    @Column(name="type_ref")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "type_ref")
     @ToString.Include
-    private Long type;
+    private DetailMuseumType type;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_ref")
+    @ToString.Include
+    private DetailMuseumGroup group;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "game_level_ref")
+    @ToString.Include
+    private GameLevel gameLevel;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city_type_ref")
+    @ToString.Include
+    private CityType cityType;
 
     @Column(name="is_repaired")
     @ToString.Include
@@ -74,7 +90,10 @@ public class DetailMuseum implements ShowContentsInList{
         map.put("id", id.toString());
         map.put("name", name);
         map.put("wear", wear.toString());
-        map.put("type", type);
+        map.put("type", type.toString());
+        map.put("group", group.toString());
+        map.put("gameLevel", gameLevel.toString());
+        map.put("cityType", cityType.toString());
         map.put("isRepaired", isRepaired.toString());
         map.put("mass", mass);
         map.put("reliability", start_reliability);
