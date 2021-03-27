@@ -1,5 +1,5 @@
 ALTER TABLE ONLY public.detail_museum
-    DELETE COLUMN type;
+    DROP COLUMN type;
 ALTER TABLE ONLY public.detail_museum
     ADD COLUMN type_ref int;
 ALTER TABLE ONLY public.detail_museum
