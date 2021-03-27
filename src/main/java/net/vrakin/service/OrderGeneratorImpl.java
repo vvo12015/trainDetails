@@ -64,7 +64,7 @@ public class OrderGeneratorImpl extends Order implements OrderGenerator {
             this.route = generateRoute();
             this.distance = getDistance();
             this.speed = generateSpeed();
-            this.deadline1 = Long.valueOf((distance * 60) / speed);
+            this.deadline1 = (long) ((distance * 60) / speed);
             this.deadline2 = Double.valueOf(deadline1 * 1.2).longValue();
             this.waitingDeadline = deadline1;
             this.fullWear = generateFullWear();
