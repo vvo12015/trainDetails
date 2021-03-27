@@ -10,7 +10,7 @@ ALTER TABLE ONLY public.detail_museum
     ADD COLUMN city_type_ref int;
 
 CREATE TABLE public.detail_museum_type(
-    id not null bigint,
+    id  bigint NOT NULL,
     name character varying(255)
 );
 
@@ -18,7 +18,7 @@ ALTER TABLE ONLY public.detail_museum_type
     ADD CONSTRAINT detail_museum_type_pkey PRIMARY KEY (id);
 
 CREATE TABLE public.detail_museum_group(
-    id not null bigint,
+    id bigint NOT NULL,
     name character varying(255)
 );
 
@@ -26,7 +26,7 @@ ALTER TABLE ONLY public.detail_museum_group
     ADD CONSTRAINT detail_museum_group_pkey PRIMARY KEY (id);
 
 CREATE TABLE public.game_level(
-    id not null bigint,
+    id  bigint NOT NULL,
     name character varying(255)
 );
 
@@ -34,7 +34,7 @@ ALTER TABLE ONLY public.game_level
     ADD CONSTRAINT game_level_pkey PRIMARY KEY (id);
 
 CREATE TABLE public.city_type(
-    id not null bigint,
+    id  bigint NOT NULL,
     name character varying(255)
 );
 
