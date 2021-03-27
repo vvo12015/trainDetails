@@ -29,7 +29,7 @@ public class DetailMuseum implements ShowContentsInList{
     @ToString.Include
     private Byte wear;
 
-    @Column(name="type")
+    @Column(name="type_ref")
     @ToString.Include
     private String type;
 
