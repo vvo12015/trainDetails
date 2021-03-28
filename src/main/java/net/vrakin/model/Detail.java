@@ -27,7 +27,7 @@ public class Detail implements ShowContentsInList{
 
     @ManyToOne(fetch = FetchType.LAZY,
                 cascade = CascadeType.ALL)
-    @JoinColumn(name="detail_state")
+    @JoinColumn(name="state_ref")
     @ToString.Include
     private DetailStatus state;
 
