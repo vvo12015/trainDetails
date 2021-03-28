@@ -13,5 +13,8 @@ ALTER TABLE ONLY public.detail
 ALTER TABLE ONLY public.detail
     ADD COLUMN start_episode_date date;
 
+ALTER TABLE ONLY public.detail_state
+    ADD CONSTRAINT detail_state_pkey PRIMARY KEY (id);
+
 ALTER TABLE ONLY public.detail
     ADD CONSTRAINT detail_state FOREIGN KEY (state_ref) REFERENCES public.detail_state(id);
