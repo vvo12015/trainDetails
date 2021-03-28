@@ -6,7 +6,7 @@ CREATE TABLE public.train_type(
     name character varying(255)
 );
 
-ALTER TABLE ONLY public.detail_museum
+ALTER TABLE ONLY public.train_type
     ADD CONSTRAINT train_type_pkey PRIMARY KEY (id);
 
 ALTER TABLE ONLY public.detail_museum
