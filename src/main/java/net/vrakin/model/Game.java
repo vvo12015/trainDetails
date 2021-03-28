@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +23,7 @@ public class Game{
     @EqualsAndHashCode.Exclude private Long id;
 
     @Column(name = "game_time")
-    private Long gameTime;
+    private Date gameTime;
 
     @ManyToOne(fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
