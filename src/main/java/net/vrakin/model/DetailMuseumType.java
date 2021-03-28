@@ -24,6 +24,16 @@ public class DetailMuseumType implements ShowContentsInList{
     @Column(name="name")
     @NotNull private String name;
 
+    @ManyToOne(fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    @JoinColumn(name = "game_level_ref")
+    private GameLevel gameLevel;
+
+    @ManyToOne(fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    @JoinColumn(name = "train_type_ref")
+    private TrainType trainType;
+
     public DetailMuseumType(String name) {
         this.name = name;
     }
