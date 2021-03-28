@@ -49,6 +49,11 @@ public class DetailMuseum implements ShowContentsInList{
     @ToString.Include
     private CityType cityType;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "train_type_ref")
+    @ToString.Include
+    private TrainType trainType;
+
     @Column(name="is_repaired")
     @ToString.Include
     private Boolean isRepaired;
