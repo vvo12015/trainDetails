@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.*;
 
 @Entity
@@ -24,9 +25,11 @@ public class Detail implements ShowContentsInList{
     @ToString.Include
     private String name;
 
-    @Column(name="state")
+    @ManyToOne(fetch = FetchType.LAZY,
+                cascade = CascadeType.ALL)
+    @JoinColumn(name="detail_state")
     @ToString.Include
-    private Byte state;
+    private DetailStatus state;
 
     @Column(name="distance_from_creation")
     @ToString.Include
@@ -46,13 +49,21 @@ public class Detail implements ShowContentsInList{
     @JoinColumn(name="detail_museum_id")
     private DetailMuseum detailMuseum;
 
+    @Column(name = "reliability")
+    private Integer reliability;
+
+    @Column(name = "creation_date")
+    private Date creationDate;
+
+    @Column(name = "start_episode_date")
+    private Date startEpisodeDate;
+
     public Detail(Train train, DetailMuseum detailMuseum) {
         this.name = detailMuseum.getName();
         this.train = train;
         this.detailMuseum = detailMuseum;
         this.distance_from_creation = 0;
         this.distance_from_repair = 0;
-        this.state = 100;
     }
 
     @Override
