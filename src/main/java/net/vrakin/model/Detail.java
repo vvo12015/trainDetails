@@ -58,6 +58,14 @@ public class Detail implements ShowContentsInList{
     @Column(name = "start_episode_date")
     private Date startEpisodeDate;
 
+    public Integer getWear(){
+        return detailMuseum.getWear().intValue();
+    }
+
+    public Integer getPrice(){
+        return detailMuseum.getPrice();
+    }
+
     public Detail(Train train, DetailMuseum detailMuseum) {
         this.name = detailMuseum.getName();
         this.train = train;
