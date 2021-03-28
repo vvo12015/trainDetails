@@ -2,7 +2,7 @@ CREATE TABLE public.game(
     id  bigint NOT NULL,
     game_level_ref bigint,
     game_time date,
-    main_user_ref bigint;
+    main_user_ref bigint
 );
 
 ALTER TABLE ONLY public.game
@@ -16,7 +16,7 @@ ALTER TABLE ONLY public.game
 
 CREATE TABLE public.game_user(
     game_ref bigint,
-    user_ref bigint;
+    user_ref bigint
 );
 
 ALTER TABLE ONLY public.game_user
