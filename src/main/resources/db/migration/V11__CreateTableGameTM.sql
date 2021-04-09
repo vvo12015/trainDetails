@@ -5,7 +5,7 @@ CREATE TABLE public.gameTM(
     map_ref bigint,
     game_level_ref bigint,
     current_gamer_ref bigint,
-    game_state_ref bigint
+    game_state_ref bigint,
     profile json
 );
 
