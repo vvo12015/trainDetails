@@ -1,4 +1,4 @@
-DROP TABLE gameTM;
+IF EXISTS(gameTM) DROP TABLE gameTM;
 CREATE TABLE public.gameTM(
     id  bigint NOT NULL,
     map_ref bigint,
