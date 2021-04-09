@@ -26,11 +26,11 @@ ALTER TABLE ONLY public.gameTM
 ALTER TABLE ONLY public.gameTM
     ADD CONSTRAINT gametm_game_state FOREIGN KEY (game_state_ref) REFERENCES public.game_state(id);
 
-INSERT TABLE game_level(name)
+INSERT INTO game_level(name)
     values("beginner"),
     ("middle"),
     ("hard");
 
-INSERT TABLE game_state(name)
+INSERT INTO game_state(name)
     values("begin"),
     ("end");
