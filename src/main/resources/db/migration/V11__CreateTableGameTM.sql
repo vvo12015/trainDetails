@@ -17,6 +17,9 @@ CREATE TABLE public.game_state(
     name character varying(255)
 );
 
+ALTER TABLE ONLY public.game_state
+    ADD CONSTRAINT game_state_pkey PRIMARY KEY (id);
+
 ALTER TABLE ONLY public.gameTM
     ADD CONSTRAINT gametm_game_level FOREIGN KEY (game_level_ref) REFERENCES public.game_level(id);
 
